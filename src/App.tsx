@@ -15,6 +15,8 @@ import Locations from "./pages/Locations";
 import Crypto from "./pages/Crypto";
 import OpenAccount from "./pages/OpenAccount";
 import Auth from "./pages/Auth";
+import CDs from "./pages/CDs";
+import MoneyMarket from "./pages/MoneyMarket";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +30,8 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/checking" element={<Checking />} />
           <Route path="/savings" element={<Savings />} />
+          <Route path="/cds" element={<CDs />} />
+          <Route path="/money-market" element={<MoneyMarket />} />
           <Route path="/credit-cards" element={<CreditCards />} />
           <Route path="/loans" element={<Loans />} />
           <Route path="/investments" element={<Investments />} />

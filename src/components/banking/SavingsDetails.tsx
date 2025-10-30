@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Check, ArrowRight, TrendingUp } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export const SavingsDetails = () => {
   return (
@@ -47,8 +48,10 @@ export const SavingsDetails = () => {
               </div>
             </div>
 
-            <Button className="w-full" size="lg">
-              Open Account <ArrowRight className="ml-2 h-5 w-5" />
+            <Button className="w-full" size="lg" asChild>
+              <Link to="/open-account">
+                Open Account <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
             </Button>
           </Card>
 
@@ -88,48 +91,128 @@ export const SavingsDetails = () => {
               </div>
             </div>
 
-            <Button className="w-full" size="lg">
-              Open Account <ArrowRight className="ml-2 h-5 w-5" />
+            <Button className="w-full" size="lg" asChild>
+              <Link to="/open-account">
+                Open Account <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
             </Button>
           </Card>
 
-          <Card className="p-8 hover:shadow-2xl transition-all duration-300">
-            <div className="mb-6">
-              <h3 className="text-2xl font-bold mb-2">Money Market Account</h3>
-              <p className="text-muted-foreground">High rates with check writing</p>
-            </div>
+          <Link to="/money-market" className="block">
+            <Card className="p-8 hover:shadow-2xl transition-all duration-300 cursor-pointer hover:border-primary">
+              <div className="mb-6">
+                <h3 className="text-2xl font-bold mb-2">Money Market Account</h3>
+                <p className="text-muted-foreground">High rates with check writing</p>
+              </div>
 
-            <div className="mb-6 pb-6 border-b border-border">
-              <div className="flex items-baseline gap-2 mb-2">
-                <p className="text-4xl font-bold">3.85%</p>
-                <span className="text-muted-foreground">APY*</span>
+              <div className="mb-6 pb-6 border-b border-border">
+                <div className="flex items-baseline gap-2 mb-2">
+                  <p className="text-4xl font-bold">3.85%</p>
+                  <span className="text-muted-foreground">APY*</span>
+                </div>
+                <p className="text-sm text-muted-foreground">With $25,000 minimum balance</p>
               </div>
-              <p className="text-sm text-muted-foreground">With $25,000 minimum balance</p>
-            </div>
 
-            <div className="space-y-4 mb-8">
-              <div className="flex gap-3">
-                <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                <p className="text-sm">Check writing privileges</p>
+              <div className="space-y-4 mb-8">
+                <div className="flex gap-3">
+                  <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                  <p className="text-sm">Check writing privileges</p>
+                </div>
+                <div className="flex gap-3">
+                  <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                  <p className="text-sm">Debit card access</p>
+                </div>
+                <div className="flex gap-3">
+                  <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                  <p className="text-sm">Competitive tiered rates</p>
+                </div>
+                <div className="flex gap-3">
+                  <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                  <p className="text-sm">FDIC insured</p>
+                </div>
               </div>
-              <div className="flex gap-3">
-                <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                <p className="text-sm">Debit card access</p>
-              </div>
-              <div className="flex gap-3">
-                <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                <p className="text-sm">Competitive tiered rates</p>
-              </div>
-              <div className="flex gap-3">
-                <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                <p className="text-sm">FDIC insured</p>
-              </div>
-            </div>
 
-            <Button className="w-full" size="lg">
-              Open Account <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-          </Card>
+              <Button className="w-full" size="lg">
+                Learn More <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Card>
+          </Link>
+        </div>
+
+        {/* Additional Savings Products */}
+        <div className="mb-16">
+          <h3 className="text-3xl font-bold mb-6 text-center">More Ways to Save</h3>
+          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            <Link to="/cds" className="block">
+              <Card className="p-8 hover:shadow-2xl transition-all duration-300 cursor-pointer hover:border-primary">
+                <div className="mb-6">
+                  <h3 className="text-2xl font-bold mb-2">Certificates of Deposit (CDs)</h3>
+                  <p className="text-muted-foreground">Lock in guaranteed returns</p>
+                </div>
+
+                <div className="mb-6 pb-6 border-b border-border">
+                  <div className="flex items-baseline gap-2 mb-2">
+                    <p className="text-4xl font-bold">Up to 5.00%</p>
+                    <span className="text-muted-foreground">APY*</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">Terms from 6 months to 5 years</p>
+                </div>
+
+                <div className="space-y-4 mb-8">
+                  <div className="flex gap-3">
+                    <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                    <p className="text-sm">Fixed interest rates</p>
+                  </div>
+                  <div className="flex gap-3">
+                    <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                    <p className="text-sm">Flexible terms available</p>
+                  </div>
+                  <div className="flex gap-3">
+                    <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                    <p className="text-sm">FDIC insured</p>
+                  </div>
+                  <div className="flex gap-3">
+                    <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                    <p className="text-sm">Guaranteed returns</p>
+                  </div>
+                </div>
+
+                <Button className="w-full" size="lg">
+                  Explore CD Options <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Card>
+            </Link>
+
+            <Card className="p-8 bg-secondary border-2 border-muted">
+              <div className="mb-6">
+                <h3 className="text-2xl font-bold mb-2">Compare All Options</h3>
+                <p className="text-muted-foreground">Find the perfect savings solution</p>
+              </div>
+
+              <div className="space-y-4 mb-8">
+                <div className="flex gap-3">
+                  <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                  <p className="text-sm">Basic Savings for everyday needs</p>
+                </div>
+                <div className="flex gap-3">
+                  <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                  <p className="text-sm">High-Yield for maximum growth</p>
+                </div>
+                <div className="flex gap-3">
+                  <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                  <p className="text-sm">Money Market for flexibility</p>
+                </div>
+                <div className="flex gap-3">
+                  <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                  <p className="text-sm">CDs for guaranteed returns</p>
+                </div>
+              </div>
+
+              <p className="text-sm text-muted-foreground">
+                Not sure which account is right for you? Our team can help you choose the best option for your financial goals.
+              </p>
+            </Card>
+          </div>
         </div>
 
         <div className="bg-secondary p-8 rounded-lg mb-12">
