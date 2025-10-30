@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { CreditCard, TrendingUp, Wallet, Building2, Bitcoin, MapPin, Menu } from "lucide-react";
+import { CreditCard, TrendingUp, Wallet, Building2, Bitcoin, MapPin, Menu, ChevronDown } from "lucide-react";
 import bankingHero from "@/assets/banking-hero.jpg";
 import vaultBankLogo from "@/assets/vaultbank-logo.png";
 import promoCheckingBonus from "@/assets/promo-checking-bonus.jpg";
@@ -35,6 +35,7 @@ import { useLocation } from "react-router-dom";
 const Index = () => {
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const [authDialogOpen, setAuthDialogOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState<'personal' | 'business' | 'commercial'>('personal');
   const detailsRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
 
@@ -52,6 +53,76 @@ const Index = () => {
   };
   return (
     <div className="min-h-screen bg-background">
+      {/* Utility Bar */}
+      <div className="bg-background border-b border-border">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between h-10 text-sm">
+            {/* Category Tabs - Left Side */}
+            <div className="flex items-center gap-6">
+              <button
+                onClick={() => setActiveTab('personal')}
+                className={`relative py-2 transition-colors ${
+                  activeTab === 'personal' 
+                    ? 'text-foreground font-medium after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-primary' 
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                Personal
+              </button>
+              <Link
+                to="/business"
+                className={`relative py-2 transition-colors ${
+                  activeTab === 'business' 
+                    ? 'text-foreground font-medium after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-primary' 
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                Business
+              </Link>
+              <button
+                onClick={() => setActiveTab('commercial')}
+                className={`relative py-2 transition-colors ${
+                  activeTab === 'commercial' 
+                    ? 'text-foreground font-medium after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-primary' 
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                Commercial
+              </button>
+            </div>
+
+            {/* Utility Links - Right Side */}
+            <div className="flex items-center gap-6">
+              <Link to="/locations" className="text-muted-foreground hover:text-foreground transition-colors">
+                Schedule a meeting
+              </Link>
+              
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex items-center gap-1 text-muted-foreground hover:text-foreground transition-colors">
+                  Customer service
+                  <ChevronDown className="h-3.5 w-3.5" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem>
+                    Contact Us
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    Help Center
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    FAQ
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+
+              <button className="text-muted-foreground hover:text-foreground transition-colors">
+                Español
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Header */}
       <header className="border-b border-border bg-background sticky top-0 z-50 w-full">
         <div className="container mx-auto px-4 h-full">
@@ -356,8 +427,8 @@ const Index = () => {
       {activeSection && (
         <section ref={detailsRef} className="py-16 bg-background">
           <div className="container mx-auto px-4">
-            {activeSection === 'checking' && <CheckingDetails />}
-            {activeSection === 'savings' && <SavingsDetails />}
+            {activeSection === 'checking' && <CheckingDetails onOpenAccount={() => setAuthDialogOpen(true)} />}
+            {activeSection === 'savings' && <SavingsDetails onOpenAccount={() => setAuthDialogOpen(true)} />}
             {activeSection === 'credit-cards' && <CreditCardsDetails />}
             {activeSection === 'loans' && <LoansDetails />}
             {activeSection === 'investments' && <InvestmentsDetails />}

@@ -65,7 +65,7 @@ const Savings = () => {
         </div>
       </section>
 
-      <SavingsDetails />
+      <SavingsDetails onOpenAccount={() => setAuthDialogOpen(true)} />
 
       <section className="py-16 bg-background">
         <div className="container mx-auto px-4">

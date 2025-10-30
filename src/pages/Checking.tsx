@@ -3,8 +3,12 @@ import { ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { CheckingDetails } from "@/components/banking/CheckingDetails";
 import vaultBankLogo from "@/assets/vaultbank-logo.png";
+import { AuthDialog } from "@/components/AuthDialog";
+import { useState } from "react";
 
 const Checking = () => {
+  const [authDialogOpen, setAuthDialogOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b border-border bg-background sticky top-0 z-50">
@@ -25,7 +29,7 @@ const Checking = () => {
         </div>
       </header>
 
-      <CheckingDetails />
+      <CheckingDetails onOpenAccount={() => setAuthDialogOpen(true)} />
 
       <section className="py-16 bg-background">
         <div className="container mx-auto px-4">
@@ -52,6 +56,8 @@ const Checking = () => {
           </div>
         </div>
       </section>
+
+      <AuthDialog open={authDialogOpen} onOpenChange={setAuthDialogOpen} />
     </div>
   );
 };
