@@ -47,34 +47,11 @@ const Auth = () => {
 
   const handleAuthRedirect = async (user: any) => {
     try {
-      // Check if email is verified
-      if (!user.email_confirmed_at) {
-        toast.info("Please check your email to verify your account");
-        return;
-      }
-
-      // Check if QR is verified
-      const { data: profile, error } = await supabase
-        .from("profiles")
-        .select("qr_verified")
-        .eq("id", user.id)
-        .single();
-
-      if (error) {
-        console.error("Profile fetch error:", error);
-        // If profile doesn't exist or error, redirect to dashboard anyway
-        navigate("/dashboard");
-        return;
-      }
-
-      if (!profile?.qr_verified) {
-        navigate("/verify-qr");
-      } else {
-        navigate("/dashboard");
-      }
+      // For testing: Skip verification checks and go straight to dashboard
+      toast.success("Signed in successfully!");
+      navigate("/dashboard");
     } catch (error) {
       console.error("Redirect error:", error);
-      // On any error, try to navigate to dashboard
       navigate("/dashboard");
     }
   };
@@ -338,11 +315,11 @@ const Auth = () => {
               </div>
 
               <div className="bg-muted p-4 rounded-lg space-y-2">
-                <p className="text-sm font-medium">Security Requirements:</p>
+                <p className="text-sm font-medium">Test Account Notice:</p>
                 <ul className="text-xs text-muted-foreground space-y-1 list-disc list-inside">
-                  <li>Email verification required</li>
-                  <li>QR code authentication required</li>
-                  <li>Account review: 2-3 business days</li>
+                  <li>No email verification required</li>
+                  <li>No QR code authentication required</li>
+                  <li>Instant access for testing</li>
                 </ul>
               </div>
 
