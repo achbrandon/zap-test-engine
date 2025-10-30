@@ -176,34 +176,6 @@ const Index = () => {
                   </NavigationMenuItem>
 
                   <NavigationMenuItem>
-                    <NavigationMenuTrigger className="text-sm font-medium">Education & goals</NavigationMenuTrigger>
-                    <NavigationMenuContent>
-                      <div className="w-[400px] p-4">
-                        <NavigationMenuLink asChild>
-                          <Link to="/open-account" className="block px-4 py-2 hover:bg-accent rounded-md">
-                            Education center
-                          </Link>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <Link to="/open-account" className="block px-4 py-2 hover:bg-accent rounded-md">
-                            Free credit score
-                          </Link>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <Link to="/open-account" className="block px-4 py-2 hover:bg-accent rounded-md">
-                            Money Skills Center
-                          </Link>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <Link to="/open-account" className="block px-4 py-2 hover:bg-accent rounded-md">
-                            Security Center
-                          </Link>
-                        </NavigationMenuLink>
-                      </div>
-                    </NavigationMenuContent>
-                  </NavigationMenuItem>
-
-                  <NavigationMenuItem>
                     <NavigationMenuLink asChild>
                       <Link to="/crypto" className={navigationMenuTriggerStyle()}>
                         Crypto
@@ -241,9 +213,6 @@ const Index = () => {
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => handleNavClick('investments')}>
                     Investing by J.P. Morgan
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link to="/open-account">Education & goals</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link to="/crypto">Crypto</Link>
