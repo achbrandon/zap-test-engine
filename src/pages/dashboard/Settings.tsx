@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
 import { User, Lock, Bell, Shield, Smartphone } from "lucide-react";
+import { ProfilePictureUpload } from "@/components/dashboard/ProfilePictureUpload";
 
 export default function Settings() {
   const navigate = useNavigate();
@@ -84,7 +85,13 @@ export default function Settings() {
               Personal Information
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-6">
+            <ProfilePictureUpload
+              userId={user?.id || ""}
+              currentAvatarUrl={profile?.avatar_url}
+              onUploadComplete={() => fetchProfile(user!.id)}
+            />
+            
             <div className="space-y-2">
               <Label htmlFor="fullName">Full Name</Label>
               <Input
