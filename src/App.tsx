@@ -17,6 +17,8 @@ import OpenAccount from "./pages/OpenAccount";
 import Auth from "./pages/Auth";
 import CDs from "./pages/CDs";
 import MoneyMarket from "./pages/MoneyMarket";
+import Business from "./pages/Business";
+import Travel from "./pages/Travel";
 
 const queryClient = new QueryClient();
 
@@ -40,6 +42,8 @@ const App = () => (
           <Route path="/crypto" element={<Crypto />} />
           <Route path="/open-account" element={<OpenAccount />} />
           <Route path="/auth" element={<Auth />} />
+          <Route path="/business" element={<Business />} />
+          <Route path="/travel" element={<Travel />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
