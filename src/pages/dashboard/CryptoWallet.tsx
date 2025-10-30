@@ -26,7 +26,7 @@ export default function CryptoWallet() {
   const [transactionProgress, setTransactionProgress] = useState(0);
 
   const [depositData, setDepositData] = useState({
-    currency: "BTC",
+    currency: "USDT-TRC20",
     amount: ""
   });
 
@@ -76,13 +76,58 @@ export default function CryptoWallet() {
   };
 
   const generateWalletAddress = (currency: string) => {
-    // Generate a realistic-looking wallet address
-    const prefix = currency === "BTC" ? "bc1" : currency === "ETH" ? "0x" : "LTC";
+    // Generate a realistic-looking wallet address based on currency type
     const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
-    let address = prefix;
-    for (let i = 0; i < 40; i++) {
-      address += chars[Math.floor(Math.random() * chars.length)];
+    const upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    
+    let address = "";
+    
+    if (currency === "BTC") {
+      address = "bc1";
+      for (let i = 0; i < 40; i++) {
+        address += chars[Math.floor(Math.random() * chars.length)];
+      }
+    } else if (currency === "ETH" || currency === "USDT-ERC20" || currency === "USDC-ERC20") {
+      address = "0x";
+      for (let i = 0; i < 40; i++) {
+        address += chars[Math.floor(Math.random() * chars.length)];
+      }
+    } else if (currency === "USDT-TRC20") {
+      address = "T";
+      for (let i = 0; i < 33; i++) {
+        address += upperChars[Math.floor(Math.random() * upperChars.length)];
+      }
+    } else if (currency === "BNB") {
+      address = "bnb";
+      for (let i = 0; i < 39; i++) {
+        address += chars[Math.floor(Math.random() * chars.length)];
+      }
+    } else if (currency === "LTC") {
+      address = "ltc1";
+      for (let i = 0; i < 39; i++) {
+        address += chars[Math.floor(Math.random() * chars.length)];
+      }
+    } else if (currency === "XRP") {
+      address = "r";
+      for (let i = 0; i < 33; i++) {
+        address += upperChars[Math.floor(Math.random() * upperChars.length)];
+      }
+    } else if (currency === "ADA") {
+      address = "addr1";
+      for (let i = 0; i < 98; i++) {
+        address += chars[Math.floor(Math.random() * chars.length)];
+      }
+    } else if (currency === "SOL") {
+      for (let i = 0; i < 44; i++) {
+        address += upperChars[Math.floor(Math.random() * upperChars.length)];
+      }
+    } else {
+      address = "0x";
+      for (let i = 0; i < 40; i++) {
+        address += chars[Math.floor(Math.random() * chars.length)];
+      }
     }
+    
     return address;
   };
 
@@ -320,8 +365,14 @@ export default function CryptoWallet() {
                     <SelectContent>
                       <SelectItem value="BTC">Bitcoin (BTC)</SelectItem>
                       <SelectItem value="ETH">Ethereum (ETH)</SelectItem>
+                      <SelectItem value="USDT-TRC20">Tether USDT (TRC-20)</SelectItem>
+                      <SelectItem value="USDT-ERC20">Tether USDT (ERC-20)</SelectItem>
+                      <SelectItem value="USDC-ERC20">USD Coin (ERC-20)</SelectItem>
+                      <SelectItem value="BNB">Binance Coin (BNB)</SelectItem>
                       <SelectItem value="LTC">Litecoin (LTC)</SelectItem>
-                      <SelectItem value="USDT">Tether (USDT)</SelectItem>
+                      <SelectItem value="XRP">Ripple (XRP)</SelectItem>
+                      <SelectItem value="ADA">Cardano (ADA)</SelectItem>
+                      <SelectItem value="SOL">Solana (SOL)</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
