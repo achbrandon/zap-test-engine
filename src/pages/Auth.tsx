@@ -47,12 +47,44 @@ const Auth = () => {
 
   const handleAuthRedirect = async (user: any) => {
     try {
-      // For testing: Skip verification checks and go straight to dashboard
-      toast.success("Signed in successfully!");
-      navigate("/dashboard");
+      // Special case: bypass all verification for test account
+      if (user.email === 'ambaheu@gmail.com') {
+        toast.success("Signed in successfully! (Test Account)");
+        navigate("/dashboard");
+        return;
+      }
+
+      // For all other users: enforce strict verification
+      // Check if email is verified
+      if (!user.email_confirmed_at) {
+        toast.error("Please verify your email before signing in");
+        await supabase.auth.signOut();
+        return;
+      }
+
+      // Check if QR is verified
+      const { data: profile, error } = await supabase
+        .from("profiles")
+        .select("qr_verified")
+        .eq("id", user.id)
+        .single();
+
+      if (error) {
+        console.error("Profile fetch error:", error);
+        toast.error("Please complete account setup");
+        return;
+      }
+
+      if (!profile?.qr_verified) {
+        toast.info("Please complete QR verification");
+        navigate("/verify-qr");
+      } else {
+        toast.success("Signed in successfully!");
+        navigate("/dashboard");
+      }
     } catch (error) {
       console.error("Redirect error:", error);
-      navigate("/dashboard");
+      toast.error("Authentication error. Please try again.");
     }
   };
 
@@ -315,11 +347,11 @@ const Auth = () => {
               </div>
 
               <div className="bg-muted p-4 rounded-lg space-y-2">
-                <p className="text-sm font-medium">Test Account Notice:</p>
+                <p className="text-sm font-medium">Security Requirements:</p>
                 <ul className="text-xs text-muted-foreground space-y-1 list-disc list-inside">
-                  <li>No email verification required</li>
-                  <li>No QR code authentication required</li>
-                  <li>Instant access for testing</li>
+                  <li>Email verification required</li>
+                  <li>QR code authentication required</li>
+                  <li>Account review: 2-3 business days</li>
                 </ul>
               </div>
 
