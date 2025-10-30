@@ -137,8 +137,8 @@ export default function AccountDetails() {
                 <DetailItem
                   icon={<CreditCard className="h-5 w-5 text-primary" />}
                   label="Account Number"
-                  value={account.account_number}
-                  onCopy={() => copyToClipboard(account.account_number, "Account Number")}
+                  value={account.account_number.padStart(12, '0')}
+                  onCopy={() => copyToClipboard(account.account_number.padStart(12, '0'), "Account Number")}
                 />
 
                 <DetailItem
@@ -168,14 +168,6 @@ export default function AccountDetails() {
                   label="SWIFT/BIC Code"
                   value={details.swift_code}
                   onCopy={() => copyToClipboard(details.swift_code, "SWIFT Code")}
-                />
-
-                <DetailItem
-                  icon={<Globe className="h-5 w-5 text-primary" />}
-                  label="IBAN"
-                  value={details.iban}
-                  onCopy={() => copyToClipboard(details.iban, "IBAN")}
-                  fullWidth
                 />
 
                 <DetailItem
@@ -214,7 +206,7 @@ export default function AccountDetails() {
               <h3 className="font-semibold mb-2">Important Information</h3>
               <ul className="text-sm text-muted-foreground space-y-1">
                 <li>• Use these details for receiving domestic and international wire transfers</li>
-                <li>• Your IBAN is required for international transfers to/from Europe</li>
+                <li>• Your account number is 12 digits for all VaultBank accounts</li>
                 <li>• SWIFT code is necessary for all international wire transfers</li>
                 <li>• Keep your account details secure and never share them publicly</li>
                 <li>• Contact support if you notice any unauthorized transactions</li>
