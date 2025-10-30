@@ -48,7 +48,7 @@ const Auth = () => {
       if (!profile?.qr_verified) {
         navigate("/verify-qr");
       } else {
-        navigate("/");
+        navigate("/dashboard");
       }
     }
   };
@@ -90,7 +90,7 @@ const Auth = () => {
           navigate("/verify-qr");
         } else {
           toast.success("Signed in successfully!");
-          navigate("/");
+          navigate("/dashboard");
         }
       }
     } catch (error) {

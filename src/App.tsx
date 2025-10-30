@@ -17,6 +17,7 @@ import OpenAccount from "./pages/OpenAccount";
 import Auth from "./pages/Auth";
 import TokenSignIn from "./pages/TokenSignIn";
 import VerifyQR from "./pages/VerifyQR";
+import Dashboard from "./pages/Dashboard";
 import CDs from "./pages/CDs";
 import MoneyMarket from "./pages/MoneyMarket";
 import Business from "./pages/Business";
@@ -52,6 +53,7 @@ const App = () => (
           <Route path="/schedule-meeting" element={<ScheduleMeeting />} />
           <Route path="/mortgage-calculator" element={<MortgageCalculator />} />
           <Route path="/verify-qr" element={<VerifyQR />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

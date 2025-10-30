@@ -80,6 +80,114 @@ export type Database = {
         }
         Relationships: []
       }
+      accounts: {
+        Row: {
+          account_name: string
+          account_number: string
+          account_type: string
+          available_balance: number | null
+          balance: number | null
+          created_at: string | null
+          currency: string | null
+          id: string
+          routing_number: string | null
+          status: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          account_name: string
+          account_number: string
+          account_type: string
+          available_balance?: number | null
+          balance?: number | null
+          created_at?: string | null
+          currency?: string | null
+          id?: string
+          routing_number?: string | null
+          status?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          account_name?: string
+          account_number?: string
+          account_type?: string
+          available_balance?: number | null
+          balance?: number | null
+          created_at?: string | null
+          currency?: string | null
+          id?: string
+          routing_number?: string | null
+          status?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      budgets: {
+        Row: {
+          amount: number
+          category: string
+          created_at: string | null
+          end_date: string | null
+          id: string
+          period: string | null
+          start_date: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          category: string
+          created_at?: string | null
+          end_date?: string | null
+          id?: string
+          period?: string | null
+          start_date: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          category?: string
+          created_at?: string | null
+          end_date?: string | null
+          id?: string
+          period?: string | null
+          start_date?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      crypto_wallets: {
+        Row: {
+          balance: number | null
+          created_at: string | null
+          id: string
+          updated_at: string | null
+          user_id: string
+          wallet_address: string
+          wallet_type: string
+        }
+        Insert: {
+          balance?: number | null
+          created_at?: string | null
+          id?: string
+          updated_at?: string | null
+          user_id: string
+          wallet_address: string
+          wallet_type: string
+        }
+        Update: {
+          balance?: number | null
+          created_at?: string | null
+          id?: string
+          updated_at?: string | null
+          user_id?: string
+          wallet_address?: string
+          wallet_type?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           can_transact: boolean | null
@@ -115,6 +223,198 @@ export type Database = {
           updated_at?: string | null
         }
         Relationships: []
+      }
+      support_messages: {
+        Row: {
+          created_at: string | null
+          id: string
+          is_staff: boolean | null
+          message: string
+          sender_id: string
+          ticket_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          is_staff?: boolean | null
+          message: string
+          sender_id: string
+          ticket_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          is_staff?: boolean | null
+          message?: string
+          sender_id?: string
+          ticket_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "support_messages_ticket_id_fkey"
+            columns: ["ticket_id"]
+            isOneToOne: false
+            referencedRelation: "support_tickets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      support_tickets: {
+        Row: {
+          created_at: string | null
+          description: string
+          id: string
+          priority: string | null
+          status: string | null
+          subject: string
+          ticket_type: string
+          transaction_id: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          description: string
+          id?: string
+          priority?: string | null
+          status?: string | null
+          subject: string
+          ticket_type: string
+          transaction_id?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          description?: string
+          id?: string
+          priority?: string | null
+          status?: string | null
+          subject?: string
+          ticket_type?: string
+          transaction_id?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "support_tickets_transaction_id_fkey"
+            columns: ["transaction_id"]
+            isOneToOne: false
+            referencedRelation: "transactions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      transactions: {
+        Row: {
+          account_id: string
+          amount: number
+          category: string | null
+          created_at: string | null
+          description: string
+          id: string
+          merchant: string | null
+          status: string | null
+          transaction_date: string | null
+          transaction_type: string
+          user_id: string
+        }
+        Insert: {
+          account_id: string
+          amount: number
+          category?: string | null
+          created_at?: string | null
+          description: string
+          id?: string
+          merchant?: string | null
+          status?: string | null
+          transaction_date?: string | null
+          transaction_type: string
+          user_id: string
+        }
+        Update: {
+          account_id?: string
+          amount?: number
+          category?: string | null
+          created_at?: string | null
+          description?: string
+          id?: string
+          merchant?: string | null
+          status?: string | null
+          transaction_date?: string | null
+          transaction_type?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "transactions_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      transfers: {
+        Row: {
+          amount: number
+          completed_date: string | null
+          created_at: string | null
+          currency: string | null
+          from_account_id: string | null
+          id: string
+          notes: string | null
+          scheduled_date: string | null
+          status: string | null
+          to_account_id: string | null
+          transfer_type: string | null
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          completed_date?: string | null
+          created_at?: string | null
+          currency?: string | null
+          from_account_id?: string | null
+          id?: string
+          notes?: string | null
+          scheduled_date?: string | null
+          status?: string | null
+          to_account_id?: string | null
+          transfer_type?: string | null
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          completed_date?: string | null
+          created_at?: string | null
+          currency?: string | null
+          from_account_id?: string | null
+          id?: string
+          notes?: string | null
+          scheduled_date?: string | null
+          status?: string | null
+          to_account_id?: string | null
+          transfer_type?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "transfers_from_account_id_fkey"
+            columns: ["from_account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "transfers_to_account_id_fkey"
+            columns: ["to_account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {

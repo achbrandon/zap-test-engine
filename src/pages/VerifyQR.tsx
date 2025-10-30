@@ -108,7 +108,7 @@ const VerifyQR = () => {
       }
 
       toast.success("QR code verified successfully! You can now access all features.");
-      navigate("/");
+      navigate("/dashboard");
     } catch (error) {
       console.error("Error verifying QR:", error);
       toast.error("An error occurred during verification");
