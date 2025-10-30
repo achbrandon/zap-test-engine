@@ -3,6 +3,7 @@ import { ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SavingsDetails } from "@/components/banking/SavingsDetails";
 import vaultBankLogo from "@/assets/vaultbank-logo.png";
+import savingsHero from "@/assets/savings-hero.jpg";
 
 const Savings = () => {
   return (
@@ -24,6 +25,42 @@ const Savings = () => {
           </div>
         </div>
       </header>
+
+      {/* Hero Section */}
+      <section className="bg-primary text-primary-foreground">
+        <div className="container mx-auto px-4 py-16">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <h1 className="text-4xl md:text-5xl font-bold mb-6">
+                VaultBank Savings<sup className="text-2xl">℠</sup>
+              </h1>
+              <p className="text-lg mb-8 opacity-90">
+                Savings made simple with our most popular savings account. Automatically set money aside, 
+                earn interest and track your savings on the go with our VaultBank Mobile<sup>®</sup> app.<sup>1</sup>
+              </p>
+              <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white mb-6">
+                Open now
+              </Button>
+              <p className="text-sm mb-4">Account subject to approval</p>
+              <div>
+                <p className="text-sm">
+                  $5 or $0 Monthly Service Fee<sup>2</sup>
+                </p>
+                <a href="#" className="text-sm underline hover:no-underline">
+                  How to avoid the fee
+                </a>
+              </div>
+            </div>
+            <div className="hidden md:block">
+              <img 
+                src={savingsHero} 
+                alt="Family managing finances together" 
+                className="w-full h-auto rounded-lg shadow-2xl"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
 
       <SavingsDetails />
 
