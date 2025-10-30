@@ -26,12 +26,27 @@ const Auth = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   useEffect(() => {
+    // Set up auth state listener
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        console.log('Auth event:', event, 'Session:', session);
+        
+        if (event === 'SIGNED_IN' && session?.user) {
+          await handleAuthRedirect(session.user);
+        }
+      }
+    );
+
+    // Check current user
     checkUser();
+
+    return () => {
+      subscription.unsubscribe();
+    };
   }, []);
 
-  const checkUser = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (user) {
+  const handleAuthRedirect = async (user: any) => {
+    try {
       // Check if email is verified
       if (!user.email_confirmed_at) {
         toast.info("Please check your email to verify your account");
@@ -39,17 +54,35 @@ const Auth = () => {
       }
 
       // Check if QR is verified
-      const { data: profile } = await supabase
+      const { data: profile, error } = await supabase
         .from("profiles")
         .select("qr_verified")
         .eq("id", user.id)
         .single();
+
+      if (error) {
+        console.error("Profile fetch error:", error);
+        // If profile doesn't exist or error, redirect to dashboard anyway
+        navigate("/dashboard");
+        return;
+      }
 
       if (!profile?.qr_verified) {
         navigate("/verify-qr");
       } else {
         navigate("/dashboard");
       }
+    } catch (error) {
+      console.error("Redirect error:", error);
+      // On any error, try to navigate to dashboard
+      navigate("/dashboard");
+    }
+  };
+
+  const checkUser = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user) {
+      await handleAuthRedirect(user);
     }
   };
 
@@ -70,28 +103,8 @@ const Auth = () => {
       }
 
       if (data.user) {
-        // Check if email is verified
-        if (!data.user.email_confirmed_at) {
-          toast.error("Please verify your email before signing in");
-          await supabase.auth.signOut();
-          setLoading(false);
-          return;
-        }
-
-        // Check if QR is verified
-        const { data: profile } = await supabase
-          .from("profiles")
-          .select("qr_verified")
-          .eq("id", data.user.id)
-          .single();
-
-        if (!profile?.qr_verified) {
-          toast.info("Please complete QR verification");
-          navigate("/verify-qr");
-        } else {
-          toast.success("Signed in successfully!");
-          navigate("/dashboard");
-        }
+        toast.success("Signed in successfully!");
+        // The auth state listener will handle the redirect
       }
     } catch (error) {
       console.error("Sign in error:", error);
