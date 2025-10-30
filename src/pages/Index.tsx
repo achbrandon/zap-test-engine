@@ -18,6 +18,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 
 const Index = () => {
@@ -228,19 +229,15 @@ const Index = () => {
                   </NavigationMenuItem>
 
                   <NavigationMenuItem>
-                    <NavigationMenuLink asChild>
-                      <Link to="/transfers" className="text-sm font-medium hover:text-primary px-4 py-2">
-                        Travel
-                      </Link>
-                    </NavigationMenuLink>
+                    <Link to="/transfers" className={navigationMenuTriggerStyle()}>
+                      Travel
+                    </Link>
                   </NavigationMenuItem>
 
                   <NavigationMenuItem>
-                    <NavigationMenuLink asChild>
-                      <Link to="/crypto" className="text-sm font-medium hover:text-primary px-4 py-2">
-                        Crypto
-                      </Link>
-                    </NavigationMenuLink>
+                    <Link to="/crypto" className={navigationMenuTriggerStyle()}>
+                      Crypto
+                    </Link>
                   </NavigationMenuItem>
                 </NavigationMenuList>
               </NavigationMenu>
