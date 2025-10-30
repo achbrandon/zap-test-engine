@@ -9,7 +9,16 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
 
 const Index = () => {
   return (
@@ -22,35 +31,219 @@ const Index = () => {
               <Link to="/" className="flex items-center">
                 <img src={vaultBankLogo} alt="VaultBank" className="h-16" />
               </Link>
-              <nav className="hidden md:flex items-center gap-6">
-                <Link to="/checking" className="text-sm font-medium hover:text-primary">
-                  Checking
-                </Link>
-                <Link to="/savings" className="text-sm font-medium hover:text-primary">
-                  Savings & CDs
-                </Link>
-                <Link to="/credit-cards" className="text-sm font-medium hover:text-primary">
-                  Credit cards
-                </Link>
-                <Link to="/loans" className="text-sm font-medium hover:text-primary">
-                  Home loans
-                </Link>
-                <Link to="/loans" className="text-sm font-medium hover:text-primary">
-                  Auto
-                </Link>
-                <Link to="/investments" className="text-sm font-medium hover:text-primary">
-                  Investing
-                </Link>
-                <Link to="/open-account" className="text-sm font-medium hover:text-primary">
-                  Education & goals
-                </Link>
-                <Link to="/transfers" className="text-sm font-medium hover:text-primary">
-                  Travel
-                </Link>
-                <Link to="/crypto" className="text-sm font-medium hover:text-primary">
-                  Crypto
-                </Link>
-              </nav>
+              <NavigationMenu className="hidden md:flex">
+                <NavigationMenuList>
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger className="text-sm font-medium">Checking</NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <div className="w-[400px] p-4">
+                        <NavigationMenuLink asChild>
+                          <Link to="/checking" className="block px-4 py-2 hover:bg-accent rounded-md">
+                            Choose a checking account
+                          </Link>
+                        </NavigationMenuLink>
+                        <NavigationMenuLink asChild>
+                          <Link to="/checking" className="block px-4 py-2 hover:bg-accent rounded-md">
+                            Debit card for kids
+                          </Link>
+                        </NavigationMenuLink>
+                      </div>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger className="text-sm font-medium">Savings & CDs</NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <div className="w-[400px] p-4">
+                        <NavigationMenuLink asChild>
+                          <Link to="/savings" className="block px-4 py-2 hover:bg-accent rounded-md">
+                            Choose a savings account
+                          </Link>
+                        </NavigationMenuLink>
+                        <NavigationMenuLink asChild>
+                          <Link to="/savings" className="block px-4 py-2 hover:bg-accent rounded-md">
+                            CDs
+                          </Link>
+                        </NavigationMenuLink>
+                      </div>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger className="text-sm font-medium">Credit cards</NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <div className="w-[400px] p-4">
+                        <NavigationMenuLink asChild>
+                          <Link to="/credit-cards" className="block px-4 py-2 text-primary hover:bg-accent rounded-md font-medium">
+                            Explore credit cards
+                          </Link>
+                        </NavigationMenuLink>
+                        <NavigationMenuLink asChild>
+                          <Link to="/credit-cards" className="block px-4 py-2 hover:bg-accent rounded-md">
+                            See if you're pre-approved
+                          </Link>
+                        </NavigationMenuLink>
+                        <div className="my-2 border-t border-border" />
+                        <NavigationMenuLink asChild>
+                          <Link to="/credit-cards" className="block px-4 py-2 hover:bg-accent rounded-md">
+                            Personal credit cards
+                          </Link>
+                        </NavigationMenuLink>
+                        <NavigationMenuLink asChild>
+                          <Link to="/credit-cards" className="block px-4 py-2 hover:bg-accent rounded-md">
+                            Business credit cards
+                          </Link>
+                        </NavigationMenuLink>
+                      </div>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger className="text-sm font-medium">Home loans</NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <div className="w-[400px] p-4">
+                        <NavigationMenuLink asChild>
+                          <Link to="/loans" className="block px-4 py-2 hover:bg-accent rounded-md">
+                            Buy a home
+                          </Link>
+                        </NavigationMenuLink>
+                        <NavigationMenuLink asChild>
+                          <Link to="/loans" className="block px-4 py-2 hover:bg-accent rounded-md">
+                            Refinance your mortgage
+                          </Link>
+                        </NavigationMenuLink>
+                        <NavigationMenuLink asChild>
+                          <Link to="/loans" className="block px-4 py-2 hover:bg-accent rounded-md">
+                            Apply for a mortgage
+                          </Link>
+                        </NavigationMenuLink>
+                        <div className="my-2 border-t border-border" />
+                        <NavigationMenuLink asChild>
+                          <Link to="/loans" className="block px-4 py-2 hover:bg-accent rounded-md">
+                            Access calculators and tools
+                          </Link>
+                        </NavigationMenuLink>
+                        <NavigationMenuLink asChild>
+                          <Link to="/loans" className="block px-4 py-2 hover:bg-accent rounded-md">
+                            See current rates
+                          </Link>
+                        </NavigationMenuLink>
+                        <NavigationMenuLink asChild>
+                          <Link to="/loans" className="block px-4 py-2 hover:bg-accent rounded-md">
+                            Manage account
+                          </Link>
+                        </NavigationMenuLink>
+                        <NavigationMenuLink asChild>
+                          <Link to="/loans" className="block px-4 py-2 hover:bg-accent rounded-md">
+                            Homebuying 101
+                          </Link>
+                        </NavigationMenuLink>
+                      </div>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger className="text-sm font-medium">Auto</NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <div className="w-[400px] p-4">
+                        <NavigationMenuLink asChild>
+                          <Link to="/loans" className="block px-4 py-2 hover:bg-accent rounded-md">
+                            Explore car financing
+                          </Link>
+                        </NavigationMenuLink>
+                        <NavigationMenuLink asChild>
+                          <Link to="/loans" className="block px-4 py-2 hover:bg-accent rounded-md">
+                            Refinance your car
+                          </Link>
+                        </NavigationMenuLink>
+                      </div>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger className="text-sm font-medium">Investing by J.P. Morgan</NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <div className="w-[400px] p-4">
+                        <NavigationMenuLink asChild>
+                          <Link to="/investments" className="block px-4 py-2 hover:bg-accent rounded-md">
+                            Explore investing
+                          </Link>
+                        </NavigationMenuLink>
+                        <NavigationMenuLink asChild>
+                          <Link to="/investments" className="block px-4 py-2 hover:bg-accent rounded-md">
+                            Work with our advisors
+                          </Link>
+                        </NavigationMenuLink>
+                        <NavigationMenuLink asChild>
+                          <Link to="/investments" className="block px-4 py-2 hover:bg-accent rounded-md">
+                            Invest on your own
+                          </Link>
+                        </NavigationMenuLink>
+                        <div className="my-2 border-t border-border" />
+                        <NavigationMenuLink asChild>
+                          <Link to="/investments" className="block px-4 py-2 hover:bg-accent rounded-md">
+                            Retirement and IRAs
+                          </Link>
+                        </NavigationMenuLink>
+                        <NavigationMenuLink asChild>
+                          <Link to="/investments" className="block px-4 py-2 hover:bg-accent rounded-md">
+                            Education planning
+                          </Link>
+                        </NavigationMenuLink>
+                        <NavigationMenuLink asChild>
+                          <Link to="/investments" className="block px-4 py-2 hover:bg-accent rounded-md">
+                            Investing insights
+                          </Link>
+                        </NavigationMenuLink>
+                      </div>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger className="text-sm font-medium">Education & goals</NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <div className="w-[400px] p-4">
+                        <NavigationMenuLink asChild>
+                          <Link to="/open-account" className="block px-4 py-2 hover:bg-accent rounded-md">
+                            Education center
+                          </Link>
+                        </NavigationMenuLink>
+                        <NavigationMenuLink asChild>
+                          <Link to="/open-account" className="block px-4 py-2 hover:bg-accent rounded-md">
+                            Free credit score
+                          </Link>
+                        </NavigationMenuLink>
+                        <NavigationMenuLink asChild>
+                          <Link to="/open-account" className="block px-4 py-2 hover:bg-accent rounded-md">
+                            Chase Money Skills
+                          </Link>
+                        </NavigationMenuLink>
+                        <NavigationMenuLink asChild>
+                          <Link to="/open-account" className="block px-4 py-2 hover:bg-accent rounded-md">
+                            Security Center
+                          </Link>
+                        </NavigationMenuLink>
+                      </div>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+
+                  <NavigationMenuItem>
+                    <NavigationMenuLink asChild>
+                      <Link to="/transfers" className="text-sm font-medium hover:text-primary px-4 py-2">
+                        Travel
+                      </Link>
+                    </NavigationMenuLink>
+                  </NavigationMenuItem>
+
+                  <NavigationMenuItem>
+                    <NavigationMenuLink asChild>
+                      <Link to="/crypto" className="text-sm font-medium hover:text-primary px-4 py-2">
+                        Crypto
+                      </Link>
+                    </NavigationMenuLink>
+                  </NavigationMenuItem>
+                </NavigationMenuList>
+              </NavigationMenu>
             </div>
             <div className="flex items-center gap-4">
               <Button variant="ghost" asChild>
@@ -82,7 +275,7 @@ const Index = () => {
                     <Link to="/loans">Auto</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link to="/investments">Investing</Link>
+                    <Link to="/investments">Investing by J.P. Morgan</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link to="/open-account">Education & goals</Link>
