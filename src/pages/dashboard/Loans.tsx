@@ -105,7 +105,7 @@ export default function Loans() {
             <CardContent className="flex flex-col items-center justify-center py-12">
               <DollarSign className="h-16 w-16 text-muted-foreground mb-4" />
               <p className="text-muted-foreground mb-4">No loans found</p>
-              <Button>Apply for a Loan</Button>
+              <Button onClick={() => navigate("/dashboard/loan-application")}>Apply for a Loan</Button>
             </CardContent>
           </Card>
         ) : (

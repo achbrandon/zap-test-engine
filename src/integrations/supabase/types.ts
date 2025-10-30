@@ -476,6 +476,48 @@ export type Database = {
         }
         Relationships: []
       }
+      loan_applications: {
+        Row: {
+          created_at: string
+          id: string
+          interest_rate: number
+          loan_amount: number
+          loan_purpose: string
+          loan_term_months: number
+          monthly_payment: number
+          status: string
+          total_interest: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          interest_rate?: number
+          loan_amount: number
+          loan_purpose: string
+          loan_term_months?: number
+          monthly_payment: number
+          status?: string
+          total_interest: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          interest_rate?: number
+          loan_amount?: number
+          loan_purpose?: string
+          loan_term_months?: number
+          monthly_payment?: number
+          status?: string
+          total_interest?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       loans: {
         Row: {
           created_at: string | null
@@ -726,6 +768,8 @@ export type Database = {
       support_messages: {
         Row: {
           created_at: string | null
+          file_name: string | null
+          file_url: string | null
           id: string
           is_staff: boolean | null
           message: string
@@ -734,6 +778,8 @@ export type Database = {
         }
         Insert: {
           created_at?: string | null
+          file_name?: string | null
+          file_url?: string | null
           id?: string
           is_staff?: boolean | null
           message: string
@@ -742,6 +788,8 @@ export type Database = {
         }
         Update: {
           created_at?: string | null
+          file_name?: string | null
+          file_url?: string | null
           id?: string
           is_staff?: boolean | null
           message?: string
@@ -758,8 +806,44 @@ export type Database = {
           },
         ]
       }
+      support_ratings: {
+        Row: {
+          created_at: string
+          feedback: string | null
+          id: string
+          rating: number
+          ticket_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          feedback?: string | null
+          id?: string
+          rating: number
+          ticket_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          feedback?: string | null
+          id?: string
+          rating?: number
+          ticket_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "support_ratings_ticket_id_fkey"
+            columns: ["ticket_id"]
+            isOneToOne: false
+            referencedRelation: "support_tickets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       support_tickets: {
         Row: {
+          agent_online: boolean | null
           chat_mode: string | null
           created_at: string | null
           description: string
@@ -771,8 +855,10 @@ export type Database = {
           transaction_id: string | null
           updated_at: string | null
           user_id: string
+          user_online: boolean | null
         }
         Insert: {
+          agent_online?: boolean | null
           chat_mode?: string | null
           created_at?: string | null
           description: string
@@ -784,8 +870,10 @@ export type Database = {
           transaction_id?: string | null
           updated_at?: string | null
           user_id: string
+          user_online?: boolean | null
         }
         Update: {
+          agent_online?: boolean | null
           chat_mode?: string | null
           created_at?: string | null
           description?: string
@@ -797,6 +885,7 @@ export type Database = {
           transaction_id?: string | null
           updated_at?: string | null
           user_id?: string
+          user_online?: boolean | null
         }
         Relationships: [
           {

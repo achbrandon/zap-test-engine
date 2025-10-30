@@ -9,13 +9,21 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { Bitcoin, ArrowDownToLine, ArrowUpFromLine, Copy, Wallet } from "lucide-react";
+import { OTPVerificationModal } from "@/components/dashboard/OTPVerificationModal";
+import { Progress } from "@/components/ui/progress";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 export default function CryptoWallet() {
   const navigate = useNavigate();
   const [user, setUser] = useState<any>(null);
+  const [profile, setProfile] = useState<any>(null);
   const [wallets, setWallets] = useState<any[]>([]);
   const [accounts, setAccounts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showOTP, setShowOTP] = useState(false);
+  const [pendingTransaction, setPendingTransaction] = useState<any>(null);
+  const [processingTransaction, setProcessingTransaction] = useState(false);
+  const [transactionProgress, setTransactionProgress] = useState(0);
 
   const [depositData, setDepositData] = useState({
     currency: "BTC",
@@ -38,7 +46,15 @@ export default function CryptoWallet() {
       navigate("/auth");
       return;
     }
+    
+    const { data: profileData } = await supabase
+      .from("profiles")
+      .select("*")
+      .eq("id", user.id)
+      .single();
+    
     setUser(user);
+    setProfile(profileData);
     fetchData(user.id);
   };
 
@@ -74,19 +90,33 @@ export default function CryptoWallet() {
     e.preventDefault();
     if (!user) return;
 
+    setPendingTransaction({
+      type: "deposit",
+      currency: depositData.currency,
+      amount: parseFloat(depositData.amount)
+    });
+    setShowOTP(true);
+  };
+
+  const processDeposit = async () => {
+    if (!user || !pendingTransaction) return;
+
+    setProcessingTransaction(true);
+    setTransactionProgress(0);
+
     try {
       // Find or create wallet for this currency
-      let wallet = wallets.find(w => w.currency === depositData.currency);
+      let wallet = wallets.find(w => w.currency === pendingTransaction.currency);
       
       if (!wallet) {
-        const walletAddress = generateWalletAddress(depositData.currency);
+        const walletAddress = generateWalletAddress(pendingTransaction.currency);
         const { data: newWallet, error } = await supabase
           .from("crypto_wallets")
           .insert({
             user_id: user.id,
             wallet_address: walletAddress,
-            wallet_type: depositData.currency,
-            currency: depositData.currency,
+            wallet_type: pendingTransaction.currency,
+            currency: pendingTransaction.currency,
             balance: 0
           })
           .select()
@@ -96,25 +126,37 @@ export default function CryptoWallet() {
         wallet = newWallet;
       }
 
-      // Create pending transaction
+      // Simulate processing with progress
+      toast.info("Processing your crypto deposit...");
+      
+      for (let i = 0; i <= 100; i += 10) {
+        await new Promise(resolve => setTimeout(resolve, 500));
+        setTransactionProgress(i);
+      }
+
+      // Create completed transaction
       if (accounts[0]) {
         await supabase.from("transactions").insert({
           user_id: user.id,
           account_id: accounts[0].id,
           transaction_type: "credit",
-          amount: parseFloat(depositData.amount),
-          description: `Crypto Deposit - ${depositData.currency}`,
+          amount: pendingTransaction.amount,
+          description: `Crypto Deposit - ${pendingTransaction.currency}`,
           category: "Crypto",
-          status: "pending"
+          status: "completed"
         });
       }
 
-      toast.success("Crypto deposit initiated! Awaiting confirmation.");
+      toast.success("Crypto deposit completed successfully!");
       setDepositData({ currency: "BTC", amount: "" });
       fetchData(user.id);
     } catch (error) {
-      console.error("Error initiating deposit:", error);
-      toast.error("Failed to initiate deposit");
+      console.error("Error processing deposit:", error);
+      toast.error("Failed to process deposit");
+    } finally {
+      setProcessingTransaction(false);
+      setTransactionProgress(0);
+      setPendingTransaction(null);
     }
   };
 
@@ -122,34 +164,74 @@ export default function CryptoWallet() {
     e.preventDefault();
     if (!user) return;
 
-    try {
-      const wallet = wallets.find(w => w.id === withdrawData.walletId);
-      if (!wallet) throw new Error("Wallet not found");
+    const wallet = wallets.find(w => w.id === withdrawData.walletId);
+    if (!wallet) {
+      toast.error("Wallet not found");
+      return;
+    }
 
-      const amount = parseFloat(withdrawData.amount);
-      if (amount > parseFloat(wallet.balance)) {
-        toast.error("Insufficient balance");
-        return;
+    const amount = parseFloat(withdrawData.amount);
+    if (amount > parseFloat(wallet.balance)) {
+      toast.error("Insufficient balance");
+      return;
+    }
+
+    setPendingTransaction({
+      type: "withdrawal",
+      currency: wallet.currency,
+      amount: amount,
+      walletId: withdrawData.walletId,
+      destinationAddress: withdrawData.destinationAddress
+    });
+    setShowOTP(true);
+  };
+
+  const processWithdrawal = async () => {
+    if (!user || !pendingTransaction) return;
+
+    setProcessingTransaction(true);
+    setTransactionProgress(0);
+
+    try {
+      toast.info("Processing your crypto withdrawal...");
+      
+      for (let i = 0; i <= 100; i += 10) {
+        await new Promise(resolve => setTimeout(resolve, 500));
+        setTransactionProgress(i);
       }
 
-      // Create pending withdrawal transaction
+      // Create completed withdrawal transaction
       if (accounts[0]) {
         await supabase.from("transactions").insert({
           user_id: user.id,
           account_id: accounts[0].id,
           transaction_type: "debit",
-          amount: amount,
-          description: `Crypto Withdrawal - ${wallet.currency}`,
+          amount: pendingTransaction.amount,
+          description: `Crypto Withdrawal - ${pendingTransaction.currency}`,
           category: "Crypto",
-          status: "pending"
+          status: "completed"
         });
       }
 
-      toast.success("Withdrawal initiated! Awaiting confirmation.");
+      toast.success("Withdrawal completed successfully!");
       setWithdrawData({ walletId: "", amount: "", destinationAddress: "" });
+      fetchData(user.id);
     } catch (error) {
-      console.error("Error initiating withdrawal:", error);
-      toast.error("Failed to initiate withdrawal");
+      console.error("Error processing withdrawal:", error);
+      toast.error("Failed to process withdrawal");
+    } finally {
+      setProcessingTransaction(false);
+      setTransactionProgress(0);
+      setPendingTransaction(null);
+    }
+  };
+
+  const handleOTPVerified = () => {
+    setShowOTP(false);
+    if (pendingTransaction?.type === "deposit") {
+      processDeposit();
+    } else {
+      processWithdrawal();
     }
   };
 
@@ -327,7 +409,7 @@ export default function CryptoWallet() {
             Important Information
           </h3>
           <ul className="text-sm text-muted-foreground space-y-2">
-            <li>• All crypto transactions require admin approval</li>
+            <li>• All crypto transactions require OTP verification</li>
             <li>• Deposits typically process within 1-3 business days</li>
             <li>• Network fees may apply for blockchain transactions</li>
             <li>• Always verify wallet addresses before withdrawal</li>
@@ -335,6 +417,35 @@ export default function CryptoWallet() {
           </ul>
         </CardContent>
       </Card>
+
+      <OTPVerificationModal
+        open={showOTP}
+        onClose={() => {
+          setShowOTP(false);
+          setPendingTransaction(null);
+        }}
+        onVerify={handleOTPVerified}
+        email={profile?.email || ""}
+      />
+
+      {processingTransaction && (
+        <Dialog open={true}>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle>Processing Transaction</DialogTitle>
+              <DialogDescription>
+                Please wait while we process your {pendingTransaction?.type}...
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4 py-4">
+              <Progress value={transactionProgress} className="w-full" />
+              <p className="text-center text-sm text-muted-foreground">
+                {transactionProgress}% Complete
+              </p>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
   );
 }

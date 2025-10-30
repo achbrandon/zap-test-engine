@@ -10,7 +10,8 @@ import {
   AlertCircle
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 interface TransactionsListProps {
   transactions: any[];
@@ -19,6 +20,28 @@ interface TransactionsListProps {
 
 export function TransactionsList({ transactions, onRefresh }: TransactionsListProps) {
   const [searchQuery, setSearchQuery] = useState("");
+
+  // Subscribe to real-time transaction updates
+  useEffect(() => {
+    const channel = supabase
+      .channel('transaction-updates')
+      .on(
+        'postgres_changes',
+        {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'transactions'
+        },
+        () => {
+          onRefresh();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [onRefresh]);
 
   const getTransactionIcon = (type: string) => {
     const isDebit = type === 'debit' || type === 'payment' || type === 'withdrawal' || type === 'fee';

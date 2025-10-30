@@ -102,7 +102,7 @@ const Dashboard = () => {
             <div className="flex items-center justify-between px-6 py-4">
               <div className="flex items-center gap-4">
                 <SidebarTrigger />
-                <img src={logo} alt="VaultBank" className="h-8" />
+                <img src={logo} alt="VaultBank" className="h-12" />
               </div>
               <Button variant="outline" size="sm" onClick={handleSignOut}>
                 Sign Out

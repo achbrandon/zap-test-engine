@@ -41,6 +41,8 @@ import CryptoWallet from "./pages/dashboard/CryptoWallet";
 import CardApplication from "./pages/dashboard/CardApplication";
 import AccountDetails from "./pages/dashboard/AccountDetails";
 import StatementGenerator from "./pages/dashboard/StatementGenerator";
+import LoanApplication from "./pages/dashboard/LoanApplication";
+import AdminSupport from "./pages/dashboard/AdminSupport";
 
 const queryClient = new QueryClient();
 
@@ -88,6 +90,8 @@ const App = () => (
           <Route path="/dashboard/card-application" element={<CardApplication />} />
           <Route path="/dashboard/account-details" element={<AccountDetails />} />
           <Route path="/dashboard/generate-statement" element={<StatementGenerator />} />
+          <Route path="/dashboard/loan-application" element={<LoanApplication />} />
+          <Route path="/dashboard/admin-support" element={<AdminSupport />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
