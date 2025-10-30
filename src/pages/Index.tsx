@@ -204,34 +204,6 @@ const Index = () => {
                   </NavigationMenuItem>
 
                   <NavigationMenuItem>
-                    <NavigationMenuTrigger className="text-sm font-medium">Travel</NavigationMenuTrigger>
-                    <NavigationMenuContent>
-                      <div className="w-[400px] p-4">
-                        <NavigationMenuLink asChild>
-                          <Link to="/travel" className="block px-4 py-2 hover:bg-accent rounded-md">
-                            Travel rewards cards
-                          </Link>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <Link to="/travel" className="block px-4 py-2 hover:bg-accent rounded-md">
-                            Global ATM access
-                          </Link>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <Link to="/travel" className="block px-4 py-2 hover:bg-accent rounded-md">
-                            Travel protection
-                          </Link>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <Link to="/travel" className="block px-4 py-2 hover:bg-accent rounded-md">
-                            Foreign currency exchange
-                          </Link>
-                        </NavigationMenuLink>
-                      </div>
-                    </NavigationMenuContent>
-                  </NavigationMenuItem>
-
-                  <NavigationMenuItem>
                     <NavigationMenuLink asChild>
                       <Link to="/crypto" className={navigationMenuTriggerStyle()}>
                         Crypto
@@ -242,12 +214,6 @@ const Index = () => {
               </NavigationMenu>
             </div>
             <div className="flex items-center gap-4">
-              <Button variant="ghost" size="sm" asChild className="hidden lg:flex">
-                <Link to="/business">Business</Link>
-              </Button>
-              <Button variant="ghost" size="sm" asChild className="hidden lg:flex">
-                <Link to="/locations">Schedule Meeting</Link>
-              </Button>
               <Button asChild>
                 <Link to="/auth">Sign In</Link>
               </Button>
@@ -280,17 +246,7 @@ const Index = () => {
                     <Link to="/open-account">Education & goals</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link to="/travel">Travel</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
                     <Link to="/crypto">Crypto</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem asChild>
-                    <Link to="/business">Business Banking</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link to="/locations">Schedule Meeting</Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -381,10 +337,6 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <h2 className="text-2xl font-bold text-center mb-8">Choose what's right for you</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            <Link to="/business" className="flex flex-col items-center gap-2 p-4 rounded-lg hover:bg-accent transition-all group">
-              <Building2 className="h-10 w-10 text-muted-foreground group-hover:text-primary transition-colors" />
-              <span className="text-sm font-medium text-center">Business</span>
-            </Link>
             <Link to="/credit-cards" className="flex flex-col items-center gap-2 p-4 rounded-lg hover:bg-accent transition-all group">
               <CreditCard className="h-10 w-10 text-muted-foreground group-hover:text-primary transition-colors" />
               <span className="text-sm font-medium text-center">Credit cards</span>
@@ -393,10 +345,6 @@ const Index = () => {
               <Wallet className="h-10 w-10 text-muted-foreground group-hover:text-primary transition-colors" />
               <span className="text-sm font-medium text-center">Checking</span>
             </button>
-            <Link to="/travel" className="flex flex-col items-center gap-2 p-4 rounded-lg hover:bg-accent transition-all group">
-              <MapPin className="h-10 w-10 text-muted-foreground group-hover:text-primary transition-colors" />
-              <span className="text-sm font-medium text-center">Travel</span>
-            </Link>
             <button onClick={() => handleNavClick('savings')} className="flex flex-col items-center gap-2 p-4 rounded-lg hover:bg-accent transition-all group">
               <TrendingUp className="h-10 w-10 text-muted-foreground group-hover:text-primary transition-colors" />
               <span className="text-sm font-medium text-center">Savings</span>
@@ -413,13 +361,13 @@ const Index = () => {
               <Bitcoin className="h-10 w-10 text-muted-foreground group-hover:text-primary transition-colors" />
               <span className="text-sm font-medium text-center">Crypto</span>
             </Link>
-            <Link to="/locations" className="flex flex-col items-center gap-2 p-4 rounded-lg hover:bg-accent transition-all group">
-              <MapPin className="h-10 w-10 text-muted-foreground group-hover:text-primary transition-colors" />
-              <span className="text-sm font-medium text-center">Schedule meeting</span>
-            </Link>
             <Link to="/open-account" className="flex flex-col items-center gap-2 p-4 rounded-lg hover:bg-accent transition-all group">
               <Wallet className="h-10 w-10 text-muted-foreground group-hover:text-primary transition-colors" />
               <span className="text-sm font-medium text-center">Free credit score</span>
+            </Link>
+            <Link to="/locations" className="flex flex-col items-center gap-2 p-4 rounded-lg hover:bg-accent transition-all group">
+              <MapPin className="h-10 w-10 text-muted-foreground group-hover:text-primary transition-colors" />
+              <span className="text-sm font-medium text-center">Find locations</span>
             </Link>
           </div>
         </div>
@@ -572,6 +520,47 @@ const Index = () => {
               </div>
             </div>
           </Card>
+        </div>
+      </section>
+
+      {/* Additional Services & Resources */}
+      <section className="py-16 bg-secondary/30">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">Additional Services & Resources</h2>
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            <Card className="p-6 hover:shadow-lg transition-all">
+              <Building2 className="h-12 w-12 text-primary mb-4" />
+              <h3 className="text-xl font-bold mb-2">Business Banking</h3>
+              <p className="text-muted-foreground mb-4">
+                Comprehensive banking solutions designed to help your business thrive and grow.
+              </p>
+              <Button variant="outline" asChild className="w-full">
+                <Link to="/business">Explore Business Services</Link>
+              </Button>
+            </Card>
+
+            <Card className="p-6 hover:shadow-lg transition-all">
+              <MapPin className="h-12 w-12 text-primary mb-4" />
+              <h3 className="text-xl font-bold mb-2">Travel Banking</h3>
+              <p className="text-muted-foreground mb-4">
+                Travel rewards, global ATM access, and protection for your adventures worldwide.
+              </p>
+              <Button variant="outline" asChild className="w-full">
+                <Link to="/travel">Learn About Travel Services</Link>
+              </Button>
+            </Card>
+
+            <Card className="p-6 hover:shadow-lg transition-all">
+              <MapPin className="h-12 w-12 text-primary mb-4" />
+              <h3 className="text-xl font-bold mb-2">Schedule a Meeting</h3>
+              <p className="text-muted-foreground mb-4">
+                Meet with our banking experts to discuss your financial goals and find the right solutions.
+              </p>
+              <Button variant="outline" asChild className="w-full">
+                <Link to="/locations">Find a Branch & Schedule</Link>
+              </Button>
+            </Card>
+          </div>
         </div>
       </section>
 
