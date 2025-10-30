@@ -46,6 +46,11 @@ import LoanApplication from "./pages/dashboard/LoanApplication";
 import AdminSupport from "./pages/dashboard/AdminSupport";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminUsers from "./pages/admin/Users";
+import AdminTransactions from "./pages/admin/Transactions";
+import AdminSupportPage from "./pages/admin/Support";
+import AdminEmailSystem from "./pages/admin/EmailSystem";
+import AdminWalletSettings from "./pages/admin/WalletSettings";
+import AdminUserActivity from "./pages/admin/UserActivity";
 
 const queryClient = new QueryClient();
 
@@ -103,6 +108,11 @@ function AppRoutes() {
       {/* Admin Routes */}
       <Route path="/admin" element={<AdminDashboard />}>
         <Route path="users" element={<AdminUsers />} />
+        <Route path="transactions" element={<AdminTransactions />} />
+        <Route path="support" element={<AdminSupportPage />} />
+        <Route path="email" element={<AdminEmailSystem />} />
+        <Route path="wallets" element={<AdminWalletSettings />} />
+        <Route path="activity" element={<AdminUserActivity />} />
       </Route>
       
       {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

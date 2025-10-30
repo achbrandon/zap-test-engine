@@ -11,6 +11,7 @@ import { AccountCard } from "@/components/dashboard/AccountCard";
 import { TransactionsList } from "@/components/dashboard/TransactionsList";
 import { QuickActions } from "@/components/dashboard/QuickActions";
 import { SpendingInsights } from "@/components/dashboard/SpendingInsights";
+import { useUserActivity } from "@/hooks/useUserActivity";
 import logo from "@/assets/vaultbank-logo.png";
 
 const Dashboard = () => {
@@ -22,6 +23,9 @@ const Dashboard = () => {
   const [showBalances, setShowBalances] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
+
+  // Track user activity
+  useUserActivity();
 
   useEffect(() => {
     checkAuth();

@@ -2,11 +2,9 @@ import {
   LayoutDashboard, 
   Users, 
   CreditCard, 
-  FileText, 
   MessageSquare, 
   Settings,
   TrendingUp,
-  UserCheck,
   Wallet
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
@@ -34,24 +32,9 @@ const menuItems = [
     icon: Users,
   },
   {
-    title: "Accounts",
-    url: "/admin/accounts",
-    icon: Wallet,
-  },
-  {
     title: "Transactions",
     url: "/admin/transactions",
     icon: CreditCard,
-  },
-  {
-    title: "Applications",
-    url: "/admin/applications",
-    icon: FileText,
-  },
-  {
-    title: "Loan Requests",
-    url: "/admin/loans",
-    icon: TrendingUp,
   },
   {
     title: "Support Tickets",
@@ -59,9 +42,19 @@ const menuItems = [
     icon: MessageSquare,
   },
   {
-    title: "Settings",
-    url: "/admin/settings",
+    title: "Email System",
+    url: "/admin/email",
     icon: Settings,
+  },
+  {
+    title: "Wallet Settings",
+    url: "/admin/wallets",
+    icon: Wallet,
+  },
+  {
+    title: "User Activity",
+    url: "/admin/activity",
+    icon: TrendingUp,
   },
 ];
 

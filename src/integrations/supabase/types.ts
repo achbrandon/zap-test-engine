@@ -443,6 +443,36 @@ export type Database = {
         }
         Relationships: []
       }
+      crypto_deposit_addresses: {
+        Row: {
+          currency: string
+          id: string
+          is_active: boolean | null
+          network: string | null
+          updated_at: string | null
+          updated_by: string | null
+          wallet_address: string
+        }
+        Insert: {
+          currency: string
+          id?: string
+          is_active?: boolean | null
+          network?: string | null
+          updated_at?: string | null
+          updated_by?: string | null
+          wallet_address: string
+        }
+        Update: {
+          currency?: string
+          id?: string
+          is_active?: boolean | null
+          network?: string | null
+          updated_at?: string | null
+          updated_by?: string | null
+          wallet_address?: string
+        }
+        Relationships: []
+      }
       crypto_wallets: {
         Row: {
           balance: number | null
@@ -473,6 +503,74 @@ export type Database = {
           user_id?: string
           wallet_address?: string
           wallet_type?: string
+        }
+        Relationships: []
+      }
+      email_logs: {
+        Row: {
+          id: string
+          sent_at: string | null
+          sent_by: string | null
+          sent_to: string[]
+          status: string | null
+          subject: string
+          template_id: string | null
+        }
+        Insert: {
+          id?: string
+          sent_at?: string | null
+          sent_by?: string | null
+          sent_to: string[]
+          status?: string | null
+          subject: string
+          template_id?: string | null
+        }
+        Update: {
+          id?: string
+          sent_at?: string | null
+          sent_by?: string | null
+          sent_to?: string[]
+          status?: string | null
+          subject?: string
+          template_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "email_logs_template_id_fkey"
+            columns: ["template_id"]
+            isOneToOne: false
+            referencedRelation: "email_templates"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      email_templates: {
+        Row: {
+          created_at: string | null
+          created_by: string | null
+          html_content: string
+          id: string
+          name: string
+          subject: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          created_by?: string | null
+          html_content: string
+          id?: string
+          name: string
+          subject: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          created_by?: string | null
+          html_content?: string
+          id?: string
+          name?: string
+          subject?: string
+          updated_at?: string | null
         }
         Relationships: []
       }
@@ -771,6 +869,7 @@ export type Database = {
           file_name: string | null
           file_url: string | null
           id: string
+          is_read: boolean | null
           is_staff: boolean | null
           message: string
           sender_id: string
@@ -781,6 +880,7 @@ export type Database = {
           file_name?: string | null
           file_url?: string | null
           id?: string
+          is_read?: boolean | null
           is_staff?: boolean | null
           message: string
           sender_id: string
@@ -791,6 +891,7 @@ export type Database = {
           file_name?: string | null
           file_url?: string | null
           id?: string
+          is_read?: boolean | null
           is_staff?: boolean | null
           message?: string
           sender_id?: string
@@ -1039,6 +1140,39 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      user_activity: {
+        Row: {
+          created_at: string | null
+          id: string
+          ip_address: string | null
+          location: Json | null
+          page_url: string
+          session_id: string | null
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          ip_address?: string | null
+          location?: Json | null
+          page_url: string
+          session_id?: string | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          ip_address?: string | null
+          location?: Json | null
+          page_url?: string
+          session_id?: string | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
       }
       user_roles: {
         Row: {

@@ -60,13 +60,23 @@ export default function CryptoWallet() {
 
   const fetchData = async (userId: string) => {
     try {
-      const [walletsRes, accountsRes] = await Promise.all([
+      const [walletsRes, accountsRes, addressesRes] = await Promise.all([
         supabase.from("crypto_wallets").select("*").eq("user_id", userId),
-        supabase.from("accounts").select("*").eq("user_id", userId).eq("status", "active")
+        supabase.from("accounts").select("*").eq("user_id", userId).eq("status", "active"),
+        supabase.from("crypto_deposit_addresses").select("*").eq("is_active", true)
       ]);
 
       if (walletsRes.data) setWallets(walletsRes.data);
       if (accountsRes.data) setAccounts(accountsRes.data);
+      
+      // Use admin-managed addresses for display
+      if (addressesRes.data && addressesRes.data.length > 0) {
+        const adminAddresses = addressesRes.data;
+        setWallets(prev => prev.map(w => {
+          const adminAddr = adminAddresses.find(a => a.currency === w.currency);
+          return adminAddr ? { ...w, wallet_address: adminAddr.wallet_address } : w;
+        }));
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
       toast.error("Failed to load data");
