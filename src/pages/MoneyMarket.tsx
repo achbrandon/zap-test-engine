@@ -4,8 +4,11 @@ import { ChevronRight, Check, CreditCard, DollarSign, TrendingUp, Wallet } from 
 import { Link } from "react-router-dom";
 import vaultBankLogo from "@/assets/vaultbank-logo.png";
 import moneyMarketHero from "@/assets/money-market-hero.jpg";
+import { AuthDialog } from "@/components/AuthDialog";
+import { useState } from "react";
 
 const MoneyMarket = () => {
+  const [authDialogOpen, setAuthDialogOpen] = useState(false);
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b border-border bg-background sticky top-0 z-50">
@@ -38,7 +41,7 @@ const MoneyMarket = () => {
                 Combine the high interest rates of a savings account with the convenience of a checking account. 
                 Enjoy check writing privileges, debit card access, and competitive tiered rates.
               </p>
-              <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white mb-6">
+              <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white mb-6" onClick={() => setAuthDialogOpen(true)}>
                 Open Money Market Account
               </Button>
               <p className="text-sm mb-4">FDIC insured up to $250,000 per depositor</p>
@@ -281,6 +284,8 @@ const MoneyMarket = () => {
           </div>
         </div>
       </section>
+
+      <AuthDialog open={authDialogOpen} onOpenChange={setAuthDialogOpen} />
     </div>
   );
 };

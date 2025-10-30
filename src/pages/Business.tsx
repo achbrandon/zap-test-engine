@@ -4,8 +4,11 @@ import { Link } from "react-router-dom";
 import { Building2, CreditCard, TrendingUp, Users, Shield, Zap } from "lucide-react";
 import vaultBankLogo from "@/assets/vaultbank-logo.png";
 import businessHero from "@/assets/business-hero.jpg";
+import { AuthDialog } from "@/components/AuthDialog";
+import { useState } from "react";
 
 const Business = () => {
+  const [authDialogOpen, setAuthDialogOpen] = useState(false);
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -19,8 +22,8 @@ const Business = () => {
               <Button variant="ghost" asChild>
                 <Link to="/">Back to Home</Link>
               </Button>
-              <Button asChild>
-                <Link to="/auth">Sign In</Link>
+              <Button onClick={() => setAuthDialogOpen(true)}>
+                Sign In
               </Button>
             </div>
           </div>
@@ -41,8 +44,8 @@ const Business = () => {
               From banking to payment acceptance to credit cards and local support, we offer flexible solutions to help your business thrive.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" asChild>
-                <Link to="/open-account">Open Business Account</Link>
+              <Button size="lg" onClick={() => setAuthDialogOpen(true)}>
+                Open Business Account
               </Button>
               <Button size="lg" variant="outline" asChild>
                 <Link to="/locations">Find a Branch</Link>
@@ -77,8 +80,8 @@ const Business = () => {
                   <span>Mobile and online banking included</span>
                 </li>
               </ul>
-              <Button asChild>
-                <Link to="/open-account">Open Account</Link>
+              <Button onClick={() => setAuthDialogOpen(true)}>
+                Open Account
               </Button>
             </Card>
 
@@ -198,8 +201,8 @@ const Business = () => {
                   <span>Multi-user access controls</span>
                 </li>
               </ul>
-              <Button asChild>
-                <Link to="/auth">Sign In</Link>
+              <Button onClick={() => setAuthDialogOpen(true)}>
+                Sign In
               </Button>
             </Card>
           </div>
@@ -214,8 +217,8 @@ const Business = () => {
             Let's discuss how VaultBank can support your business goals
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="secondary" asChild>
-              <Link to="/open-account">Open Business Account</Link>
+            <Button size="lg" variant="secondary" onClick={() => setAuthDialogOpen(true)}>
+              Open Business Account
             </Button>
             <Button size="lg" variant="outline" className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary" asChild>
               <Link to="/locations">Schedule a Meeting</Link>
@@ -233,11 +236,13 @@ const Business = () => {
               <Link to="/" className="text-sm hover:text-primary">Home</Link>
               <Link to="/business" className="text-sm hover:text-primary">Business</Link>
               <Link to="/locations" className="text-sm hover:text-primary">Locations</Link>
-              <Link to="/auth" className="text-sm hover:text-primary">Sign In</Link>
+              <button onClick={() => setAuthDialogOpen(true)} className="text-sm hover:text-primary">Sign In</button>
             </div>
           </div>
         </div>
       </footer>
+
+      <AuthDialog open={authDialogOpen} onOpenChange={setAuthDialogOpen} />
     </div>
   );
 };

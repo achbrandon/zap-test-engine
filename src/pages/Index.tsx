@@ -29,12 +29,20 @@ import { CreditCardsDetails } from "@/components/banking/CreditCardsDetails";
 import { LoansDetails } from "@/components/banking/LoansDetails";
 import { InvestmentsDetails } from "@/components/banking/InvestmentsDetails";
 import { AuthDialog } from "@/components/AuthDialog";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const [authDialogOpen, setAuthDialogOpen] = useState(false);
   const detailsRef = useRef<HTMLDivElement>(null);
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state?.openAuthDialog) {
+      setAuthDialogOpen(true);
+    }
+  }, [location]);
 
   const handleNavClick = (section: string) => {
     setActiveSection(section);
@@ -240,8 +248,8 @@ const Index = () => {
               Experience modern banking with competitive rates, powerful tools, and exceptional service
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" asChild>
-                <Link to="/open-account">Open Account</Link>
+              <Button size="lg" onClick={() => setAuthDialogOpen(true)}>
+                Open Account
               </Button>
               <Button size="lg" variant="outline" asChild>
                 <Link to="/checking">Explore Products</Link>
@@ -264,8 +272,8 @@ const Index = () => {
                 <p className="text-muted-foreground mb-4 text-sm">
                   Open a VaultBank Total Checking account with qualifying activities.
                 </p>
-                <Button asChild className="w-full">
-                  <Link to="/open-account">Open an account</Link>
+                <Button onClick={() => setAuthDialogOpen(true)} className="w-full">
+                  Open an account
                 </Button>
               </div>
             </Card>
@@ -332,10 +340,10 @@ const Index = () => {
               <Bitcoin className="h-10 w-10 text-muted-foreground group-hover:text-primary transition-colors" />
               <span className="text-sm font-medium text-center">Crypto</span>
             </Link>
-            <Link to="/open-account" className="flex flex-col items-center gap-2 p-4 rounded-lg hover:bg-accent transition-all group">
+            <button onClick={() => setAuthDialogOpen(true)} className="flex flex-col items-center gap-2 p-4 rounded-lg hover:bg-accent transition-all group">
               <Wallet className="h-10 w-10 text-muted-foreground group-hover:text-primary transition-colors" />
               <span className="text-sm font-medium text-center">Free credit score</span>
-            </Link>
+            </button>
             <Link to="/locations" className="flex flex-col items-center gap-2 p-4 rounded-lg hover:bg-accent transition-all group">
               <MapPin className="h-10 w-10 text-muted-foreground group-hover:text-primary transition-colors" />
               <span className="text-sm font-medium text-center">Find locations</span>
@@ -479,8 +487,8 @@ const Index = () => {
                 Open your account today and experience banking that works for you
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" variant="secondary" asChild>
-                  <Link to="/open-account">Open Account</Link>
+                <Button size="lg" variant="secondary" onClick={() => setAuthDialogOpen(true)}>
+                  Open Account
                 </Button>
                 <Button size="lg" variant="outline" className="bg-transparent hover:bg-primary-foreground/10" asChild>
                   <Link to="/locations">

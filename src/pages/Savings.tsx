@@ -4,8 +4,11 @@ import { Link } from "react-router-dom";
 import { SavingsDetails } from "@/components/banking/SavingsDetails";
 import vaultBankLogo from "@/assets/vaultbank-logo.png";
 import savingsHero from "@/assets/savings-hero.jpg";
+import { AuthDialog } from "@/components/AuthDialog";
+import { useState } from "react";
 
 const Savings = () => {
+  const [authDialogOpen, setAuthDialogOpen] = useState(false);
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b border-border bg-background sticky top-0 z-50">
@@ -38,7 +41,7 @@ const Savings = () => {
                 Savings made simple with our most popular savings account. Automatically set money aside, 
                 earn interest and track your savings on the go with our VaultBank Mobile<sup>®</sup> app.<sup>1</sup>
               </p>
-              <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white mb-6">
+              <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white mb-6" onClick={() => setAuthDialogOpen(true)}>
                 Open now
               </Button>
               <p className="text-sm mb-4">Account subject to approval</p>
@@ -89,6 +92,8 @@ const Savings = () => {
           </div>
         </div>
       </section>
+
+      <AuthDialog open={authDialogOpen} onOpenChange={setAuthDialogOpen} />
     </div>
   );
 };

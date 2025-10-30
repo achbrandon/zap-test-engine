@@ -5,8 +5,11 @@ import { Link } from "react-router-dom";
 import { LoansDetails } from "@/components/banking/LoansDetails";
 import vaultBankLogo from "@/assets/vaultbank-logo.png";
 import homeLoanPromo from "@/assets/home-loan-promo.jpg";
+import { AuthDialog } from "@/components/AuthDialog";
+import { useState } from "react";
 
 const Loans = () => {
+  const [authDialogOpen, setAuthDialogOpen] = useState(false);
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b border-border bg-background sticky top-0 z-50">
@@ -43,8 +46,8 @@ const Loans = () => {
                   <p className="text-muted-foreground mb-6">
                     Now's the time to refinance—VaultBank can show you current rates and help you get started on an application.
                   </p>
-                  <Button size="lg" asChild>
-                    <Link to="/open-account">Get Started</Link>
+                  <Button size="lg" onClick={() => setAuthDialogOpen(true)}>
+                    Get Started
                   </Button>
                 </div>
               </div>
@@ -78,6 +81,8 @@ const Loans = () => {
           </div>
         </div>
       </section>
+
+      <AuthDialog open={authDialogOpen} onOpenChange={setAuthDialogOpen} />
     </div>
   );
 };

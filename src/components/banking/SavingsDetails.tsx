@@ -3,7 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Check, ArrowRight, TrendingUp } from "lucide-react";
 import { Link } from "react-router-dom";
 
-export const SavingsDetails = () => {
+interface SavingsDetailsProps {
+  onOpenAccount?: () => void;
+}
+
+export const SavingsDetails = ({ onOpenAccount }: SavingsDetailsProps) => {
   return (
     <section className="py-16 md:py-24">
       <div className="container mx-auto px-4">
@@ -48,10 +52,8 @@ export const SavingsDetails = () => {
               </div>
             </div>
 
-            <Button className="w-full" size="lg" asChild>
-              <Link to="/open-account">
-                Open Account <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
+            <Button className="w-full" size="lg" onClick={onOpenAccount}>
+              Open Account <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </Card>
 
@@ -91,10 +93,8 @@ export const SavingsDetails = () => {
               </div>
             </div>
 
-            <Button className="w-full" size="lg" asChild>
-              <Link to="/open-account">
-                Open Account <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
+            <Button className="w-full" size="lg" onClick={onOpenAccount}>
+              Open Account <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </Card>
 

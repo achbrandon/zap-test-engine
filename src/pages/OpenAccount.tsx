@@ -1,20 +1,15 @@
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const OpenAccount = () => {
-  return (
-    <div className="min-h-screen bg-background p-8">
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl font-bold mb-4">Open an Account</h1>
-        <p className="text-lg text-muted-foreground mb-8">
-          Get started with VaultBank today.
-        </p>
-        <Button asChild>
-          <Link to="/">Back to Home</Link>
-        </Button>
-      </div>
-    </div>
-  );
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    // Redirect to home page and trigger the auth dialog
+    navigate("/", { state: { openAuthDialog: true } });
+  }, [navigate]);
+
+  return null;
 };
 
 export default OpenAccount;

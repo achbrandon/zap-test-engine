@@ -1,9 +1,12 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Check, ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
 
-export const CheckingDetails = () => {
+interface CheckingDetailsProps {
+  onOpenAccount?: () => void;
+}
+
+export const CheckingDetails = ({ onOpenAccount }: CheckingDetailsProps) => {
   return (
     <section className="py-16 md:py-24 bg-secondary">
       <div className="container mx-auto px-4">
@@ -50,10 +53,8 @@ export const CheckingDetails = () => {
               </div>
             </div>
 
-            <Button className="w-full" size="lg" asChild>
-              <Link to="/open-account">
-                Open Account <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
+            <Button className="w-full" size="lg" onClick={onOpenAccount}>
+              Open Account <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </Card>
 
@@ -95,10 +96,8 @@ export const CheckingDetails = () => {
               </div>
             </div>
 
-            <Button className="w-full" size="lg" asChild>
-              <Link to="/open-account">
-                Open Account <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
+            <Button className="w-full" size="lg" onClick={onOpenAccount}>
+              Open Account <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </Card>
 
@@ -137,10 +136,8 @@ export const CheckingDetails = () => {
               </div>
             </div>
 
-            <Button className="w-full" size="lg" asChild>
-              <Link to="/open-account">
-                Open Account <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
+            <Button className="w-full" size="lg" onClick={onOpenAccount}>
+              Open Account <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </Card>
         </div>

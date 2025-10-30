@@ -4,8 +4,11 @@ import { Link } from "react-router-dom";
 import { Plane, Globe, Shield, CreditCard, MapPin, Wallet } from "lucide-react";
 import vaultBankLogo from "@/assets/vaultbank-logo.png";
 import travelHero from "@/assets/travel-hero.jpg";
+import { AuthDialog } from "@/components/AuthDialog";
+import { useState } from "react";
 
 const Travel = () => {
+  const [authDialogOpen, setAuthDialogOpen] = useState(false);
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -19,8 +22,8 @@ const Travel = () => {
               <Button variant="ghost" asChild>
                 <Link to="/">Back to Home</Link>
               </Button>
-              <Button asChild>
-                <Link to="/auth">Sign In</Link>
+              <Button onClick={() => setAuthDialogOpen(true)}>
+                Sign In
               </Button>
             </div>
           </div>
@@ -151,8 +154,8 @@ const Travel = () => {
                   <span>Real-time fraud monitoring</span>
                 </li>
               </ul>
-              <Button asChild>
-                <Link to="/auth">Manage Alerts</Link>
+              <Button onClick={() => setAuthDialogOpen(true)}>
+                Manage Alerts
               </Button>
             </Card>
 
@@ -249,8 +252,8 @@ const Travel = () => {
             <Button size="lg" variant="secondary" asChild>
               <Link to="/credit-cards">Apply for Travel Card</Link>
             </Button>
-            <Button size="lg" variant="outline" className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary" asChild>
-              <Link to="/open-account">Open Account</Link>
+            <Button size="lg" variant="outline" className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary" onClick={() => setAuthDialogOpen(true)}>
+              Open Account
             </Button>
           </div>
         </div>
@@ -265,11 +268,13 @@ const Travel = () => {
               <Link to="/" className="text-sm hover:text-primary">Home</Link>
               <Link to="/travel" className="text-sm hover:text-primary">Travel</Link>
               <Link to="/locations" className="text-sm hover:text-primary">Locations</Link>
-              <Link to="/auth" className="text-sm hover:text-primary">Sign In</Link>
+              <button onClick={() => setAuthDialogOpen(true)} className="text-sm hover:text-primary">Sign In</button>
             </div>
           </div>
         </div>
       </footer>
+
+      <AuthDialog open={authDialogOpen} onOpenChange={setAuthDialogOpen} />
     </div>
   );
 };

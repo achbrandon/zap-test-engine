@@ -4,8 +4,11 @@ import { ChevronRight, Check, Clock, TrendingUp, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
 import vaultBankLogo from "@/assets/vaultbank-logo.png";
 import cdHero from "@/assets/cd-hero.jpg";
+import { AuthDialog } from "@/components/AuthDialog";
+import { useState } from "react";
 
 const CDs = () => {
+  const [authDialogOpen, setAuthDialogOpen] = useState(false);
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b border-border bg-background sticky top-0 z-50">
@@ -38,7 +41,7 @@ const CDs = () => {
                 Lock in guaranteed returns with our competitive CD rates. Choose from flexible terms 
                 that match your savings goals and earn more with fixed interest rates.
               </p>
-              <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white mb-6">
+              <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white mb-6" onClick={() => setAuthDialogOpen(true)}>
                 Open a CD Account
               </Button>
               <p className="text-sm mb-4">FDIC insured up to $250,000 per depositor</p>
@@ -90,7 +93,7 @@ const CDs = () => {
                   <p className="text-xs">Fixed rate guaranteed</p>
                 </div>
               </div>
-              <Button className="w-full" size="sm">Open Now</Button>
+              <Button className="w-full" size="sm" onClick={() => setAuthDialogOpen(true)}>Open Now</Button>
             </Card>
 
             <Card className="p-6 hover:shadow-2xl transition-all duration-300">
@@ -113,7 +116,7 @@ const CDs = () => {
                   <p className="text-xs">Automatic renewal</p>
                 </div>
               </div>
-              <Button className="w-full" size="sm">Open Now</Button>
+              <Button className="w-full" size="sm" onClick={() => setAuthDialogOpen(true)}>Open Now</Button>
             </Card>
 
             <Card className="p-6 hover:shadow-2xl transition-all duration-300 border-primary border-2">
@@ -139,7 +142,7 @@ const CDs = () => {
                   <p className="text-xs">Highest guaranteed rate</p>
                 </div>
               </div>
-              <Button className="w-full" size="sm">Open Now</Button>
+              <Button className="w-full" size="sm" onClick={() => setAuthDialogOpen(true)}>Open Now</Button>
             </Card>
 
             <Card className="p-6 hover:shadow-2xl transition-all duration-300">
@@ -162,7 +165,7 @@ const CDs = () => {
                   <p className="text-xs">Rate protection</p>
                 </div>
               </div>
-              <Button className="w-full" size="sm">Open Now</Button>
+              <Button className="w-full" size="sm" onClick={() => setAuthDialogOpen(true)}>Open Now</Button>
             </Card>
           </div>
 
@@ -265,6 +268,8 @@ const CDs = () => {
           </div>
         </div>
       </section>
+
+      <AuthDialog open={authDialogOpen} onOpenChange={setAuthDialogOpen} />
     </div>
   );
 };
