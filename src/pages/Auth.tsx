@@ -54,7 +54,7 @@ const Auth = () => {
               </label>
             </div>
             <Link 
-              to="/open-account" 
+              to="/token-signin" 
               className="text-[hsl(210,100%,50%)] font-semibold text-base hover:underline flex items-center gap-1"
             >
               Use token <ChevronRight className="w-4 h-4" />

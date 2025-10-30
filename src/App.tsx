@@ -15,6 +15,7 @@ import Locations from "./pages/Locations";
 import Crypto from "./pages/Crypto";
 import OpenAccount from "./pages/OpenAccount";
 import Auth from "./pages/Auth";
+import TokenSignIn from "./pages/TokenSignIn";
 import CDs from "./pages/CDs";
 import MoneyMarket from "./pages/MoneyMarket";
 import Business from "./pages/Business";
@@ -44,6 +45,7 @@ const App = () => (
           <Route path="/crypto" element={<Crypto />} />
           <Route path="/open-account" element={<OpenAccount />} />
           <Route path="/auth" element={<Auth />} />
+          <Route path="/token-signin" element={<TokenSignIn />} />
           <Route path="/business" element={<Business />} />
           <Route path="/travel" element={<Travel />} />
           <Route path="/schedule-meeting" element={<ScheduleMeeting />} />
