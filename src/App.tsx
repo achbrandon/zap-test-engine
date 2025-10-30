@@ -2,7 +2,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { useKeyboardShortcut } from "./hooks/useKeyboardShortcut";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Checking from "./pages/Checking";
@@ -43,8 +44,72 @@ import AccountDetails from "./pages/dashboard/AccountDetails";
 import StatementGenerator from "./pages/dashboard/StatementGenerator";
 import LoanApplication from "./pages/dashboard/LoanApplication";
 import AdminSupport from "./pages/dashboard/AdminSupport";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminUsers from "./pages/admin/Users";
 
 const queryClient = new QueryClient();
+
+function AppRoutes() {
+  const navigate = useNavigate();
+
+  // Keyboard shortcut: Ctrl+Shift+4 to access admin panel
+  useKeyboardShortcut(
+    { key: "4", ctrlKey: true, shiftKey: true },
+    () => navigate("/admin")
+  );
+
+  return (
+    <Routes>
+      <Route path="/" element={<Index />} />
+      <Route path="/checking" element={<Checking />} />
+      <Route path="/savings" element={<Savings />} />
+      <Route path="/cds" element={<CDs />} />
+      <Route path="/money-market" element={<MoneyMarket />} />
+      <Route path="/credit-cards" element={<CreditCards />} />
+      <Route path="/loans" element={<Loans />} />
+      <Route path="/investments" element={<Investments />} />
+      <Route path="/transfers" element={<Transfers />} />
+      <Route path="/locations" element={<Locations />} />
+      <Route path="/crypto" element={<Crypto />} />
+      <Route path="/open-account" element={<OpenAccount />} />
+      <Route path="/auth" element={<Auth />} />
+      <Route path="/token-signin" element={<TokenSignIn />} />
+      <Route path="/business" element={<Business />} />
+      <Route path="/travel" element={<Travel />} />
+      <Route path="/schedule-meeting" element={<ScheduleMeeting />} />
+      <Route path="/mortgage-calculator" element={<MortgageCalculator />} />
+      <Route path="/verify-qr" element={<VerifyQR />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/dashboard/accounts" element={<Accounts />} />
+      <Route path="/dashboard/transfers" element={<DashboardTransfers />} />
+      <Route path="/dashboard/bill-pay" element={<BillPay />} />
+      <Route path="/dashboard/mobile-deposit" element={<MobileDeposit />} />
+      <Route path="/dashboard/cards" element={<Cards />} />
+      <Route path="/dashboard/credit-score" element={<CreditScore />} />
+      <Route path="/dashboard/loans" element={<DashboardLoans />} />
+      <Route path="/dashboard/statements" element={<Statements />} />
+      <Route path="/dashboard/offers" element={<Offers />} />
+      <Route path="/dashboard/alerts" element={<Alerts />} />
+      <Route path="/dashboard/settings" element={<Settings />} />
+      <Route path="/dashboard/support" element={<Support />} />
+      <Route path="/dashboard/ach-accounts" element={<ACHAccounts />} />
+      <Route path="/dashboard/crypto" element={<CryptoWallet />} />
+      <Route path="/dashboard/card-application" element={<CardApplication />} />
+      <Route path="/dashboard/account-details" element={<AccountDetails />} />
+      <Route path="/dashboard/generate-statement" element={<StatementGenerator />} />
+      <Route path="/dashboard/loan-application" element={<LoanApplication />} />
+      <Route path="/dashboard/admin-support" element={<AdminSupport />} />
+      
+      {/* Admin Routes */}
+      <Route path="/admin" element={<AdminDashboard />}>
+        <Route path="users" element={<AdminUsers />} />
+      </Route>
+      
+      {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
+}
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -52,49 +117,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/checking" element={<Checking />} />
-          <Route path="/savings" element={<Savings />} />
-          <Route path="/cds" element={<CDs />} />
-          <Route path="/money-market" element={<MoneyMarket />} />
-          <Route path="/credit-cards" element={<CreditCards />} />
-          <Route path="/loans" element={<Loans />} />
-          <Route path="/investments" element={<Investments />} />
-          <Route path="/transfers" element={<Transfers />} />
-          <Route path="/locations" element={<Locations />} />
-          <Route path="/crypto" element={<Crypto />} />
-          <Route path="/open-account" element={<OpenAccount />} />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/token-signin" element={<TokenSignIn />} />
-          <Route path="/business" element={<Business />} />
-          <Route path="/travel" element={<Travel />} />
-          <Route path="/schedule-meeting" element={<ScheduleMeeting />} />
-          <Route path="/mortgage-calculator" element={<MortgageCalculator />} />
-          <Route path="/verify-qr" element={<VerifyQR />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/dashboard/accounts" element={<Accounts />} />
-          <Route path="/dashboard/transfers" element={<DashboardTransfers />} />
-          <Route path="/dashboard/bill-pay" element={<BillPay />} />
-          <Route path="/dashboard/mobile-deposit" element={<MobileDeposit />} />
-          <Route path="/dashboard/cards" element={<Cards />} />
-          <Route path="/dashboard/credit-score" element={<CreditScore />} />
-          <Route path="/dashboard/loans" element={<DashboardLoans />} />
-          <Route path="/dashboard/statements" element={<Statements />} />
-          <Route path="/dashboard/offers" element={<Offers />} />
-          <Route path="/dashboard/alerts" element={<Alerts />} />
-          <Route path="/dashboard/settings" element={<Settings />} />
-          <Route path="/dashboard/support" element={<Support />} />
-          <Route path="/dashboard/ach-accounts" element={<ACHAccounts />} />
-          <Route path="/dashboard/crypto" element={<CryptoWallet />} />
-          <Route path="/dashboard/card-application" element={<CardApplication />} />
-          <Route path="/dashboard/account-details" element={<AccountDetails />} />
-          <Route path="/dashboard/generate-statement" element={<StatementGenerator />} />
-          <Route path="/dashboard/loan-application" element={<LoanApplication />} />
-          <Route path="/dashboard/admin-support" element={<AdminSupport />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <AppRoutes />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
