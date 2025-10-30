@@ -8,8 +8,11 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
-import { FileText, Plus, Calendar, DollarSign } from "lucide-react";
+import { FileText, Plus, Calendar, DollarSign, Trash2, Edit, Pause, Play } from "lucide-react";
+import { Switch } from "@/components/ui/switch";
 
 export default function BillPay() {
   const navigate = useNavigate();
@@ -18,12 +21,15 @@ export default function BillPay() {
   const [payments, setPayments] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [showAddForm, setShowAddForm] = useState(false);
+  const [editingPayment, setEditingPayment] = useState<any>(null);
+  const [deletingPayment, setDeletingPayment] = useState<any>(null);
 
   // Form state
   const [formData, setFormData] = useState({
     accountId: "",
     payeeName: "",
     payeeAccount: "",
+    payeeAddress: "",
     amount: "",
     paymentDate: "",
     isRecurring: false,
@@ -68,26 +74,50 @@ export default function BillPay() {
     if (!user) return;
 
     try {
-      const { error } = await supabase.from("bill_payments").insert({
-        user_id: user.id,
-        account_id: formData.accountId,
-        payee_name: formData.payeeName,
-        payee_account: formData.payeeAccount,
-        amount: parseFloat(formData.amount),
-        payment_date: formData.paymentDate,
-        is_recurring: formData.isRecurring,
-        recurring_frequency: formData.recurringFrequency || null,
-        notes: formData.notes || null,
-      });
+      if (editingPayment) {
+        const { error } = await supabase
+          .from("bill_payments")
+          .update({
+            account_id: formData.accountId,
+            payee_name: formData.payeeName,
+            payee_account: formData.payeeAccount,
+            payee_address: formData.payeeAddress || null,
+            amount: parseFloat(formData.amount),
+            payment_date: formData.paymentDate,
+            is_recurring: formData.isRecurring,
+            recurring_frequency: formData.recurringFrequency || null,
+            notes: formData.notes || null,
+          })
+          .eq("id", editingPayment.id);
 
-      if (error) throw error;
+        if (error) throw error;
+        toast.success("Bill payment updated successfully");
+      } else {
+        const { error } = await supabase.from("bill_payments").insert({
+          user_id: user.id,
+          account_id: formData.accountId,
+          payee_name: formData.payeeName,
+          payee_account: formData.payeeAccount,
+          payee_address: formData.payeeAddress || null,
+          amount: parseFloat(formData.amount),
+          payment_date: formData.paymentDate,
+          is_recurring: formData.isRecurring,
+          recurring_frequency: formData.recurringFrequency || null,
+          notes: formData.notes || null,
+          status: "scheduled"
+        });
 
-      toast.success("Bill payment scheduled successfully");
+        if (error) throw error;
+        toast.success("Bill payment scheduled successfully");
+      }
+
       setShowAddForm(false);
+      setEditingPayment(null);
       setFormData({
         accountId: "",
         payeeName: "",
         payeeAccount: "",
+        payeeAddress: "",
         amount: "",
         paymentDate: "",
         isRecurring: false,
@@ -100,6 +130,80 @@ export default function BillPay() {
       toast.error("Failed to schedule payment");
     }
   };
+
+  const handleEdit = (payment: any) => {
+    setEditingPayment(payment);
+    setFormData({
+      accountId: payment.account_id,
+      payeeName: payment.payee_name,
+      payeeAccount: payment.payee_account || "",
+      payeeAddress: payment.payee_address || "",
+      amount: payment.amount.toString(),
+      paymentDate: payment.payment_date,
+      isRecurring: payment.is_recurring,
+      recurringFrequency: payment.recurring_frequency || "",
+      notes: payment.notes || "",
+    });
+    setShowAddForm(true);
+  };
+
+  const handleDelete = async () => {
+    if (!deletingPayment) return;
+
+    try {
+      const { error } = await supabase
+        .from("bill_payments")
+        .delete()
+        .eq("id", deletingPayment.id);
+
+      if (error) throw error;
+      
+      toast.success("Payment cancelled successfully");
+      setDeletingPayment(null);
+      fetchData(user!.id);
+    } catch (error) {
+      console.error("Error deleting payment:", error);
+      toast.error("Failed to cancel payment");
+    }
+  };
+
+  const getNextPaymentDate = (payment: any) => {
+    if (!payment.is_recurring) return null;
+    
+    const lastDate = new Date(payment.payment_date);
+    const today = new Date();
+    
+    while (lastDate < today) {
+      switch (payment.recurring_frequency) {
+        case "weekly":
+          lastDate.setDate(lastDate.getDate() + 7);
+          break;
+        case "biweekly":
+          lastDate.setDate(lastDate.getDate() + 14);
+          break;
+        case "monthly":
+          lastDate.setMonth(lastDate.getMonth() + 1);
+          break;
+        case "quarterly":
+          lastDate.setMonth(lastDate.getMonth() + 3);
+          break;
+        case "annually":
+          lastDate.setFullYear(lastDate.getFullYear() + 1);
+          break;
+      }
+    }
+    
+    return lastDate;
+  };
+
+  const upcomingPayments = payments.filter(p => {
+    const paymentDate = new Date(p.payment_date);
+    const today = new Date();
+    return p.status === "scheduled" && paymentDate >= today;
+  });
+
+  const completedPayments = payments.filter(p => p.status === "completed");
+  const recurringPayments = payments.filter(p => p.is_recurring && p.status === "scheduled");
 
   if (loading) {
     return <div className="flex items-center justify-center h-screen">Loading...</div>;
@@ -121,7 +225,7 @@ export default function BillPay() {
       {showAddForm && (
         <Card>
           <CardHeader>
-            <CardTitle>Schedule New Payment</CardTitle>
+            <CardTitle>{editingPayment ? "Edit Payment" : "Schedule New Payment"}</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -146,6 +250,7 @@ export default function BillPay() {
                   <Label htmlFor="payeeName">Payee Name</Label>
                   <Input
                     id="payeeName"
+                    placeholder="Electric Company"
                     value={formData.payeeName}
                     onChange={(e) => setFormData({ ...formData, payeeName: e.target.value })}
                     required
@@ -156,17 +261,30 @@ export default function BillPay() {
                   <Label htmlFor="payeeAccount">Payee Account Number</Label>
                   <Input
                     id="payeeAccount"
+                    placeholder="Account #123456"
                     value={formData.payeeAccount}
                     onChange={(e) => setFormData({ ...formData, payeeAccount: e.target.value })}
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="amount">Amount</Label>
+                  <Label htmlFor="payeeAddress">Payee Address (Optional)</Label>
+                  <Input
+                    id="payeeAddress"
+                    placeholder="123 Main St"
+                    value={formData.payeeAddress}
+                    onChange={(e) => setFormData({ ...formData, payeeAddress: e.target.value })}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="amount">Amount ($)</Label>
                   <Input
                     id="amount"
                     type="number"
                     step="0.01"
+                    min="0.01"
+                    placeholder="0.00"
                     value={formData.amount}
                     onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
                     required
@@ -180,41 +298,74 @@ export default function BillPay() {
                     type="date"
                     value={formData.paymentDate}
                     onChange={(e) => setFormData({ ...formData, paymentDate: e.target.value })}
+                    min={new Date().toISOString().split('T')[0]}
                     required
                   />
                 </div>
+              </div>
 
+              <div className="flex items-center space-x-2">
+                <Switch
+                  id="recurring"
+                  checked={formData.isRecurring}
+                  onCheckedChange={(checked) => setFormData({ ...formData, isRecurring: checked, recurringFrequency: checked ? "monthly" : "" })}
+                />
+                <Label htmlFor="recurring" className="cursor-pointer">Make this a recurring payment</Label>
+              </div>
+
+              {formData.isRecurring && (
                 <div className="space-y-2">
-                  <Label htmlFor="recurringFrequency">Recurring (Optional)</Label>
+                  <Label htmlFor="recurringFrequency">Frequency</Label>
                   <Select 
                     value={formData.recurringFrequency} 
-                    onValueChange={(value) => setFormData({ ...formData, recurringFrequency: value, isRecurring: value !== "" })}
+                    onValueChange={(value) => setFormData({ ...formData, recurringFrequency: value })}
                   >
                     <SelectTrigger>
-                      <SelectValue placeholder="One-time payment" />
+                      <SelectValue placeholder="Select frequency" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">One-time</SelectItem>
                       <SelectItem value="weekly">Weekly</SelectItem>
+                      <SelectItem value="biweekly">Bi-weekly (Every 2 weeks)</SelectItem>
                       <SelectItem value="monthly">Monthly</SelectItem>
-                      <SelectItem value="quarterly">Quarterly</SelectItem>
+                      <SelectItem value="quarterly">Quarterly (Every 3 months)</SelectItem>
+                      <SelectItem value="annually">Annually</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
-              </div>
+              )}
 
               <div className="space-y-2">
                 <Label htmlFor="notes">Notes (Optional)</Label>
                 <Textarea
                   id="notes"
+                  placeholder="Add any additional notes..."
                   value={formData.notes}
                   onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                  rows={3}
                 />
               </div>
 
               <div className="flex gap-2">
-                <Button type="submit">Schedule Payment</Button>
-                <Button type="button" variant="outline" onClick={() => setShowAddForm(false)}>
+                <Button type="submit">{editingPayment ? "Update Payment" : "Schedule Payment"}</Button>
+                <Button 
+                  type="button" 
+                  variant="outline" 
+                  onClick={() => {
+                    setShowAddForm(false);
+                    setEditingPayment(null);
+                    setFormData({
+                      accountId: "",
+                      payeeName: "",
+                      payeeAccount: "",
+                      payeeAddress: "",
+                      amount: "",
+                      paymentDate: "",
+                      isRecurring: false,
+                      recurringFrequency: "",
+                      notes: "",
+                    });
+                  }}
+                >
                   Cancel
                 </Button>
               </div>
@@ -225,44 +376,173 @@ export default function BillPay() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Scheduled Payments</CardTitle>
+          <CardTitle>Payments</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
-            {payments.length === 0 ? (
-              <p className="text-center text-muted-foreground py-8">No payments scheduled</p>
-            ) : (
-              payments.map((payment) => (
-                <div key={payment.id} className="flex items-center justify-between p-4 border rounded-lg">
-                  <div className="flex items-center gap-4">
-                    <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
-                      <FileText className="h-6 w-6 text-primary" />
-                    </div>
-                    <div>
-                      <p className="font-semibold">{payment.payee_name}</p>
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <Calendar className="h-3 w-3" />
-                        {new Date(payment.payment_date).toLocaleDateString()}
-                        {payment.is_recurring && (
-                          <Badge variant="secondary" className="ml-2">
-                            {payment.recurring_frequency}
-                          </Badge>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-semibold text-lg">${parseFloat(payment.amount).toFixed(2)}</p>
-                    <Badge variant={payment.status === "completed" ? "default" : payment.status === "scheduled" ? "secondary" : "destructive"}>
-                      {payment.status}
-                    </Badge>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
+          <Tabs defaultValue="all" className="w-full">
+            <TabsList className="grid w-full grid-cols-4">
+              <TabsTrigger value="all">All ({payments.length})</TabsTrigger>
+              <TabsTrigger value="upcoming">Upcoming ({upcomingPayments.length})</TabsTrigger>
+              <TabsTrigger value="recurring">Recurring ({recurringPayments.length})</TabsTrigger>
+              <TabsTrigger value="completed">Completed ({completedPayments.length})</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="all" className="space-y-4 mt-4">
+              {payments.length === 0 ? (
+                <p className="text-center text-muted-foreground py-8">No payments scheduled</p>
+              ) : (
+                payments.map((payment) => (
+                  <PaymentCard 
+                    key={payment.id} 
+                    payment={payment} 
+                    onEdit={handleEdit}
+                    onDelete={() => setDeletingPayment(payment)}
+                    getNextPaymentDate={getNextPaymentDate}
+                  />
+                ))
+              )}
+            </TabsContent>
+
+            <TabsContent value="upcoming" className="space-y-4 mt-4">
+              {upcomingPayments.length === 0 ? (
+                <p className="text-center text-muted-foreground py-8">No upcoming payments</p>
+              ) : (
+                upcomingPayments.map((payment) => (
+                  <PaymentCard 
+                    key={payment.id} 
+                    payment={payment} 
+                    onEdit={handleEdit}
+                    onDelete={() => setDeletingPayment(payment)}
+                    getNextPaymentDate={getNextPaymentDate}
+                  />
+                ))
+              )}
+            </TabsContent>
+
+            <TabsContent value="recurring" className="space-y-4 mt-4">
+              {recurringPayments.length === 0 ? (
+                <p className="text-center text-muted-foreground py-8">No recurring payments</p>
+              ) : (
+                recurringPayments.map((payment) => (
+                  <PaymentCard 
+                    key={payment.id} 
+                    payment={payment} 
+                    onEdit={handleEdit}
+                    onDelete={() => setDeletingPayment(payment)}
+                    getNextPaymentDate={getNextPaymentDate}
+                  />
+                ))
+              )}
+            </TabsContent>
+
+            <TabsContent value="completed" className="space-y-4 mt-4">
+              {completedPayments.length === 0 ? (
+                <p className="text-center text-muted-foreground py-8">No completed payments</p>
+              ) : (
+                completedPayments.map((payment) => (
+                  <PaymentCard 
+                    key={payment.id} 
+                    payment={payment} 
+                    onEdit={handleEdit}
+                    onDelete={() => setDeletingPayment(payment)}
+                    getNextPaymentDate={getNextPaymentDate}
+                  />
+                ))
+              )}
+            </TabsContent>
+          </Tabs>
         </CardContent>
       </Card>
+
+      <AlertDialog open={!!deletingPayment} onOpenChange={() => setDeletingPayment(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Cancel Payment?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to cancel this payment to {deletingPayment?.payee_name}? This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Keep Payment</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDelete}>Cancel Payment</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </div>
+  );
+}
+
+function PaymentCard({ payment, onEdit, onDelete, getNextPaymentDate }: any) {
+  const nextDate = getNextPaymentDate(payment);
+  const paymentDate = new Date(payment.payment_date);
+  const isUpcoming = payment.status === "scheduled" && paymentDate >= new Date();
+
+  return (
+    <div className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50 transition-colors">
+      <div className="flex items-center gap-4 flex-1">
+        <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
+          <FileText className="h-6 w-6 text-primary" />
+        </div>
+        <div className="flex-1">
+          <p className="font-semibold">{payment.payee_name}</p>
+          <div className="flex items-center gap-2 text-sm text-muted-foreground flex-wrap">
+            <div className="flex items-center gap-1">
+              <Calendar className="h-3 w-3" />
+              {paymentDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+            </div>
+            {payment.is_recurring && (
+              <>
+                <Badge variant="secondary" className="capitalize">
+                  {payment.recurring_frequency}
+                </Badge>
+                {nextDate && isUpcoming && (
+                  <span className="text-xs">
+                    Next: {nextDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                  </span>
+                )}
+              </>
+            )}
+          </div>
+          {payment.notes && (
+            <p className="text-xs text-muted-foreground mt-1">{payment.notes}</p>
+          )}
+        </div>
+      </div>
+      <div className="flex items-center gap-4">
+        <div className="text-right">
+          <p className="font-semibold text-lg">${parseFloat(payment.amount).toFixed(2)}</p>
+          <Badge 
+            variant={
+              payment.status === "completed" ? "default" : 
+              payment.status === "scheduled" ? "secondary" : 
+              "destructive"
+            }
+            className="capitalize"
+          >
+            {payment.status}
+          </Badge>
+        </div>
+        {payment.status === "scheduled" && (
+          <div className="flex gap-1">
+            <Button
+              size="icon"
+              variant="ghost"
+              onClick={() => onEdit(payment)}
+              title="Edit payment"
+            >
+              <Edit className="h-4 w-4" />
+            </Button>
+            <Button
+              size="icon"
+              variant="ghost"
+              onClick={onDelete}
+              title="Cancel payment"
+            >
+              <Trash2 className="h-4 w-4" />
+            </Button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
