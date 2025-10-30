@@ -11,14 +11,18 @@ import {
   Link as LinkIcon
 } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { TransferModal } from "./TransferModal";
+import { AutoTransferModal } from "./AutoTransferModal";
 
 interface QuickActionsProps {
   onAction: () => void;
 }
 
 export function QuickActions({ onAction }: QuickActionsProps) {
+  const navigate = useNavigate();
   const [showTransferModal, setShowTransferModal] = useState(false);
+  const [showAutoTransferModal, setShowAutoTransferModal] = useState(false);
 
   const actions = [
     {
@@ -29,37 +33,37 @@ export function QuickActions({ onAction }: QuickActionsProps) {
     {
       icon: <Receipt className="h-5 w-5" />,
       label: "Pay Bills",
-      onClick: () => {}
+      onClick: () => navigate("/dashboard/bill-pay")
     },
     {
       icon: <Download className="h-5 w-5" />,
       label: "Mobile Deposit",
-      onClick: () => {}
+      onClick: () => navigate("/dashboard/mobile-deposit")
     },
     {
       icon: <CreditCard className="h-5 w-5" />,
       label: "Apply for Card",
-      onClick: () => {}
+      onClick: () => navigate("/dashboard/card-application")
     },
     {
       icon: <Bitcoin className="h-5 w-5" />,
       label: "Crypto",
-      onClick: () => {}
+      onClick: () => navigate("/dashboard/crypto")
     },
     {
       icon: <LinkIcon className="h-5 w-5" />,
       label: "Link Account (ACH)",
-      onClick: () => {}
+      onClick: () => navigate("/dashboard/ach-accounts")
     },
     {
       icon: <FileText className="h-5 w-5" />,
       label: "Statements",
-      onClick: () => {}
+      onClick: () => navigate("/dashboard/statements")
     },
     {
       icon: <RefreshCw className="h-5 w-5" />,
       label: "Auto-Transfer",
-      onClick: () => {}
+      onClick: () => setShowAutoTransferModal(true)
     }
   ];
 
@@ -89,6 +93,16 @@ export function QuickActions({ onAction }: QuickActionsProps) {
           onClose={() => setShowTransferModal(false)}
           onSuccess={() => {
             setShowTransferModal(false);
+            onAction();
+          }}
+        />
+      )}
+
+      {showAutoTransferModal && (
+        <AutoTransferModal
+          onClose={() => setShowAutoTransferModal(false)}
+          onSuccess={() => {
+            setShowAutoTransferModal(false);
             onAction();
           }}
         />

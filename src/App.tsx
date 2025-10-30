@@ -36,6 +36,11 @@ import Settings from "./pages/dashboard/Settings";
 import Accounts from "./pages/dashboard/Accounts";
 import DashboardTransfers from "./pages/dashboard/DashboardTransfers";
 import Support from "./pages/dashboard/Support";
+import ACHAccounts from "./pages/dashboard/ACHAccounts";
+import CryptoWallet from "./pages/dashboard/CryptoWallet";
+import CardApplication from "./pages/dashboard/CardApplication";
+import AccountDetails from "./pages/dashboard/AccountDetails";
+import StatementGenerator from "./pages/dashboard/StatementGenerator";
 
 const queryClient = new QueryClient();
 
@@ -78,6 +83,11 @@ const App = () => (
           <Route path="/dashboard/alerts" element={<Alerts />} />
           <Route path="/dashboard/settings" element={<Settings />} />
           <Route path="/dashboard/support" element={<Support />} />
+          <Route path="/dashboard/ach-accounts" element={<ACHAccounts />} />
+          <Route path="/dashboard/crypto" element={<CryptoWallet />} />
+          <Route path="/dashboard/card-application" element={<CardApplication />} />
+          <Route path="/dashboard/account-details" element={<AccountDetails />} />
+          <Route path="/dashboard/generate-statement" element={<StatementGenerator />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

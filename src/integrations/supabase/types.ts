@@ -80,6 +80,47 @@ export type Database = {
         }
         Relationships: []
       }
+      account_details: {
+        Row: {
+          account_id: string
+          bank_address: string
+          branch_code: string | null
+          created_at: string
+          iban: string
+          id: string
+          swift_code: string
+          user_id: string
+        }
+        Insert: {
+          account_id: string
+          bank_address: string
+          branch_code?: string | null
+          created_at?: string
+          iban: string
+          id?: string
+          swift_code: string
+          user_id: string
+        }
+        Update: {
+          account_id?: string
+          bank_address?: string
+          branch_code?: string | null
+          created_at?: string
+          iban?: string
+          id?: string
+          swift_code?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "account_details_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: true
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       accounts: {
         Row: {
           account_name: string
@@ -122,6 +163,45 @@ export type Database = {
           status?: string | null
           updated_at?: string | null
           user_id?: string
+        }
+        Relationships: []
+      }
+      ach_accounts: {
+        Row: {
+          account_name: string
+          account_number: string
+          account_type: string
+          bank_name: string
+          created_at: string
+          id: string
+          routing_number: string
+          updated_at: string
+          user_id: string
+          verification_status: string
+        }
+        Insert: {
+          account_name: string
+          account_number: string
+          account_type: string
+          bank_name: string
+          created_at?: string
+          id?: string
+          routing_number: string
+          updated_at?: string
+          user_id: string
+          verification_status?: string
+        }
+        Update: {
+          account_name?: string
+          account_number?: string
+          account_type?: string
+          bank_name?: string
+          created_at?: string
+          id?: string
+          routing_number?: string
+          updated_at?: string
+          user_id?: string
+          verification_status?: string
         }
         Relationships: []
       }
@@ -247,6 +327,42 @@ export type Database = {
         }
         Relationships: []
       }
+      card_applications: {
+        Row: {
+          annual_income: number | null
+          application_status: string
+          card_type: string
+          created_at: string
+          employment_status: string | null
+          id: string
+          requested_credit_limit: number | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          annual_income?: number | null
+          application_status?: string
+          card_type: string
+          created_at?: string
+          employment_status?: string | null
+          id?: string
+          requested_credit_limit?: number | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          annual_income?: number | null
+          application_status?: string
+          card_type?: string
+          created_at?: string
+          employment_status?: string | null
+          id?: string
+          requested_credit_limit?: number | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       cards: {
         Row: {
           account_id: string
@@ -331,6 +447,7 @@ export type Database = {
         Row: {
           balance: number | null
           created_at: string | null
+          currency: string
           id: string
           updated_at: string | null
           user_id: string
@@ -340,6 +457,7 @@ export type Database = {
         Insert: {
           balance?: number | null
           created_at?: string | null
+          currency?: string
           id?: string
           updated_at?: string | null
           user_id: string
@@ -349,6 +467,7 @@ export type Database = {
         Update: {
           balance?: number | null
           created_at?: string | null
+          currency?: string
           id?: string
           updated_at?: string | null
           user_id?: string
@@ -491,6 +610,39 @@ export type Database = {
         }
         Relationships: []
       }
+      otp_codes: {
+        Row: {
+          code: string
+          created_at: string
+          email: string
+          expires_at: string
+          id: string
+          transaction_id: string | null
+          user_id: string
+          verified: boolean
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          email: string
+          expires_at: string
+          id?: string
+          transaction_id?: string | null
+          user_id: string
+          verified?: boolean
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          email?: string
+          expires_at?: string
+          id?: string
+          transaction_id?: string | null
+          user_id?: string
+          verified?: boolean
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -608,6 +760,7 @@ export type Database = {
       }
       support_tickets: {
         Row: {
+          chat_mode: string | null
           created_at: string | null
           description: string
           id: string
@@ -620,6 +773,7 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          chat_mode?: string | null
           created_at?: string | null
           description: string
           id?: string
@@ -632,6 +786,7 @@ export type Database = {
           user_id: string
         }
         Update: {
+          chat_mode?: string | null
           created_at?: string | null
           description?: string
           id?: string
@@ -702,6 +857,39 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      transfer_recipients: {
+        Row: {
+          created_at: string
+          id: string
+          last_used_at: string | null
+          recipient_account: string
+          recipient_bank: string
+          recipient_name: string
+          recipient_type: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          last_used_at?: string | null
+          recipient_account: string
+          recipient_bank: string
+          recipient_name: string
+          recipient_type: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          last_used_at?: string | null
+          recipient_account?: string
+          recipient_bank?: string
+          recipient_name?: string
+          recipient_type?: string
+          user_id?: string
+        }
+        Relationships: []
       }
       transfers: {
         Row: {

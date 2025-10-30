@@ -13,6 +13,10 @@ import {
   Briefcase,
   Gift,
   LifeBuoy,
+  Wallet,
+  Bitcoin,
+  Link,
+  Download,
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import {
@@ -29,14 +33,19 @@ import {
 
 const menuItems = [
   { title: "Overview", url: "/dashboard", icon: Home },
-  { title: "Accounts", url: "/dashboard/accounts", icon: CreditCard },
+  { title: "Accounts", url: "/dashboard/accounts", icon: Wallet },
+  { title: "Account Details", url: "/dashboard/account-details", icon: FileText },
   { title: "Transfers", url: "/dashboard/transfers", icon: ArrowLeftRight },
   { title: "Bill Pay", url: "/dashboard/bill-pay", icon: FileText },
   { title: "Mobile Deposit", url: "/dashboard/mobile-deposit", icon: Smartphone },
+  { title: "ACH Accounts", url: "/dashboard/ach-accounts", icon: Link },
+  { title: "Crypto Wallet", url: "/dashboard/crypto", icon: Bitcoin },
+  { title: "Apply for Card", url: "/dashboard/card-application", icon: CreditCard },
   { title: "Cards", url: "/dashboard/cards", icon: CreditCard },
   { title: "Credit Score", url: "/dashboard/credit-score", icon: TrendingUp },
   { title: "Loans", url: "/dashboard/loans", icon: DollarSign },
   { title: "Statements", url: "/dashboard/statements", icon: FileBarChart },
+  { title: "Generate Statement", url: "/dashboard/generate-statement", icon: Download },
   { title: "Offers & Rewards", url: "/dashboard/offers", icon: Gift },
   { title: "Alerts", url: "/dashboard/alerts", icon: Bell },
   { title: "Settings", url: "/dashboard/settings", icon: Settings },
