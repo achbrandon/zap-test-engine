@@ -1,9 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { CreditCard, TrendingUp, Wallet, Building2, Bitcoin, MapPin } from "lucide-react";
+import { CreditCard, TrendingUp, Wallet, Building2, Bitcoin, MapPin, ChevronRight, Menu } from "lucide-react";
 import bankingHero from "@/assets/banking-hero.jpg";
 import vaultBankLogo from "@/assets/vaultbank-logo.png";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Index = () => {
   return (
@@ -17,21 +23,90 @@ const Index = () => {
                 <img src={vaultBankLogo} alt="VaultBank" className="h-16" />
               </Link>
               <nav className="hidden md:flex items-center gap-6">
-                <Link to="/checking" className="text-sm font-medium hover:text-primary">
-                  Checking
-                </Link>
-                <Link to="/savings" className="text-sm font-medium hover:text-primary">
-                  Savings
-                </Link>
-                <Link to="/credit-cards" className="text-sm font-medium hover:text-primary">
-                  Credit Cards
-                </Link>
-                <Link to="/loans" className="text-sm font-medium hover:text-primary">
-                  Loans
-                </Link>
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="text-sm font-medium hover:text-primary flex items-center gap-1">
+                    Checking <ChevronRight className="h-3 w-3 rotate-90" />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="bg-background">
+                    <DropdownMenuItem asChild>
+                      <Link to="/checking">View All Checking Accounts</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to="/checking">Standard Checking</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to="/checking">Plus Checking</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to="/checking">Premier Checking</Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="text-sm font-medium hover:text-primary flex items-center gap-1">
+                    Savings <ChevronRight className="h-3 w-3 rotate-90" />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="bg-background">
+                    <DropdownMenuItem asChild>
+                      <Link to="/savings">View All Savings Accounts</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to="/savings">Basic Savings</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to="/savings">High-Yield Savings</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to="/savings">Money Market Account</Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="text-sm font-medium hover:text-primary flex items-center gap-1">
+                    Credit Cards <ChevronRight className="h-3 w-3 rotate-90" />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="bg-background">
+                    <DropdownMenuItem asChild>
+                      <Link to="/credit-cards">View All Credit Cards</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to="/credit-cards">Cash Rewards Card</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to="/credit-cards">Travel Rewards Card</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to="/credit-cards">Premium Card</Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="text-sm font-medium hover:text-primary flex items-center gap-1">
+                    Loans <ChevronRight className="h-3 w-3 rotate-90" />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="bg-background">
+                    <DropdownMenuItem asChild>
+                      <Link to="/loans">View All Loans</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to="/loans">Personal Loans</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to="/loans">Auto Loans</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to="/loans">Home Loans</Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+
                 <Link to="/investments" className="text-sm font-medium hover:text-primary">
                   Investments
                 </Link>
+                
                 <Link to="/crypto" className="text-sm font-medium hover:text-primary">
                   Crypto
                 </Link>
@@ -44,6 +119,39 @@ const Index = () => {
               <Button asChild>
                 <Link to="/auth">Sign In</Link>
               </Button>
+              
+              {/* Mobile Menu */}
+              <DropdownMenu>
+                <DropdownMenuTrigger className="md:hidden">
+                  <Menu className="h-6 w-6" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="bg-background w-48">
+                  <DropdownMenuItem asChild>
+                    <Link to="/checking">Checking</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/savings">Savings</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/credit-cards">Credit Cards</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/loans">Loans</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/investments">Investments</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/crypto">Crypto</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/locations">Locations</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/open-account">Open Account</Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           </div>
         </div>
