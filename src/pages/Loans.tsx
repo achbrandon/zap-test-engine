@@ -1,8 +1,10 @@
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { LoansDetails } from "@/components/banking/LoansDetails";
 import vaultBankLogo from "@/assets/vaultbank-logo.png";
+import homeLoanPromo from "@/assets/home-loan-promo.jpg";
 
 const Loans = () => {
   return (
@@ -26,6 +28,30 @@ const Loans = () => {
       </header>
 
       <LoansDetails />
+
+      {/* Home Loan Promotional Section */}
+      <section className="py-16 bg-secondary/50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <Card className="overflow-hidden">
+              <div className="grid md:grid-cols-2 gap-0">
+                <div className="relative h-64 md:h-auto">
+                  <img src={homeLoanPromo} alt="Home Loans" className="w-full h-full object-cover" />
+                </div>
+                <div className="p-8 flex flex-col justify-center">
+                  <h3 className="text-2xl font-bold mb-3">Lower Your Mortgage Rate</h3>
+                  <p className="text-muted-foreground mb-6">
+                    Now's the time to refinance—VaultBank can show you current rates and help you get started on an application.
+                  </p>
+                  <Button size="lg" asChild>
+                    <Link to="/open-account">Get Started</Link>
+                  </Button>
+                </div>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </section>
 
       <section className="py-16 bg-background">
         <div className="container mx-auto px-4">

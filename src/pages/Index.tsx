@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import { CreditCard, TrendingUp, Wallet, Building2, Bitcoin, MapPin, Menu } from "lucide-react";
 import bankingHero from "@/assets/banking-hero.jpg";
 import vaultBankLogo from "@/assets/vaultbank-logo.png";
+import promoCheckingBonus from "@/assets/promo-checking-bonus.jpg";
+import promoCreditCard from "@/assets/promo-credit-card.jpg";
+import promoAdvisor from "@/assets/promo-advisor.jpg";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -325,37 +328,49 @@ const Index = () => {
       <section className="py-12 bg-secondary/50">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-6">
-            <Card className="p-6 bg-primary text-primary-foreground hover:shadow-xl transition-all">
-              <div className="text-4xl font-bold mb-2">Enjoy $300</div>
-              <h3 className="text-lg font-semibold mb-2">New VaultBank checking customers</h3>
-              <p className="mb-4 text-sm opacity-90">
-                Open a VaultBank Total Checking account with qualifying activities.
-              </p>
-              <Button variant="secondary" asChild>
-                <Link to="/open-account">Open an account</Link>
-              </Button>
+            <Card className="overflow-hidden hover:shadow-xl transition-all group">
+              <div className="relative h-48">
+                <img src={promoCheckingBonus} alt="$300 Checking Bonus" className="w-full h-full object-cover" />
+              </div>
+              <div className="p-6">
+                <h3 className="text-lg font-semibold mb-2">New VaultBank checking customers</h3>
+                <p className="text-muted-foreground mb-4 text-sm">
+                  Open a VaultBank Total Checking account with qualifying activities.
+                </p>
+                <Button asChild className="w-full">
+                  <Link to="/open-account">Open an account</Link>
+                </Button>
+              </div>
             </Card>
 
-            <Card className="p-6 hover:shadow-xl transition-all bg-gradient-to-br from-blue-500/10 to-purple-500/10">
-              <CreditCard className="h-12 w-12 text-primary mb-3" />
-              <h3 className="text-lg font-semibold mb-2">Earn a $200 bonus</h3>
-              <p className="text-muted-foreground mb-4 text-sm">
-                Plus, earn unlimited 1.5% cash back on all purchases — all with no annual fee.
-              </p>
-              <Button asChild>
-                <Link to="/credit-cards">Learn more</Link>
-              </Button>
+            <Card className="overflow-hidden hover:shadow-xl transition-all group">
+              <div className="relative h-48">
+                <img src={promoCreditCard} alt="Credit Card Rewards" className="w-full h-full object-cover" />
+              </div>
+              <div className="p-6">
+                <h3 className="text-lg font-semibold mb-2">Earn a $200 bonus</h3>
+                <p className="text-muted-foreground mb-4 text-sm">
+                  Plus, earn unlimited 1.5% cash back on all purchases — all with no annual fee.
+                </p>
+                <Button asChild className="w-full">
+                  <Link to="/credit-cards">Learn more</Link>
+                </Button>
+              </div>
             </Card>
 
-            <Card className="p-6 hover:shadow-xl transition-all">
-              <Building2 className="h-12 w-12 text-primary mb-3" />
-              <h3 className="text-lg font-semibold mb-2">Partner with a VaultBank Advisor</h3>
-              <p className="text-muted-foreground mb-4 text-sm">
-                Get dedicated help reaching your individual investment goals.
-              </p>
-              <Button asChild>
-                <Link to="/investments">Continue</Link>
-              </Button>
+            <Card className="overflow-hidden hover:shadow-xl transition-all group">
+              <div className="relative h-48">
+                <img src={promoAdvisor} alt="Financial Advisor" className="w-full h-full object-cover" />
+              </div>
+              <div className="p-6">
+                <h3 className="text-lg font-semibold mb-2">Partner with a VaultBank Advisor</h3>
+                <p className="text-muted-foreground mb-4 text-sm">
+                  Get dedicated help reaching your individual investment goals.
+                </p>
+                <Button asChild className="w-full">
+                  <Link to="/investments">Continue</Link>
+                </Button>
+              </div>
             </Card>
           </div>
         </div>

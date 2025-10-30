@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { Plane, Globe, Shield, CreditCard, MapPin, Wallet } from "lucide-react";
 import vaultBankLogo from "@/assets/vaultbank-logo.png";
+import travelHero from "@/assets/travel-hero.jpg";
 
 const Travel = () => {
   return (
@@ -27,8 +28,11 @@ const Travel = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-blue-500/10 to-purple-500/10">
-        <div className="container mx-auto px-4">
+      <section className="relative py-20 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img src={travelHero} alt="Travel Banking" className="w-full h-full object-cover opacity-40" />
+        </div>
+        <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <Plane className="h-16 w-16 text-primary mx-auto mb-6" />
             <h1 className="text-5xl md:text-6xl font-bold mb-6">

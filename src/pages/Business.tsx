@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { Building2, CreditCard, TrendingUp, Users, Shield, Zap } from "lucide-react";
 import vaultBankLogo from "@/assets/vaultbank-logo.png";
+import businessHero from "@/assets/business-hero.jpg";
 
 const Business = () => {
   return (
@@ -27,8 +28,11 @@ const Business = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-primary/5 to-secondary">
-        <div className="container mx-auto px-4">
+      <section className="relative py-20 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img src={businessHero} alt="Business Banking" className="w-full h-full object-cover opacity-30" />
+        </div>
+        <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
               VaultBank for Business
