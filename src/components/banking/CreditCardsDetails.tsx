@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Check, ArrowRight, CreditCard as CreditCardIcon } from "lucide-react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 export const CreditCardsDetails = () => {
   return (
@@ -157,6 +158,66 @@ export const CreditCardsDetails = () => {
               Apply Now <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </Card>
+        </div>
+
+        {/* FAQ Section */}
+        <div className="max-w-3xl mx-auto">
+          <h3 className="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h3>
+          <Accordion type="single" collapsible className="space-y-4">
+            <AccordionItem value="item-1">
+              <AccordionTrigger className="text-left text-lg font-semibold">
+                How do I choose the right credit card?
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                Consider your spending habits and goals. If you want cash back on everyday purchases, choose our Cash Rewards card. For frequent travelers, the Travel Rewards card offers bonus points and no foreign transaction fees. If you want premium perks, the Premium card provides exclusive benefits and higher rewards.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-2">
+              <AccordionTrigger className="text-left text-lg font-semibold">
+                What credit score do I need to qualify?
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                Generally, you'll need a credit score of 670 or higher for our standard cards, and 740+ for premium cards. However, we consider multiple factors including income, employment, and credit history when reviewing applications.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-3">
+              <AccordionTrigger className="text-left text-lg font-semibold">
+                How long does it take to get approved?
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                Most applications are reviewed instantly, and you'll receive a decision within 60 seconds. In some cases, additional review may be needed, which can take 7-10 business days. Once approved, you'll receive your card within 7-10 business days.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-4">
+              <AccordionTrigger className="text-left text-lg font-semibold">
+                When will I receive my sign-up bonus?
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                Sign-up bonuses are typically credited to your account within 6-8 weeks after you meet the spending requirement. The spending requirement must be met within the first 3 months of account opening.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-5">
+              <AccordionTrigger className="text-left text-lg font-semibold">
+                Are there foreign transaction fees?
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                Our Cash Rewards card charges a 3% foreign transaction fee. However, both our Travel Rewards and Premium cards have no foreign transaction fees, making them ideal for international travel.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-6">
+              <AccordionTrigger className="text-left text-lg font-semibold">
+                How do I redeem my rewards?
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                You can redeem rewards anytime through our mobile app or online banking. Cash back can be deposited directly into your VaultBank account, used as a statement credit, or redeemed for gift cards. Travel points can be redeemed for flights, hotels, car rentals, or transferred to travel partners.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
       </div>
     </section>

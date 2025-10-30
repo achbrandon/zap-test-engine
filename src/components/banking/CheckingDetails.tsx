@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Check, ArrowRight } from "lucide-react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 interface CheckingDetailsProps {
   onOpenAccount?: () => void;
@@ -164,6 +165,66 @@ export const CheckingDetails = ({ onOpenAccount }: CheckingDetailsProps) => {
               </ul>
             </div>
           </div>
+        </div>
+
+        {/* FAQ Section */}
+        <div className="mt-16 max-w-3xl mx-auto">
+          <h3 className="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h3>
+          <Accordion type="single" collapsible className="space-y-4">
+            <AccordionItem value="item-1">
+              <AccordionTrigger className="text-left text-lg font-semibold">
+                What is the minimum deposit to open a checking account?
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                There's no minimum deposit required to open a Standard Checking account. You can start with any amount. However, maintaining certain balances may help you avoid monthly fees and qualify for additional benefits.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-2">
+              <AccordionTrigger className="text-left text-lg font-semibold">
+                How can I avoid monthly maintenance fees?
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                You can waive monthly fees by: maintaining a minimum daily balance ($1,500 for Plus, $15,000 for Premier), setting up direct deposit of at least $500, or making 5+ debit card purchases per month. Specific requirements vary by account type.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-3">
+              <AccordionTrigger className="text-left text-lg font-semibold">
+                Are there ATM fees?
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                VaultBank has over 16,000 fee-free ATMs nationwide. Using out-of-network ATMs may incur a fee of $2.50 per transaction, plus any fees charged by the ATM owner. Premier checking customers get unlimited ATM fee rebates.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-4">
+              <AccordionTrigger className="text-left text-lg font-semibold">
+                What overdraft protection options are available?
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                We offer overdraft protection by linking your checking to a savings account or credit line. Plus checking customers get 3 fee-free overdraft transactions per year. You can also opt out of overdraft coverage entirely.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-5">
+              <AccordionTrigger className="text-left text-lg font-semibold">
+                Can I open a joint checking account?
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                Yes, all checking accounts can be opened as joint accounts with another person. Both account holders have full access and equal rights to the account, and both are responsible for maintaining the account balance and avoiding fees.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-6">
+              <AccordionTrigger className="text-left text-lg font-semibold">
+                How do I access my account online?
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                Download our mobile app or visit our website to access your account 24/7. You can check balances, transfer funds, pay bills, deposit checks, and more. Enroll in online banking when you open your account or visit any branch.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
       </div>
     </section>

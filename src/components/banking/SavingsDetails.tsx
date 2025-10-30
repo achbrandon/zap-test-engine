@@ -2,6 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Check, ArrowRight, TrendingUp } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 interface SavingsDetailsProps {
   onOpenAccount?: () => void;
@@ -248,6 +249,66 @@ export const SavingsDetails = ({ onOpenAccount }: SavingsDetailsProps) => {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* FAQ Section */}
+        <div className="max-w-3xl mx-auto">
+          <h3 className="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h3>
+          <Accordion type="single" collapsible className="space-y-4">
+            <AccordionItem value="item-1">
+              <AccordionTrigger className="text-left text-lg font-semibold">
+                What's the difference between savings and money market accounts?
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                Savings accounts offer competitive interest rates with easy access to your funds. Money market accounts typically offer higher rates but require higher minimum balances and may come with check-writing privileges and debit card access.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-2">
+              <AccordionTrigger className="text-left text-lg font-semibold">
+                How is my money protected?
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                All VaultBank deposit accounts are FDIC insured up to $250,000 per depositor, per insured bank, for each account ownership category. This means your deposits are backed by the full faith and credit of the U.S. government.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-3">
+              <AccordionTrigger className="text-left text-lg font-semibold">
+                Can I withdraw money from my savings account at any time?
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                Yes, you can access your money whenever you need it. However, federal regulations previously limited certain types of withdrawals to 6 per month. While this requirement has been lifted, we encourage you to keep your savings separate from daily spending for better financial health.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-4">
+              <AccordionTrigger className="text-left text-lg font-semibold">
+                How often is interest paid on savings accounts?
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                Interest is compounded daily and credited to your account monthly. This means your interest earns interest, helping your savings grow faster. The Annual Percentage Yield (APY) includes the effect of compounding.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-5">
+              <AccordionTrigger className="text-left text-lg font-semibold">
+                Should I choose a CD or a savings account?
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                CDs typically offer higher interest rates but require you to lock in your money for a specific term (6 months to 5 years). Choose a CD if you don't need immediate access to your funds and want a guaranteed rate. Choose a savings account for flexibility and regular access to your money.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-6">
+              <AccordionTrigger className="text-left text-lg font-semibold">
+                Can I set up automatic transfers to my savings account?
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                Absolutely! You can set up automatic transfers from your checking account to your savings account on a schedule that works for you—weekly, bi-weekly, or monthly. This "pay yourself first" approach makes saving effortless.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
       </div>
     </section>

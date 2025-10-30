@@ -213,9 +213,9 @@ const Index = () => {
                           Apply for a mortgage
                         </button>
                         <div className="my-2 border-t border-border" />
-                        <button onClick={() => handleNavClick('loans')} className="block w-full text-left px-4 py-2 hover:bg-accent rounded-md">
-                          Access calculators and tools
-                        </button>
+                        <Link to="/mortgage-calculator" className="block w-full text-left px-4 py-2 hover:bg-accent rounded-md text-primary font-medium">
+                          Mortgage Calculator
+                        </Link>
                         <button onClick={() => handleNavClick('loans')} className="block w-full text-left px-4 py-2 hover:bg-accent rounded-md">
                           See current rates
                         </button>
