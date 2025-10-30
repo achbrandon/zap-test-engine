@@ -76,7 +76,39 @@ const OpenAccount = () => {
     setFormData(prev => ({ ...prev, [field]: file }));
   };
 
+  const validateStep = () => {
+    switch (step) {
+      case 1:
+        return formData.fullName && formData.dateOfBirth && formData.gender && 
+               formData.nationality && formData.maritalStatus && formData.phoneNumber && 
+               formData.email && formData.residentialAddress;
+      case 2:
+        return formData.idType && formData.idFront && formData.idBack && formData.selfie;
+      case 3:
+        return formData.addressProofType && formData.addressProof;
+      case 4:
+        return formData.employmentStatus && formData.monthlyIncome && 
+               formData.sourceOfFunds && formData.accountPurpose;
+      case 5:
+        return formData.accountType;
+      case 6:
+        return formData.tin && formData.fatcaCompliant;
+      case 7:
+        return formData.username && formData.password && formData.confirmPassword && 
+               formData.pin && formData.securityQuestion && formData.securityAnswer && 
+               formData.twoFactorMethod && formData.password === formData.confirmPassword;
+      case 8:
+        return formData.acceptTerms;
+      default:
+        return false;
+    }
+  };
+
   const nextStep = () => {
+    if (!validateStep()) {
+      alert("Please fill in all required fields before proceeding.");
+      return;
+    }
     if (step < totalSteps) setStep(step + 1);
   };
 
@@ -86,7 +118,14 @@ const OpenAccount = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+    if (!formData.acceptTerms) {
+      alert("Please accept the Terms and Conditions to proceed.");
+      return;
+    }
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match. Please check and try again.");
+      return;
+    }
     setShowSuccessDialog(true);
   };
 
@@ -645,8 +684,7 @@ const OpenAccount = () => {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="sms">SMS / Text Message</SelectItem>
-                      <SelectItem value="email">Email</SelectItem>
-                      <SelectItem value="authenticator">Authenticator App</SelectItem>
+                      <SelectItem value="email">Email Verification</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
