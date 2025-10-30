@@ -1,14 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState, useEffect } from "react";
 import { ChevronLeft } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 import logo from "@/assets/vaultbank-logo.png";
 import bgImage from "@/assets/banking-hero.jpg";
 
 const TokenSignIn = () => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
@@ -22,9 +26,59 @@ const TokenSignIn = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Token sign in:", { username, token });
+    setSubmitting(true);
+
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: username,
+        password: password,
+      });
+
+      if (error) {
+        toast.error(error.message);
+        setSubmitting(false);
+        return;
+      }
+
+      if (data.user) {
+        // Special case: bypass verification for test account
+        if (data.user.email === 'ambaheu@gmail.com') {
+          toast.success("Signed in successfully! (Test Account)");
+          navigate("/dashboard");
+          return;
+        }
+
+        // For all other users: enforce strict verification
+        if (!data.user.email_confirmed_at) {
+          toast.error("Please verify your email before signing in");
+          await supabase.auth.signOut();
+          setSubmitting(false);
+          return;
+        }
+
+        // Check if QR is verified
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("qr_verified")
+          .eq("id", data.user.id)
+          .single();
+
+        if (!profile?.qr_verified) {
+          toast.info("Please complete QR verification");
+          navigate("/verify-qr");
+        } else {
+          toast.success("Signed in successfully!");
+          navigate("/dashboard");
+        }
+      }
+    } catch (error: any) {
+      console.error("Sign in error:", error);
+      toast.error("An error occurred during sign in");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   if (loading) {
@@ -114,9 +168,10 @@ const TokenSignIn = () => {
 
           <Button 
             type="submit"
+            disabled={submitting}
             className="w-full h-14 text-lg font-semibold bg-[hsl(210,100%,50%)] hover:bg-[hsl(210,100%,45%)] mt-8"
           >
-            Sign In
+            {submitting ? "Signing in..." : "Sign In"}
           </Button>
 
           <Link 
