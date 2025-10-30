@@ -93,7 +93,7 @@ const Index = () => {
 
             {/* Utility Links - Right Side */}
             <div className="flex items-center gap-6">
-              <Link to="/locations" className="text-muted-foreground hover:text-foreground transition-colors">
+              <Link to="/schedule-meeting" className="text-muted-foreground hover:text-foreground transition-colors">
                 Schedule a meeting
               </Link>
               
@@ -115,9 +115,20 @@ const Index = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              <button className="text-muted-foreground hover:text-foreground transition-colors">
-                Español
-              </button>
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex items-center gap-1 text-muted-foreground hover:text-foreground transition-colors">
+                  Español
+                  <ChevronDown className="h-3.5 w-3.5" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="bg-background z-50">
+                  <DropdownMenuItem>English</DropdownMenuItem>
+                  <DropdownMenuItem>Español</DropdownMenuItem>
+                  <DropdownMenuItem>Français</DropdownMenuItem>
+                  <DropdownMenuItem>Deutsch</DropdownMenuItem>
+                  <DropdownMenuItem>中文</DropdownMenuItem>
+                  <DropdownMenuItem>日本語</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           </div>
         </div>
