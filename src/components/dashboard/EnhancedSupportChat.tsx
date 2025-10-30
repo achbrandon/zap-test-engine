@@ -29,6 +29,7 @@ export function EnhancedSupportChat({ userId, onClose }: EnhancedSupportChatProp
   const [showRating, setShowRating] = useState(false);
   const [rating, setRating] = useState(0);
   const [ratingFeedback, setRatingFeedback] = useState("");
+  const [userOnline, setUserOnline] = useState(true);
   const scrollRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -42,6 +43,7 @@ export function EnhancedSupportChat({ userId, onClose }: EnhancedSupportChatProp
   useEffect(() => {
     if (ticketId) {
       subscribeToMessages();
+      subscribeToTicketChanges();
       updateUserOnlineStatus(true);
     }
 
@@ -51,6 +53,29 @@ export function EnhancedSupportChat({ userId, onClose }: EnhancedSupportChatProp
       }
     };
   }, [ticketId]);
+
+  const subscribeToTicketChanges = () => {
+    const channel = supabase
+      .channel('ticket-status')
+      .on(
+        'postgres_changes',
+        {
+          event: 'UPDATE',
+          schema: 'public',
+          table: 'support_tickets',
+          filter: `id=eq.${ticketId}`
+        },
+        (payload) => {
+          setAgentOnline(payload.new.agent_online || false);
+          setTicket(payload.new);
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  };
 
   useEffect(() => {
     if (scrollRef.current) {

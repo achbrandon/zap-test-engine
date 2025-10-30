@@ -86,6 +86,26 @@ export default function LoanApplication() {
 
       if (error) throw error;
 
+      // Get user's first active account for transaction record
+      const { data: accounts } = await supabase
+        .from("accounts")
+        .select("id")
+        .eq("user_id", user.id)
+        .eq("status", "active")
+        .limit(1);
+
+      if (accounts && accounts.length > 0) {
+        await supabase.from("transactions").insert({
+          user_id: user.id,
+          account_id: accounts[0].id,
+          transaction_type: "credit",
+          amount: parseFloat(loanData.amount),
+          description: `Loan Application - ${loanData.purpose.substring(0, 50)}`,
+          category: "Loan",
+          status: "pending"
+        });
+      }
+
       toast.success("Loan application submitted successfully!");
       setShowTerms(false);
       navigate("/dashboard/loans");

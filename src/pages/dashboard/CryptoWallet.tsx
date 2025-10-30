@@ -461,7 +461,7 @@ export default function CryptoWallet() {
           </h3>
           <ul className="text-sm text-muted-foreground space-y-2">
             <li>• All crypto transactions require OTP verification</li>
-            <li>• Deposits typically process within 1-3 business days</li>
+            <li>• BTC/ETH deposits: 3-10 minutes | USDT/USDC (TRC-20): 1-3 minutes | BNB: 2-5 minutes</li>
             <li>• Network fees may apply for blockchain transactions</li>
             <li>• Always verify wallet addresses before withdrawal</li>
             <li>• OTP verification will be sent to your email for each transaction</li>

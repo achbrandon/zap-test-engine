@@ -83,8 +83,30 @@ export function TransferModal({ onClose, onSuccess }: TransferModalProps) {
 
       if (transferError) throw transferError;
 
+      // Create transaction records for both accounts
       const fromAcc = accounts.find(a => a.id === fromAccount);
       const toAcc = accounts.find(a => a.id === toAccount);
+
+      await supabase.from("transactions").insert([
+        {
+          user_id: user.id,
+          account_id: fromAccount,
+          transaction_type: "debit",
+          amount: transferAmount,
+          description: `Transfer to ${toAcc?.account_name}`,
+          category: "Transfer",
+          status: "completed"
+        },
+        {
+          user_id: user.id,
+          account_id: toAccount,
+          transaction_type: "credit",
+          amount: transferAmount,
+          description: `Transfer from ${fromAcc?.account_name}`,
+          category: "Transfer",
+          status: "completed"
+        }
+      ]);
 
       setReceiptData({
         type: 'internal',
