@@ -5,7 +5,9 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { useState, useEffect } from "react";
 import { ChevronRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 interface AuthDialogProps {
   open: boolean;
@@ -13,10 +15,12 @@ interface AuthDialogProps {
 }
 
 export const AuthDialog = ({ open, onOpenChange }: AuthDialogProps) => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!open) {
@@ -26,13 +30,71 @@ export const AuthDialog = ({ open, onOpenChange }: AuthDialogProps) => {
     }
   }, [open]);
 
+  const handleSignIn = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: username,
+        password: password,
+      });
+
+      if (error) {
+        toast.error(error.message);
+        setLoading(false);
+        return;
+      }
+
+      if (data.user) {
+        // Special case: bypass verification for test account
+        if (data.user.email === 'ambaheu@gmail.com') {
+          toast.success("Signed in successfully! (Test Account)");
+          onOpenChange(false);
+          navigate("/dashboard");
+          return;
+        }
+
+        // For all other users: enforce strict verification
+        if (!data.user.email_confirmed_at) {
+          toast.error("Please verify your email before signing in");
+          await supabase.auth.signOut();
+          setLoading(false);
+          return;
+        }
+
+        // Check if QR is verified
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("qr_verified")
+          .eq("id", data.user.id)
+          .single();
+
+        if (!profile?.qr_verified) {
+          toast.info("Please complete QR verification");
+          onOpenChange(false);
+          navigate("/verify-qr");
+        } else {
+          toast.success("Signed in successfully!");
+          onOpenChange(false);
+          navigate("/dashboard");
+        }
+      }
+    } catch (error: any) {
+      console.error("Sign in error:", error);
+      toast.error("An error occurred during sign in");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-md bg-white p-8 sm:rounded-2xl animate-scale-in border-0 shadow-2xl">
         <div className="animate-fade-in">
           <h1 className="text-3xl font-bold text-foreground mb-8 tracking-tight">Welcome</h1>
           
-          <div className="space-y-5">
+          <form onSubmit={handleSignIn} className="space-y-5">
             <div className="space-y-1.5 group">
               <Label 
                 htmlFor="username" 
@@ -100,9 +162,11 @@ export const AuthDialog = ({ open, onOpenChange }: AuthDialogProps) => {
 
             <div className="flex items-start gap-3 pt-3">
               <Button 
+                type="submit"
+                disabled={loading}
                 className="h-12 text-base font-semibold flex-1 bg-[hsl(210,100%,50%)] hover:bg-[hsl(210,100%,45%)] hover:shadow-lg hover:scale-105 transition-all duration-300 active:scale-95"
               >
-                Sign in
+                {loading ? "Signing in..." : "Sign in"}
               </Button>
               
               <div className="flex flex-col gap-1.5 justify-center">
@@ -122,7 +186,7 @@ export const AuthDialog = ({ open, onOpenChange }: AuthDialogProps) => {
                 </Link>
               </div>
             </div>
-          </div>
+          </form>
         </div>
       </DialogContent>
     </Dialog>
