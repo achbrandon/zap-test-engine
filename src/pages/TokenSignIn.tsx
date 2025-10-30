@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { useState, useEffect } from "react";
 import { ChevronLeft } from "lucide-react";
 import logo from "@/assets/vaultbank-logo.png";
+import bgImage from "@/assets/banking-hero.jpg";
 
 const TokenSignIn = () => {
   const [loading, setLoading] = useState(true);
@@ -43,8 +44,12 @@ const TokenSignIn = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[hsl(210,100%,50%)] flex items-center justify-center p-4">
-      <div className="w-full max-w-xl bg-white rounded-2xl p-12 shadow-xl">
+    <div 
+      className="min-h-screen flex items-center justify-center p-4 relative bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: `url(${bgImage})` }}
+    >
+      <div className="absolute inset-0 bg-black/40" />
+      <div className="w-full max-w-xl bg-white/95 backdrop-blur-sm rounded-2xl p-12 shadow-xl relative z-10">
         <div className="flex items-center gap-4 mb-8">
           <img src={logo} alt="VaultBank" className="w-16 h-16" />
           <h1 className="text-4xl font-bold text-foreground">VaultBank</h1>
