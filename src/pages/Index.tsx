@@ -62,8 +62,13 @@ const Index = () => {
                           </Link>
                         </NavigationMenuLink>
                         <NavigationMenuLink asChild>
-                          <Link to="/savings" className="block px-4 py-2 hover:bg-accent rounded-md">
+                          <Link to="/cds" className="block px-4 py-2 hover:bg-accent rounded-md">
                             CDs
+                          </Link>
+                        </NavigationMenuLink>
+                        <NavigationMenuLink asChild>
+                          <Link to="/money-market" className="block px-4 py-2 hover:bg-accent rounded-md">
+                            Money Market Account
                           </Link>
                         </NavigationMenuLink>
                       </div>
@@ -230,14 +235,6 @@ const Index = () => {
 
                   <NavigationMenuItem>
                     <NavigationMenuLink asChild>
-                      <Link to="/transfers" className={navigationMenuTriggerStyle()}>
-                        Travel
-                      </Link>
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
-
-                  <NavigationMenuItem>
-                    <NavigationMenuLink asChild>
                       <Link to="/crypto" className={navigationMenuTriggerStyle()}>
                         Crypto
                       </Link>
@@ -247,9 +244,6 @@ const Index = () => {
               </NavigationMenu>
             </div>
             <div className="flex items-center gap-4">
-              <Button variant="ghost" asChild>
-                <Link to="/locations">Find Locations</Link>
-              </Button>
               <Button asChild>
                 <Link to="/auth">Sign In</Link>
               </Button>
@@ -280,9 +274,6 @@ const Index = () => {
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link to="/open-account">Education & goals</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link to="/transfers">Travel</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link to="/crypto">Crypto</Link>
