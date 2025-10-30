@@ -14,7 +14,108 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      account_applications: {
+        Row: {
+          account_type: string
+          address: string | null
+          city: string | null
+          created_at: string | null
+          date_of_birth: string | null
+          email: string
+          email_verified: boolean | null
+          full_name: string
+          id: string
+          phone: string | null
+          qr_code_secret: string | null
+          qr_code_verified: boolean | null
+          ssn: string | null
+          state: string | null
+          status: string | null
+          updated_at: string | null
+          user_id: string | null
+          verification_token: string | null
+          zip_code: string | null
+        }
+        Insert: {
+          account_type: string
+          address?: string | null
+          city?: string | null
+          created_at?: string | null
+          date_of_birth?: string | null
+          email: string
+          email_verified?: boolean | null
+          full_name: string
+          id?: string
+          phone?: string | null
+          qr_code_secret?: string | null
+          qr_code_verified?: boolean | null
+          ssn?: string | null
+          state?: string | null
+          status?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+          verification_token?: string | null
+          zip_code?: string | null
+        }
+        Update: {
+          account_type?: string
+          address?: string | null
+          city?: string | null
+          created_at?: string | null
+          date_of_birth?: string | null
+          email?: string
+          email_verified?: boolean | null
+          full_name?: string
+          id?: string
+          phone?: string | null
+          qr_code_secret?: string | null
+          qr_code_verified?: boolean | null
+          ssn?: string | null
+          state?: string | null
+          status?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+          verification_token?: string | null
+          zip_code?: string | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          can_transact: boolean | null
+          created_at: string | null
+          email: string | null
+          email_verified: boolean | null
+          full_name: string | null
+          id: string
+          phone: string | null
+          qr_verified: boolean | null
+          updated_at: string | null
+        }
+        Insert: {
+          can_transact?: boolean | null
+          created_at?: string | null
+          email?: string | null
+          email_verified?: boolean | null
+          full_name?: string | null
+          id: string
+          phone?: string | null
+          qr_verified?: boolean | null
+          updated_at?: string | null
+        }
+        Update: {
+          can_transact?: boolean | null
+          created_at?: string | null
+          email?: string | null
+          email_verified?: boolean | null
+          full_name?: string | null
+          id?: string
+          phone?: string | null
+          qr_verified?: boolean | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
