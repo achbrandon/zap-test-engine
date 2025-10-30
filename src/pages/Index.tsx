@@ -25,14 +25,14 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="border-b border-border bg-background sticky top-0 z-50">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center gap-8">
+      <header className="border-b border-border bg-background sticky top-0 z-50 w-full">
+        <div className="container mx-auto px-4 h-full">
+          <div className="flex items-center justify-between h-16 w-full">
+            <div className="flex items-center gap-8 flex-1">
               <Link to="/" className="flex items-center">
                 <img src={vaultBankLogo} alt="VaultBank" className="h-16" />
               </Link>
-              <NavigationMenu className="hidden md:flex">
+              <NavigationMenu className="hidden md:flex flex-1">
                 <NavigationMenuList>
                   <NavigationMenuItem>
                     <NavigationMenuTrigger className="text-sm font-medium">Checking</NavigationMenuTrigger>
@@ -229,15 +229,19 @@ const Index = () => {
                   </NavigationMenuItem>
 
                   <NavigationMenuItem>
-                    <Link to="/transfers" className={navigationMenuTriggerStyle()}>
-                      Travel
-                    </Link>
+                    <NavigationMenuLink asChild>
+                      <Link to="/transfers" className={navigationMenuTriggerStyle()}>
+                        Travel
+                      </Link>
+                    </NavigationMenuLink>
                   </NavigationMenuItem>
 
                   <NavigationMenuItem>
-                    <Link to="/crypto" className={navigationMenuTriggerStyle()}>
-                      Crypto
-                    </Link>
+                    <NavigationMenuLink asChild>
+                      <Link to="/crypto" className={navigationMenuTriggerStyle()}>
+                        Crypto
+                      </Link>
+                    </NavigationMenuLink>
                   </NavigationMenuItem>
                 </NavigationMenuList>
               </NavigationMenu>
