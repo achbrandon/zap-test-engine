@@ -2,6 +2,12 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { CreditCard, TrendingUp, Wallet, Building2, Bitcoin, MapPin, Menu, ChevronDown } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import bankingHero from "@/assets/banking-hero.jpg";
 import vaultBankLogo from "@/assets/vaultbank-logo.png";
 import promoCheckingBonus from "@/assets/promo-checking-bonus.jpg";
@@ -639,18 +645,145 @@ const Index = () => {
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <section className="container mx-auto px-4 py-20">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="font-heading text-4xl md:text-5xl font-bold text-center mb-4">
+            Frequently Asked Questions
+          </h2>
+          <p className="text-muted-foreground text-center mb-12 text-lg">
+            Find answers to common questions about our services
+          </p>
+          
+          <Accordion type="single" collapsible className="space-y-4">
+            <AccordionItem value="item-1" className="bg-card/50 backdrop-blur-sm rounded-xl border px-6">
+              <AccordionTrigger className="text-lg font-semibold hover:no-underline">
+                How do I open a new account?
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                Opening a new account is easy! Simply click on "Open Account" in the navigation menu, choose the type of account you want (checking, savings, credit card, etc.), and follow the step-by-step process. You'll need a valid ID, Social Security number, and initial deposit. The entire process takes about 10 minutes and can be completed online.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-2" className="bg-card/50 backdrop-blur-sm rounded-xl border px-6">
+              <AccordionTrigger className="text-lg font-semibold hover:no-underline">
+                What are your interest rates?
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                Our interest rates vary by account type and balance. Savings accounts start at 0.50% APY, high-yield savings at 4.50% APY, and CDs range from 4.00% to 5.25% APY depending on the term. Money market accounts offer competitive tiered rates up to 4.75% APY. Check our product pages for current rates and terms.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-3" className="bg-card/50 backdrop-blur-sm rounded-xl border px-6">
+              <AccordionTrigger className="text-lg font-semibold hover:no-underline">
+                Is my money insured?
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                Yes! All deposit accounts are FDIC insured up to $250,000 per depositor, per account ownership category. This means your money is protected by the full faith and credit of the U.S. government. We take security seriously and use bank-level encryption to protect your information.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-4" className="bg-card/50 backdrop-blur-sm rounded-xl border px-6">
+              <AccordionTrigger className="text-lg font-semibold hover:no-underline">
+                How can I access my accounts?
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                You can access your accounts 24/7 through our mobile app, online banking portal, phone banking, or at any of our branch locations and ATMs nationwide. Our mobile app features biometric login, mobile check deposit, bill pay, and person-to-person transfers for ultimate convenience.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-5" className="bg-card/50 backdrop-blur-sm rounded-xl border px-6">
+              <AccordionTrigger className="text-lg font-semibold hover:no-underline">
+                What fees do you charge?
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                We believe in transparent pricing. Many of our accounts have no monthly maintenance fees when you meet simple requirements like maintaining a minimum balance or setting up direct deposit. We never charge fees for online bill pay, mobile deposits, or e-statements. Check our fee schedule for complete details on all account types.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-6" className="bg-card/50 backdrop-blur-sm rounded-xl border px-6">
+              <AccordionTrigger className="text-lg font-semibold hover:no-underline">
+                How do I schedule a meeting with an advisor?
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground">
+                You can schedule a meeting by clicking the "Schedule a meeting" button in the navigation menu. You'll be able to choose between in-person meetings at any of our branches or virtual meetings via video call. Our advisors can help with investment planning, loans, mortgages, and all your financial needs.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </div>
+      </section>
+
       {/* Footer */}
-      <footer className="border-t border-border py-8">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="flex items-center gap-2">
-              <img src={vaultBankLogo} alt="VaultBank" className="h-12" />
+      <footer className="bg-card/50 backdrop-blur-sm border-t mt-20">
+        <div className="container mx-auto px-4 py-12">
+          <div className="grid md:grid-cols-4 gap-8">
+            <div>
+              <h3 className="font-heading font-bold text-lg mb-4">About VaultBank</h3>
+              <Accordion type="single" collapsible>
+                <AccordionItem value="about" className="border-none">
+                  <AccordionTrigger className="text-muted-foreground hover:text-primary py-2 hover:no-underline text-left">
+                    Learn More
+                  </AccordionTrigger>
+                  <AccordionContent className="space-y-2 text-muted-foreground">
+                    <div><a href="#" className="block hover:text-primary transition-colors">About Us</a></div>
+                    <div><a href="#" className="block hover:text-primary transition-colors">Careers</a></div>
+                    <div><a href="#" className="block hover:text-primary transition-colors">Press</a></div>
+                    <div><a href="#" className="block hover:text-primary transition-colors">Investor Relations</a></div>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
             </div>
-            <div className="flex gap-6 text-sm text-muted-foreground">
-              <Link to="/checking" className="hover:text-foreground">Products</Link>
-              <Link to="/locations" className="hover:text-foreground">Locations</Link>
-              <button onClick={() => setAuthDialogOpen(true)} className="hover:text-foreground">Sign In</button>
+            <div>
+              <h3 className="font-heading font-bold text-lg mb-4">Support</h3>
+              <Accordion type="single" collapsible>
+                <AccordionItem value="support" className="border-none">
+                  <AccordionTrigger className="text-muted-foreground hover:text-primary py-2 hover:no-underline text-left">
+                    Get Help
+                  </AccordionTrigger>
+                  <AccordionContent className="space-y-2 text-muted-foreground">
+                    <div><a href="#" className="block hover:text-primary transition-colors">Help Center</a></div>
+                    <div><a href="#" className="block hover:text-primary transition-colors">Contact Us</a></div>
+                    <div><a href="#" className="block hover:text-primary transition-colors">Security Center</a></div>
+                    <div><a href="#" className="block hover:text-primary transition-colors">Report Fraud</a></div>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
             </div>
+            <div>
+              <h3 className="font-heading font-bold text-lg mb-4">Legal</h3>
+              <Accordion type="single" collapsible>
+                <AccordionItem value="legal" className="border-none">
+                  <AccordionTrigger className="text-muted-foreground hover:text-primary py-2 hover:no-underline text-left">
+                    Policies
+                  </AccordionTrigger>
+                  <AccordionContent className="space-y-2 text-muted-foreground">
+                    <div><a href="#" className="block hover:text-primary transition-colors">Privacy Policy</a></div>
+                    <div><a href="#" className="block hover:text-primary transition-colors">Terms of Service</a></div>
+                    <div><a href="#" className="block hover:text-primary transition-colors">Accessibility</a></div>
+                    <div><a href="#" className="block hover:text-primary transition-colors">Disclosures</a></div>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </div>
+            <div>
+              <h3 className="font-heading font-bold text-lg mb-4">Connect</h3>
+              <Accordion type="single" collapsible>
+                <AccordionItem value="social" className="border-none">
+                  <AccordionTrigger className="text-muted-foreground hover:text-primary py-2 hover:no-underline text-left">
+                    Follow Us
+                  </AccordionTrigger>
+                  <AccordionContent className="space-y-2 text-muted-foreground">
+                    <div><a href="#" className="block hover:text-primary transition-colors">Facebook</a></div>
+                    <div><a href="#" className="block hover:text-primary transition-colors">Twitter</a></div>
+                    <div><a href="#" className="block hover:text-primary transition-colors">LinkedIn</a></div>
+                    <div><a href="#" className="block hover:text-primary transition-colors">Instagram</a></div>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </div>
+          </div>
+          <div className="border-t mt-8 pt-8 text-center text-muted-foreground">
+            <p>&copy; 2024 VaultBank. All rights reserved. Member FDIC.</p>
           </div>
         </div>
       </footer>
