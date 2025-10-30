@@ -20,6 +20,7 @@ import MoneyMarket from "./pages/MoneyMarket";
 import Business from "./pages/Business";
 import Travel from "./pages/Travel";
 import ScheduleMeeting from "./pages/ScheduleMeeting";
+import MortgageCalculator from "./pages/MortgageCalculator";
 
 const queryClient = new QueryClient();
 
@@ -46,6 +47,7 @@ const App = () => (
           <Route path="/business" element={<Business />} />
           <Route path="/travel" element={<Travel />} />
           <Route path="/schedule-meeting" element={<ScheduleMeeting />} />
+          <Route path="/mortgage-calculator" element={<MortgageCalculator />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
