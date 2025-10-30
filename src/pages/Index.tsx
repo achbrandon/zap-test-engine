@@ -124,9 +124,6 @@ const Index = () => {
                   <DropdownMenuItem>English</DropdownMenuItem>
                   <DropdownMenuItem>Español</DropdownMenuItem>
                   <DropdownMenuItem>Français</DropdownMenuItem>
-                  <DropdownMenuItem>Deutsch</DropdownMenuItem>
-                  <DropdownMenuItem>中文</DropdownMenuItem>
-                  <DropdownMenuItem>日本語</DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
