@@ -6,7 +6,6 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { SMSVerification } from "./SMSVerification";
 import { TransferReceipt } from "./TransferReceipt";
 
 interface TransferModalProps {
@@ -21,30 +20,12 @@ export function TransferModal({ onClose, onSuccess }: TransferModalProps) {
   const [amount, setAmount] = useState("");
   const [notes, setNotes] = useState("");
   const [loading, setLoading] = useState(false);
-  const [showVerification, setShowVerification] = useState(false);
   const [showReceipt, setShowReceipt] = useState(false);
   const [receiptData, setReceiptData] = useState<any>(null);
-  const [phoneNumber, setPhoneNumber] = useState("");
 
   useEffect(() => {
     fetchAccounts();
-    fetchUserPhone();
   }, []);
-
-  const fetchUserPhone = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return;
-
-    const { data } = await supabase
-      .from("profiles")
-      .select("phone")
-      .eq("id", user.id)
-      .single();
-
-    if (data?.phone) {
-      setPhoneNumber(data.phone);
-    }
-  };
 
   const fetchAccounts = async () => {
     const { data: { user } } = await supabase.auth.getUser();
@@ -63,7 +44,7 @@ export function TransferModal({ onClose, onSuccess }: TransferModalProps) {
     }
   };
 
-  const handleInitiateTransfer = async () => {
+  const handleTransfer = async () => {
     if (!fromAccount || !toAccount || !amount) {
       toast.error("Please fill in all required fields");
       return;
@@ -79,20 +60,6 @@ export function TransferModal({ onClose, onSuccess }: TransferModalProps) {
       toast.error("Please enter a valid amount");
       return;
     }
-
-    setShowVerification(true);
-  };
-
-  const handleVerification = async (code: string): Promise<boolean> => {
-    if (code === "123456" || code.length === 6) {
-      setShowVerification(false);
-      await processTransfer();
-      return true;
-    }
-    return false;
-  };
-
-  const processTransfer = async () => {
     setLoading(true);
     try {
       const { data: { user } } = await supabase.auth.getUser();
@@ -141,7 +108,7 @@ export function TransferModal({ onClose, onSuccess }: TransferModalProps) {
 
   return (
     <>
-      <Dialog open={!showVerification && !showReceipt} onOpenChange={onClose}>
+      <Dialog open={!showReceipt} onOpenChange={onClose}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle>Internal Transfer</DialogTitle>
@@ -208,21 +175,12 @@ export function TransferModal({ onClose, onSuccess }: TransferModalProps) {
             <Button variant="outline" onClick={onClose} className="flex-1">
               Cancel
             </Button>
-            <Button onClick={handleInitiateTransfer} disabled={loading} className="flex-1">
-              Continue
+            <Button onClick={handleTransfer} disabled={loading} className="flex-1">
+              {loading ? "Processing..." : "Transfer"}
             </Button>
           </div>
         </DialogContent>
       </Dialog>
-
-      {showVerification && (
-        <SMSVerification
-          open={showVerification}
-          onVerify={handleVerification}
-          onClose={() => setShowVerification(false)}
-          phoneNumber={phoneNumber}
-        />
-      )}
 
       {showReceipt && receiptData && (
         <TransferReceipt

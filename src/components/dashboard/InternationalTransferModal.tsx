@@ -7,7 +7,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { SMSVerification } from "./SMSVerification";
 import { TransferReceipt } from "./TransferReceipt";
 import { Globe } from "lucide-react";
 
@@ -31,14 +30,11 @@ export function InternationalTransferModal({ onClose, onSuccess }: International
   const [purpose, setPurpose] = useState("");
   const [feeOption, setFeeOption] = useState<"SHA" | "OUR" | "BEN">("SHA");
   const [loading, setLoading] = useState(false);
-  const [showVerification, setShowVerification] = useState(false);
   const [showReceipt, setShowReceipt] = useState(false);
   const [receiptData, setReceiptData] = useState<any>(null);
-  const [phoneNumber, setPhoneNumber] = useState("");
 
   useEffect(() => {
     fetchAccounts();
-    fetchUserPhone();
   }, []);
 
   const fetchAccounts = async () => {
@@ -54,22 +50,7 @@ export function InternationalTransferModal({ onClose, onSuccess }: International
     setAccounts(data || []);
   };
 
-  const fetchUserPhone = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return;
-
-    const { data } = await supabase
-      .from("profiles")
-      .select("phone")
-      .eq("id", user.id)
-      .single();
-
-    if (data?.phone) {
-      setPhoneNumber(data.phone);
-    }
-  };
-
-  const handleInitiateTransfer = async () => {
+  const handleTransfer = async () => {
     if (!fromAccount || !recipientName || !recipientAddress || !recipientBank || !swiftCode || !iban || !amount || !purpose) {
       toast.error("Please fill in all required fields");
       return;
@@ -86,19 +67,6 @@ export function InternationalTransferModal({ onClose, onSuccess }: International
       return;
     }
 
-    setShowVerification(true);
-  };
-
-  const handleVerification = async (code: string): Promise<boolean> => {
-    if (code === "123456" || code.length === 6) {
-      setShowVerification(false);
-      await processTransfer();
-      return true;
-    }
-    return false;
-  };
-
-  const processTransfer = async () => {
     setLoading(true);
     try {
       const { data: { user } } = await supabase.auth.getUser();
@@ -163,7 +131,7 @@ export function InternationalTransferModal({ onClose, onSuccess }: International
 
   return (
     <>
-      <Dialog open={!showVerification && !showReceipt} onOpenChange={onClose}>
+      <Dialog open={!showReceipt} onOpenChange={onClose}>
         <DialogContent className="sm:max-w-3xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
@@ -337,21 +305,12 @@ export function InternationalTransferModal({ onClose, onSuccess }: International
             <Button variant="outline" onClick={onClose} className="flex-1">
               Cancel
             </Button>
-            <Button onClick={handleInitiateTransfer} disabled={loading} className="flex-1">
-              Continue
+            <Button onClick={handleTransfer} disabled={loading} className="flex-1">
+              {loading ? "Processing..." : "Send Transfer"}
             </Button>
           </div>
         </DialogContent>
       </Dialog>
-
-      {showVerification && (
-        <SMSVerification
-          open={showVerification}
-          onVerify={handleVerification}
-          onClose={() => setShowVerification(false)}
-          phoneNumber={phoneNumber}
-        />
-      )}
 
       {showReceipt && receiptData && (
         <TransferReceipt
