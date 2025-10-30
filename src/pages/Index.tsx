@@ -27,34 +27,57 @@ const Index = () => {
                   <DropdownMenuTrigger className="text-sm font-medium hover:text-primary flex items-center gap-1">
                     Checking <ChevronRight className="h-3 w-3 rotate-90" />
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="bg-background w-64 z-50">
-                    <div className="p-2">
-                      <DropdownMenuItem asChild>
-                        <Link to="/checking" className="font-semibold text-primary">View All Checking Accounts</Link>
-                      </DropdownMenuItem>
-                      <div className="my-2 border-t border-border" />
-                      <DropdownMenuItem asChild>
-                        <Link to="/checking" className="flex flex-col items-start py-2">
-                          <span className="font-medium">Standard Checking</span>
-                          <span className="text-xs text-muted-foreground">$0 monthly fee</span>
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link to="/checking" className="flex flex-col items-start py-2">
-                          <span className="font-medium">Plus Checking</span>
-                          <span className="text-xs text-muted-foreground">Enhanced features • $4.95/mo</span>
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link to="/checking" className="flex flex-col items-start py-2">
-                          <span className="font-medium">Premier Checking</span>
-                          <span className="text-xs text-muted-foreground">Premium benefits • $25/mo</span>
-                        </Link>
-                      </DropdownMenuItem>
-                      <div className="my-2 border-t border-border" />
-                      <DropdownMenuItem asChild>
-                        <Link to="/open-account" className="text-primary">Open an Account →</Link>
-                      </DropdownMenuItem>
+                  <DropdownMenuContent className="bg-background w-96 z-50">
+                    <div className="p-4">
+                      <div className="mb-4">
+                        <h3 className="font-bold text-lg mb-2">Checking Accounts</h3>
+                        <p className="text-xs text-muted-foreground mb-3">Find the perfect account for your lifestyle</p>
+                      </div>
+                      
+                      <div className="space-y-3">
+                        <DropdownMenuItem asChild>
+                          <Link to="/checking" className="flex flex-col items-start py-2 px-3 rounded hover:bg-secondary">
+                            <span className="font-semibold">Standard Checking</span>
+                            <span className="text-xs text-muted-foreground">$0 monthly fee • No minimum balance • Free debit card</span>
+                            <span className="text-xs text-muted-foreground">Mobile banking • Online bill pay • 16,000+ ATMs</span>
+                          </Link>
+                        </DropdownMenuItem>
+
+                        <DropdownMenuItem asChild>
+                          <Link to="/checking" className="flex flex-col items-start py-2 px-3 rounded hover:bg-secondary">
+                            <span className="font-semibold">Plus Checking</span>
+                            <span className="text-xs text-muted-foreground">$4.95/mo (waived with $1,500 balance)</span>
+                            <span className="text-xs text-muted-foreground">No overdraft fees (first 3) • Cash back rewards • Identity theft protection</span>
+                          </Link>
+                        </DropdownMenuItem>
+
+                        <DropdownMenuItem asChild>
+                          <Link to="/checking" className="flex flex-col items-start py-2 px-3 rounded hover:bg-secondary">
+                            <span className="font-semibold">Premier Checking</span>
+                            <span className="text-xs text-muted-foreground">$25/mo (waived with $15,000 balance)</span>
+                            <span className="text-xs text-muted-foreground">No foreign fees • Dedicated service • Premium rewards • Free safe deposit box</span>
+                          </Link>
+                        </DropdownMenuItem>
+                      </div>
+
+                      <div className="mt-4 pt-4 border-t border-border">
+                        <div className="text-xs font-semibold mb-2 text-muted-foreground">FEATURES & SERVICES</div>
+                        <div className="grid grid-cols-2 gap-2">
+                          <Link to="/transfers" className="text-xs hover:text-primary py-1">Mobile Banking</Link>
+                          <Link to="/transfers" className="text-xs hover:text-primary py-1">Bill Pay</Link>
+                          <Link to="/transfers" className="text-xs hover:text-primary py-1">Zelle® Payments</Link>
+                          <Link to="/locations" className="text-xs hover:text-primary py-1">Find ATMs</Link>
+                        </div>
+                      </div>
+
+                      <div className="mt-4 pt-4 border-t border-border">
+                        <DropdownMenuItem asChild>
+                          <Link to="/open-account" className="text-primary font-semibold flex items-center justify-between w-full">
+                            <span>Open Checking Account</span>
+                            <ChevronRight className="h-4 w-4" />
+                          </Link>
+                        </DropdownMenuItem>
+                      </div>
                     </div>
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -63,34 +86,63 @@ const Index = () => {
                   <DropdownMenuTrigger className="text-sm font-medium hover:text-primary flex items-center gap-1">
                     Savings <ChevronRight className="h-3 w-3 rotate-90" />
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="bg-background w-64 z-50">
-                    <div className="p-2">
-                      <DropdownMenuItem asChild>
-                        <Link to="/savings" className="font-semibold text-primary">View All Savings Accounts</Link>
-                      </DropdownMenuItem>
-                      <div className="my-2 border-t border-border" />
-                      <DropdownMenuItem asChild>
-                        <Link to="/savings" className="flex flex-col items-start py-2">
-                          <span className="font-medium">Basic Savings</span>
-                          <span className="text-xs text-muted-foreground">0.45% APY • $25 minimum</span>
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link to="/savings" className="flex flex-col items-start py-2">
-                          <span className="font-medium">High-Yield Savings</span>
-                          <span className="text-xs text-muted-foreground">4.50% APY • Best rate</span>
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link to="/savings" className="flex flex-col items-start py-2">
-                          <span className="font-medium">Money Market</span>
-                          <span className="text-xs text-muted-foreground">3.85% APY • Check writing</span>
-                        </Link>
-                      </DropdownMenuItem>
-                      <div className="my-2 border-t border-border" />
-                      <DropdownMenuItem asChild>
-                        <Link to="/open-account" className="text-primary">Open an Account →</Link>
-                      </DropdownMenuItem>
+                  <DropdownMenuContent className="bg-background w-96 z-50">
+                    <div className="p-4">
+                      <div className="mb-4">
+                        <h3 className="font-bold text-lg mb-2">Savings Accounts</h3>
+                        <p className="text-xs text-muted-foreground mb-3">Grow your money with competitive rates</p>
+                      </div>
+                      
+                      <div className="space-y-3">
+                        <DropdownMenuItem asChild>
+                          <Link to="/savings" className="flex flex-col items-start py-2 px-3 rounded hover:bg-secondary">
+                            <span className="font-semibold">Basic Savings Account</span>
+                            <span className="text-xs text-primary font-semibold">0.45% APY</span>
+                            <span className="text-xs text-muted-foreground">$25 minimum • No monthly fees • FDIC insured</span>
+                            <span className="text-xs text-muted-foreground">Link to checking • Automatic savings tools</span>
+                          </Link>
+                        </DropdownMenuItem>
+
+                        <DropdownMenuItem asChild>
+                          <Link to="/savings" className="flex flex-col items-start py-2 px-3 rounded hover:bg-secondary border-l-2 border-primary">
+                            <div className="flex items-center gap-2">
+                              <span className="font-semibold">High-Yield Savings</span>
+                              <span className="text-xs bg-primary text-primary-foreground px-2 py-0.5 rounded">BEST RATE</span>
+                            </div>
+                            <span className="text-xs text-primary font-semibold">4.50% APY on balances $10,000+</span>
+                            <span className="text-xs text-muted-foreground">Tiered rates • No monthly fees with $5,000 balance</span>
+                            <span className="text-xs text-muted-foreground">Automatic transfers • Mobile app • Online banking</span>
+                          </Link>
+                        </DropdownMenuItem>
+
+                        <DropdownMenuItem asChild>
+                          <Link to="/savings" className="flex flex-col items-start py-2 px-3 rounded hover:bg-secondary">
+                            <span className="font-semibold">Money Market Account</span>
+                            <span className="text-xs text-primary font-semibold">3.85% APY with $25,000 minimum</span>
+                            <span className="text-xs text-muted-foreground">Check writing • Debit card access • Competitive rates</span>
+                            <span className="text-xs text-muted-foreground">Limited transactions • FDIC insured</span>
+                          </Link>
+                        </DropdownMenuItem>
+                      </div>
+
+                      <div className="mt-4 pt-4 border-t border-border">
+                        <div className="text-xs font-semibold mb-2 text-muted-foreground">SAVINGS TOOLS</div>
+                        <div className="grid grid-cols-2 gap-2">
+                          <Link to="/savings" className="text-xs hover:text-primary py-1">Savings Calculator</Link>
+                          <Link to="/savings" className="text-xs hover:text-primary py-1">Auto-Save Features</Link>
+                          <Link to="/savings" className="text-xs hover:text-primary py-1">Goal Tracking</Link>
+                          <Link to="/savings" className="text-xs hover:text-primary py-1">Compare Rates</Link>
+                        </div>
+                      </div>
+
+                      <div className="mt-4 pt-4 border-t border-border">
+                        <DropdownMenuItem asChild>
+                          <Link to="/open-account" className="text-primary font-semibold flex items-center justify-between w-full">
+                            <span>Open Savings Account</span>
+                            <ChevronRight className="h-4 w-4" />
+                          </Link>
+                        </DropdownMenuItem>
+                      </div>
                     </div>
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -99,34 +151,63 @@ const Index = () => {
                   <DropdownMenuTrigger className="text-sm font-medium hover:text-primary flex items-center gap-1">
                     Credit Cards <ChevronRight className="h-3 w-3 rotate-90" />
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="bg-background w-64 z-50">
-                    <div className="p-2">
-                      <DropdownMenuItem asChild>
-                        <Link to="/credit-cards" className="font-semibold text-primary">View All Credit Cards</Link>
-                      </DropdownMenuItem>
-                      <div className="my-2 border-t border-border" />
-                      <DropdownMenuItem asChild>
-                        <Link to="/credit-cards" className="flex flex-col items-start py-2">
-                          <span className="font-medium">Cash Rewards Card</span>
-                          <span className="text-xs text-muted-foreground">1.5% cash back • No annual fee</span>
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link to="/credit-cards" className="flex flex-col items-start py-2">
-                          <span className="font-medium">Travel Rewards</span>
-                          <span className="text-xs text-muted-foreground">3X points • 50,000 bonus</span>
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link to="/credit-cards" className="flex flex-col items-start py-2">
-                          <span className="font-medium">Premium Card</span>
-                          <span className="text-xs text-muted-foreground">5X points • Lounge access</span>
-                        </Link>
-                      </DropdownMenuItem>
-                      <div className="my-2 border-t border-border" />
-                      <DropdownMenuItem asChild>
-                        <Link to="/credit-cards" className="text-primary">Compare Cards →</Link>
-                      </DropdownMenuItem>
+                  <DropdownMenuContent className="bg-background w-96 z-50">
+                    <div className="p-4">
+                      <div className="mb-4">
+                        <h3 className="font-bold text-lg mb-2">Credit Cards</h3>
+                        <p className="text-xs text-muted-foreground mb-3">Earn rewards and build credit</p>
+                      </div>
+                      
+                      <div className="space-y-3">
+                        <DropdownMenuItem asChild>
+                          <Link to="/credit-cards" className="flex flex-col items-start py-2 px-3 rounded hover:bg-secondary">
+                            <span className="font-semibold">Cash Rewards Card</span>
+                            <span className="text-xs text-primary font-semibold">1.5% cash back on all purchases</span>
+                            <span className="text-xs text-muted-foreground">$0 annual fee • $200 bonus after $1,000 spend</span>
+                            <span className="text-xs text-muted-foreground">0% intro APR for 15 months • Fraud protection</span>
+                          </Link>
+                        </DropdownMenuItem>
+
+                        <DropdownMenuItem asChild>
+                          <Link to="/credit-cards" className="flex flex-col items-start py-2 px-3 rounded hover:bg-secondary border-l-2 border-primary">
+                            <div className="flex items-center gap-2">
+                              <span className="font-semibold">Travel Rewards Card</span>
+                              <span className="text-xs bg-primary text-primary-foreground px-2 py-0.5 rounded">POPULAR</span>
+                            </div>
+                            <span className="text-xs text-primary font-semibold">3X points on travel & dining</span>
+                            <span className="text-xs text-muted-foreground">$95 annual fee • 50,000 bonus points after $4,000 spend</span>
+                            <span className="text-xs text-muted-foreground">No foreign transaction fees • Travel insurance • Concierge</span>
+                          </Link>
+                        </DropdownMenuItem>
+
+                        <DropdownMenuItem asChild>
+                          <Link to="/credit-cards" className="flex flex-col items-start py-2 px-3 rounded hover:bg-secondary">
+                            <span className="font-semibold">Premium Card</span>
+                            <span className="text-xs text-primary font-semibold">5X points on select categories</span>
+                            <span className="text-xs text-muted-foreground">$550 annual fee • $300 annual travel credit</span>
+                            <span className="text-xs text-muted-foreground">Airport lounge access • Premium concierge • Travel benefits</span>
+                          </Link>
+                        </DropdownMenuItem>
+                      </div>
+
+                      <div className="mt-4 pt-4 border-t border-border">
+                        <div className="text-xs font-semibold mb-2 text-muted-foreground">CARD BENEFITS</div>
+                        <div className="grid grid-cols-2 gap-2">
+                          <Link to="/credit-cards" className="text-xs hover:text-primary py-1">Compare Cards</Link>
+                          <Link to="/credit-cards" className="text-xs hover:text-primary py-1">Credit Builder</Link>
+                          <Link to="/credit-cards" className="text-xs hover:text-primary py-1">Rewards Calculator</Link>
+                          <Link to="/credit-cards" className="text-xs hover:text-primary py-1">Security Features</Link>
+                        </div>
+                      </div>
+
+                      <div className="mt-4 pt-4 border-t border-border">
+                        <DropdownMenuItem asChild>
+                          <Link to="/credit-cards" className="text-primary font-semibold flex items-center justify-between w-full">
+                            <span>Apply for Credit Card</span>
+                            <ChevronRight className="h-4 w-4" />
+                          </Link>
+                        </DropdownMenuItem>
+                      </div>
                     </div>
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -135,34 +216,72 @@ const Index = () => {
                   <DropdownMenuTrigger className="text-sm font-medium hover:text-primary flex items-center gap-1">
                     Loans <ChevronRight className="h-3 w-3 rotate-90" />
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="bg-background w-64 z-50">
-                    <div className="p-2">
-                      <DropdownMenuItem asChild>
-                        <Link to="/loans" className="font-semibold text-primary">View All Loans</Link>
-                      </DropdownMenuItem>
-                      <div className="my-2 border-t border-border" />
-                      <DropdownMenuItem asChild>
-                        <Link to="/loans" className="flex flex-col items-start py-2">
-                          <span className="font-medium">Personal Loans</span>
-                          <span className="text-xs text-muted-foreground">From 6.99% APR • Up to $100K</span>
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link to="/loans" className="flex flex-col items-start py-2">
-                          <span className="font-medium">Auto Loans</span>
-                          <span className="text-xs text-muted-foreground">From 4.49% APR • New & used</span>
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link to="/loans" className="flex flex-col items-start py-2">
-                          <span className="font-medium">Home Loans</span>
-                          <span className="text-xs text-muted-foreground">6.25% APR • 30-year fixed</span>
-                        </Link>
-                      </DropdownMenuItem>
-                      <div className="my-2 border-t border-border" />
-                      <DropdownMenuItem asChild>
-                        <Link to="/loans" className="text-primary">Apply Now →</Link>
-                      </DropdownMenuItem>
+                  <DropdownMenuContent className="bg-background w-96 z-50">
+                    <div className="p-4">
+                      <div className="mb-4">
+                        <h3 className="font-bold text-lg mb-2">Loans & Financing</h3>
+                        <p className="text-xs text-muted-foreground mb-3">Competitive rates and flexible terms</p>
+                      </div>
+                      
+                      <div className="space-y-3">
+                        <DropdownMenuItem asChild>
+                          <Link to="/loans" className="flex flex-col items-start py-2 px-3 rounded hover:bg-secondary">
+                            <span className="font-semibold">Personal Loans</span>
+                            <span className="text-xs text-primary font-semibold">From 6.99% APR</span>
+                            <span className="text-xs text-muted-foreground">$5,000 to $100,000 • 12 to 84 month terms</span>
+                            <span className="text-xs text-muted-foreground">No origination fees • Same-day funding • Fixed rates</span>
+                          </Link>
+                        </DropdownMenuItem>
+
+                        <DropdownMenuItem asChild>
+                          <Link to="/loans" className="flex flex-col items-start py-2 px-3 rounded hover:bg-secondary border-l-2 border-primary">
+                            <div className="flex items-center gap-2">
+                              <span className="font-semibold">Auto Loans</span>
+                              <span className="text-xs bg-primary text-primary-foreground px-2 py-0.5 rounded">BEST RATE</span>
+                            </div>
+                            <span className="text-xs text-primary font-semibold">From 4.49% APR</span>
+                            <span className="text-xs text-muted-foreground">New & used vehicles • 100% financing available</span>
+                            <span className="text-xs text-muted-foreground">No prepayment penalties • Gap insurance • Quick approval</span>
+                          </Link>
+                        </DropdownMenuItem>
+
+                        <DropdownMenuItem asChild>
+                          <Link to="/loans" className="flex flex-col items-start py-2 px-3 rounded hover:bg-secondary">
+                            <span className="font-semibold">Home Loans & Mortgages</span>
+                            <span className="text-xs text-primary font-semibold">6.25% APR - 30-year fixed</span>
+                            <span className="text-xs text-muted-foreground">Purchase or refinance • Down payments as low as 3%</span>
+                            <span className="text-xs text-muted-foreground">Fixed & adjustable rates • Dedicated loan officer</span>
+                          </Link>
+                        </DropdownMenuItem>
+
+                        <DropdownMenuItem asChild>
+                          <Link to="/loans" className="flex flex-col items-start py-2 px-3 rounded hover:bg-secondary">
+                            <span className="font-semibold">Home Equity Lines of Credit</span>
+                            <span className="text-xs text-primary font-semibold">From 7.25% APR</span>
+                            <span className="text-xs text-muted-foreground">Borrow up to 85% of home equity • Flexible draw period</span>
+                            <span className="text-xs text-muted-foreground">Low closing costs • Tax-deductible interest</span>
+                          </Link>
+                        </DropdownMenuItem>
+                      </div>
+
+                      <div className="mt-4 pt-4 border-t border-border">
+                        <div className="text-xs font-semibold mb-2 text-muted-foreground">LOAN TOOLS</div>
+                        <div className="grid grid-cols-2 gap-2">
+                          <Link to="/loans" className="text-xs hover:text-primary py-1">Payment Calculator</Link>
+                          <Link to="/loans" className="text-xs hover:text-primary py-1">Rate Comparison</Link>
+                          <Link to="/loans" className="text-xs hover:text-primary py-1">Pre-Qualification</Link>
+                          <Link to="/loans" className="text-xs hover:text-primary py-1">Loan Guide</Link>
+                        </div>
+                      </div>
+
+                      <div className="mt-4 pt-4 border-t border-border">
+                        <DropdownMenuItem asChild>
+                          <Link to="/loans" className="text-primary font-semibold flex items-center justify-between w-full">
+                            <span>Apply for Loan</span>
+                            <ChevronRight className="h-4 w-4" />
+                          </Link>
+                        </DropdownMenuItem>
+                      </div>
                     </div>
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -171,34 +290,70 @@ const Index = () => {
                   <DropdownMenuTrigger className="text-sm font-medium hover:text-primary flex items-center gap-1">
                     Investments <ChevronRight className="h-3 w-3 rotate-90" />
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="bg-background w-64 z-50">
-                    <div className="p-2">
-                      <DropdownMenuItem asChild>
-                        <Link to="/investments" className="font-semibold text-primary">View All Investment Services</Link>
-                      </DropdownMenuItem>
-                      <div className="my-2 border-t border-border" />
-                      <DropdownMenuItem asChild>
-                        <Link to="/investments" className="flex flex-col items-start py-2">
-                          <span className="font-medium">Retirement Accounts (IRA)</span>
-                          <span className="text-xs text-muted-foreground">Traditional & Roth options</span>
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link to="/investments" className="flex flex-col items-start py-2">
-                          <span className="font-medium">Managed Portfolio</span>
-                          <span className="text-xs text-muted-foreground">0.50% fee • Professional management</span>
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link to="/investments" className="flex flex-col items-start py-2">
-                          <span className="font-medium">Self-Directed Trading</span>
-                          <span className="text-xs text-muted-foreground">$0 commissions • Stocks & ETFs</span>
-                        </Link>
-                      </DropdownMenuItem>
-                      <div className="my-2 border-t border-border" />
-                      <DropdownMenuItem asChild>
-                        <Link to="/investments" className="text-primary">Get Started →</Link>
-                      </DropdownMenuItem>
+                  <DropdownMenuContent className="bg-background w-96 z-50">
+                    <div className="p-4">
+                      <div className="mb-4">
+                        <h3 className="font-bold text-lg mb-2">Investment Services</h3>
+                        <p className="text-xs text-muted-foreground mb-3">Build wealth for your future</p>
+                      </div>
+                      
+                      <div className="space-y-3">
+                        <DropdownMenuItem asChild>
+                          <Link to="/investments" className="flex flex-col items-start py-2 px-3 rounded hover:bg-secondary">
+                            <span className="font-semibold">Retirement Accounts (IRA)</span>
+                            <span className="text-xs text-muted-foreground">Traditional & Roth options • Contribute up to $7,000/year</span>
+                            <span className="text-xs text-muted-foreground">Tax advantages • Wide range of investments • Rollover options</span>
+                          </Link>
+                        </DropdownMenuItem>
+
+                        <DropdownMenuItem asChild>
+                          <Link to="/investments" className="flex flex-col items-start py-2 px-3 rounded hover:bg-secondary border-l-2 border-primary">
+                            <div className="flex items-center gap-2">
+                              <span className="font-semibold">Managed Portfolio</span>
+                              <span className="text-xs bg-primary text-primary-foreground px-2 py-0.5 rounded">RECOMMENDED</span>
+                            </div>
+                            <span className="text-xs text-primary font-semibold">0.50% annual fee</span>
+                            <span className="text-xs text-muted-foreground">Professional management • Personalized strategy</span>
+                            <span className="text-xs text-muted-foreground">Auto rebalancing • Dedicated advisor • Tax optimization</span>
+                          </Link>
+                        </DropdownMenuItem>
+
+                        <DropdownMenuItem asChild>
+                          <Link to="/investments" className="flex flex-col items-start py-2 px-3 rounded hover:bg-secondary">
+                            <span className="font-semibold">Self-Directed Trading</span>
+                            <span className="text-xs text-primary font-semibold">$0 commission-free trades</span>
+                            <span className="text-xs text-muted-foreground">Stocks, ETFs, options • Advanced tools • Real-time data</span>
+                            <span className="text-xs text-muted-foreground">Mobile trading • Research & analysis • Educational resources</span>
+                          </Link>
+                        </DropdownMenuItem>
+
+                        <DropdownMenuItem asChild>
+                          <Link to="/investments" className="flex flex-col items-start py-2 px-3 rounded hover:bg-secondary">
+                            <span className="font-semibold">529 College Savings</span>
+                            <span className="text-xs text-muted-foreground">Tax-free growth for education • Flexible withdrawals</span>
+                            <span className="text-xs text-muted-foreground">State tax benefits • Gift contributions • Investment options</span>
+                          </Link>
+                        </DropdownMenuItem>
+                      </div>
+
+                      <div className="mt-4 pt-4 border-t border-border">
+                        <div className="text-xs font-semibold mb-2 text-muted-foreground">INVESTMENT TOOLS</div>
+                        <div className="grid grid-cols-2 gap-2">
+                          <Link to="/investments" className="text-xs hover:text-primary py-1">Portfolio Planner</Link>
+                          <Link to="/investments" className="text-xs hover:text-primary py-1">Retirement Calculator</Link>
+                          <Link to="/investments" className="text-xs hover:text-primary py-1">Market Research</Link>
+                          <Link to="/investments" className="text-xs hover:text-primary py-1">Learning Center</Link>
+                        </div>
+                      </div>
+
+                      <div className="mt-4 pt-4 border-t border-border">
+                        <DropdownMenuItem asChild>
+                          <Link to="/investments" className="text-primary font-semibold flex items-center justify-between w-full">
+                            <span>Start Investing</span>
+                            <ChevronRight className="h-4 w-4" />
+                          </Link>
+                        </DropdownMenuItem>
+                      </div>
                     </div>
                   </DropdownMenuContent>
                 </DropdownMenu>
