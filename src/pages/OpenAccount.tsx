@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
-import { ChevronLeft, ChevronRight, Upload } from "lucide-react";
+import { ChevronLeft, ChevronRight, Upload, CheckCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import logo from "@/assets/vaultbank-logo.png";
 import bgImage from "@/assets/banking-hero.jpg";
@@ -10,10 +10,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 const OpenAccount = () => {
   const [step, setStep] = useState(1);
   const totalSteps = 8;
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
 
   // Form state
   const [formData, setFormData] = useState({
@@ -84,8 +86,8 @@ const OpenAccount = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
     console.log("Form submitted:", formData);
+    setShowSuccessDialog(true);
   };
 
   return (
@@ -773,6 +775,60 @@ const OpenAccount = () => {
           <p className="mt-1">Member FDIC. Equal Housing Lender.</p>
         </div>
       </div>
+
+      {/* Success Dialog */}
+      <Dialog open={showSuccessDialog} onOpenChange={setShowSuccessDialog}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <div className="flex items-center justify-center mb-4">
+              <div className="rounded-full bg-green-100 p-3">
+                <CheckCircle className="w-8 h-8 text-green-600" />
+              </div>
+            </div>
+            <DialogTitle className="text-center text-2xl">Application Submitted Successfully!</DialogTitle>
+            <DialogDescription className="text-center pt-2">
+              Thank you for choosing VaultBank. Your application is being processed.
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="space-y-4 py-4">
+            <h3 className="font-semibold text-sm">What Happens Next?</h3>
+            <ul className="text-sm space-y-3">
+              <li className="flex items-start gap-2">
+                <span className="text-primary mt-0.5">•</span>
+                <span>Your application will be reviewed by our team (typically 1-2 business days)</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-primary mt-0.5">•</span>
+                <span>We may contact you for additional verification via phone or video call</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-primary mt-0.5">•</span>
+                <span>Once approved, you'll receive your account number and IBAN via email</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-primary mt-0.5">•</span>
+                <span>Your debit card will be mailed within 5-7 business days</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-primary mt-0.5">•</span>
+                <span>Online banking access will be activated immediately upon approval</span>
+              </li>
+            </ul>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <Button onClick={() => setShowSuccessDialog(false)} className="w-full">
+              Close
+            </Button>
+            <Link to="/auth" className="w-full">
+              <Button variant="outline" className="w-full">
+                Return to Sign In
+              </Button>
+            </Link>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
