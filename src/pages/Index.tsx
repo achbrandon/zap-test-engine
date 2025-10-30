@@ -20,8 +20,23 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import { CheckingDetails } from "@/components/banking/CheckingDetails";
+import { SavingsDetails } from "@/components/banking/SavingsDetails";
+import { CreditCardsDetails } from "@/components/banking/CreditCardsDetails";
+import { LoansDetails } from "@/components/banking/LoansDetails";
+import { InvestmentsDetails } from "@/components/banking/InvestmentsDetails";
+import { useState, useRef } from "react";
 
 const Index = () => {
+  const [activeSection, setActiveSection] = useState<string | null>(null);
+  const detailsRef = useRef<HTMLDivElement>(null);
+
+  const handleNavClick = (section: string) => {
+    setActiveSection(section);
+    setTimeout(() => {
+      detailsRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+  };
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -38,16 +53,12 @@ const Index = () => {
                     <NavigationMenuTrigger className="text-sm font-medium">Checking</NavigationMenuTrigger>
                     <NavigationMenuContent>
                       <div className="w-[400px] p-4">
-                        <NavigationMenuLink asChild>
-                          <Link to="/checking" className="block px-4 py-2 hover:bg-accent rounded-md">
-                            Choose a checking account
-                          </Link>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <Link to="/checking" className="block px-4 py-2 hover:bg-accent rounded-md">
-                            Debit card for kids
-                          </Link>
-                        </NavigationMenuLink>
+                        <button onClick={() => handleNavClick('checking')} className="block w-full text-left px-4 py-2 hover:bg-accent rounded-md">
+                          Choose a checking account
+                        </button>
+                        <button onClick={() => handleNavClick('checking')} className="block w-full text-left px-4 py-2 hover:bg-accent rounded-md">
+                          Debit card for kids
+                        </button>
                       </div>
                     </NavigationMenuContent>
                   </NavigationMenuItem>
@@ -56,21 +67,15 @@ const Index = () => {
                     <NavigationMenuTrigger className="text-sm font-medium">Savings & CDs</NavigationMenuTrigger>
                     <NavigationMenuContent>
                       <div className="w-[400px] p-4">
-                        <NavigationMenuLink asChild>
-                          <Link to="/savings" className="block px-4 py-2 hover:bg-accent rounded-md">
-                            Choose a savings account
-                          </Link>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <Link to="/cds" className="block px-4 py-2 hover:bg-accent rounded-md">
-                            CDs
-                          </Link>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <Link to="/money-market" className="block px-4 py-2 hover:bg-accent rounded-md">
-                            Money Market Account
-                          </Link>
-                        </NavigationMenuLink>
+                        <button onClick={() => handleNavClick('savings')} className="block w-full text-left px-4 py-2 hover:bg-accent rounded-md">
+                          Choose a savings account
+                        </button>
+                        <button onClick={() => handleNavClick('cds')} className="block w-full text-left px-4 py-2 hover:bg-accent rounded-md">
+                          CDs
+                        </button>
+                        <button onClick={() => handleNavClick('money-market')} className="block w-full text-left px-4 py-2 hover:bg-accent rounded-md">
+                          Money Market Account
+                        </button>
                       </div>
                     </NavigationMenuContent>
                   </NavigationMenuItem>
@@ -79,27 +84,19 @@ const Index = () => {
                     <NavigationMenuTrigger className="text-sm font-medium">Credit cards</NavigationMenuTrigger>
                     <NavigationMenuContent>
                       <div className="w-[400px] p-4">
-                        <NavigationMenuLink asChild>
-                          <Link to="/credit-cards" className="block px-4 py-2 text-primary hover:bg-accent rounded-md font-medium">
-                            Explore credit cards
-                          </Link>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <Link to="/credit-cards" className="block px-4 py-2 hover:bg-accent rounded-md">
-                            See if you're pre-approved
-                          </Link>
-                        </NavigationMenuLink>
+                        <button onClick={() => handleNavClick('credit-cards')} className="block w-full text-left px-4 py-2 text-primary hover:bg-accent rounded-md font-medium">
+                          Explore credit cards
+                        </button>
+                        <button onClick={() => handleNavClick('credit-cards')} className="block w-full text-left px-4 py-2 hover:bg-accent rounded-md">
+                          See if you're pre-approved
+                        </button>
                         <div className="my-2 border-t border-border" />
-                        <NavigationMenuLink asChild>
-                          <Link to="/credit-cards" className="block px-4 py-2 hover:bg-accent rounded-md">
-                            Personal credit cards
-                          </Link>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <Link to="/credit-cards" className="block px-4 py-2 hover:bg-accent rounded-md">
-                            Business credit cards
-                          </Link>
-                        </NavigationMenuLink>
+                        <button onClick={() => handleNavClick('credit-cards')} className="block w-full text-left px-4 py-2 hover:bg-accent rounded-md">
+                          Personal credit cards
+                        </button>
+                        <button onClick={() => handleNavClick('credit-cards')} className="block w-full text-left px-4 py-2 hover:bg-accent rounded-md">
+                          Business credit cards
+                        </button>
                       </div>
                     </NavigationMenuContent>
                   </NavigationMenuItem>
@@ -108,42 +105,28 @@ const Index = () => {
                     <NavigationMenuTrigger className="text-sm font-medium">Home loans</NavigationMenuTrigger>
                     <NavigationMenuContent>
                       <div className="w-[400px] p-4">
-                        <NavigationMenuLink asChild>
-                          <Link to="/loans" className="block px-4 py-2 hover:bg-accent rounded-md">
-                            Buy a home
-                          </Link>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <Link to="/loans" className="block px-4 py-2 hover:bg-accent rounded-md">
-                            Refinance your mortgage
-                          </Link>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <Link to="/loans" className="block px-4 py-2 hover:bg-accent rounded-md">
-                            Apply for a mortgage
-                          </Link>
-                        </NavigationMenuLink>
+                        <button onClick={() => handleNavClick('loans')} className="block w-full text-left px-4 py-2 hover:bg-accent rounded-md">
+                          Buy a home
+                        </button>
+                        <button onClick={() => handleNavClick('loans')} className="block w-full text-left px-4 py-2 hover:bg-accent rounded-md">
+                          Refinance your mortgage
+                        </button>
+                        <button onClick={() => handleNavClick('loans')} className="block w-full text-left px-4 py-2 hover:bg-accent rounded-md">
+                          Apply for a mortgage
+                        </button>
                         <div className="my-2 border-t border-border" />
-                        <NavigationMenuLink asChild>
-                          <Link to="/loans" className="block px-4 py-2 hover:bg-accent rounded-md">
-                            Access calculators and tools
-                          </Link>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <Link to="/loans" className="block px-4 py-2 hover:bg-accent rounded-md">
-                            See current rates
-                          </Link>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <Link to="/loans" className="block px-4 py-2 hover:bg-accent rounded-md">
-                            Manage account
-                          </Link>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <Link to="/loans" className="block px-4 py-2 hover:bg-accent rounded-md">
-                            Homebuying 101
-                          </Link>
-                        </NavigationMenuLink>
+                        <button onClick={() => handleNavClick('loans')} className="block w-full text-left px-4 py-2 hover:bg-accent rounded-md">
+                          Access calculators and tools
+                        </button>
+                        <button onClick={() => handleNavClick('loans')} className="block w-full text-left px-4 py-2 hover:bg-accent rounded-md">
+                          See current rates
+                        </button>
+                        <button onClick={() => handleNavClick('loans')} className="block w-full text-left px-4 py-2 hover:bg-accent rounded-md">
+                          Manage account
+                        </button>
+                        <button onClick={() => handleNavClick('loans')} className="block w-full text-left px-4 py-2 hover:bg-accent rounded-md">
+                          Homebuying 101
+                        </button>
                       </div>
                     </NavigationMenuContent>
                   </NavigationMenuItem>
@@ -152,16 +135,12 @@ const Index = () => {
                     <NavigationMenuTrigger className="text-sm font-medium">Auto</NavigationMenuTrigger>
                     <NavigationMenuContent>
                       <div className="w-[400px] p-4">
-                        <NavigationMenuLink asChild>
-                          <Link to="/loans" className="block px-4 py-2 hover:bg-accent rounded-md">
-                            Explore car financing
-                          </Link>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <Link to="/loans" className="block px-4 py-2 hover:bg-accent rounded-md">
-                            Refinance your car
-                          </Link>
-                        </NavigationMenuLink>
+                        <button onClick={() => handleNavClick('loans')} className="block w-full text-left px-4 py-2 hover:bg-accent rounded-md">
+                          Explore car financing
+                        </button>
+                        <button onClick={() => handleNavClick('loans')} className="block w-full text-left px-4 py-2 hover:bg-accent rounded-md">
+                          Refinance your car
+                        </button>
                       </div>
                     </NavigationMenuContent>
                   </NavigationMenuItem>
@@ -170,37 +149,25 @@ const Index = () => {
                     <NavigationMenuTrigger className="text-sm font-medium">Investing by J.P. Morgan</NavigationMenuTrigger>
                     <NavigationMenuContent>
                       <div className="w-[400px] p-4">
-                        <NavigationMenuLink asChild>
-                          <Link to="/investments" className="block px-4 py-2 hover:bg-accent rounded-md">
-                            Explore investing
-                          </Link>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <Link to="/investments" className="block px-4 py-2 hover:bg-accent rounded-md">
-                            Work with our advisors
-                          </Link>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <Link to="/investments" className="block px-4 py-2 hover:bg-accent rounded-md">
-                            Invest on your own
-                          </Link>
-                        </NavigationMenuLink>
+                        <button onClick={() => handleNavClick('investments')} className="block w-full text-left px-4 py-2 hover:bg-accent rounded-md">
+                          Explore investing
+                        </button>
+                        <button onClick={() => handleNavClick('investments')} className="block w-full text-left px-4 py-2 hover:bg-accent rounded-md">
+                          Work with our advisors
+                        </button>
+                        <button onClick={() => handleNavClick('investments')} className="block w-full text-left px-4 py-2 hover:bg-accent rounded-md">
+                          Invest on your own
+                        </button>
                         <div className="my-2 border-t border-border" />
-                        <NavigationMenuLink asChild>
-                          <Link to="/investments" className="block px-4 py-2 hover:bg-accent rounded-md">
-                            Retirement and IRAs
-                          </Link>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <Link to="/investments" className="block px-4 py-2 hover:bg-accent rounded-md">
-                            Education planning
-                          </Link>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <Link to="/investments" className="block px-4 py-2 hover:bg-accent rounded-md">
-                            Investing insights
-                          </Link>
-                        </NavigationMenuLink>
+                        <button onClick={() => handleNavClick('investments')} className="block w-full text-left px-4 py-2 hover:bg-accent rounded-md">
+                          Retirement and IRAs
+                        </button>
+                        <button onClick={() => handleNavClick('investments')} className="block w-full text-left px-4 py-2 hover:bg-accent rounded-md">
+                          Education planning
+                        </button>
+                        <button onClick={() => handleNavClick('investments')} className="block w-full text-left px-4 py-2 hover:bg-accent rounded-md">
+                          Investing insights
+                        </button>
                       </div>
                     </NavigationMenuContent>
                   </NavigationMenuItem>
@@ -254,23 +221,23 @@ const Index = () => {
                   <Menu className="h-6 w-6" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="bg-background w-48">
-                  <DropdownMenuItem asChild>
-                    <Link to="/checking">Checking</Link>
+                  <DropdownMenuItem onClick={() => handleNavClick('checking')}>
+                    Checking
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link to="/savings">Savings & CDs</Link>
+                  <DropdownMenuItem onClick={() => handleNavClick('savings')}>
+                    Savings & CDs
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link to="/credit-cards">Credit cards</Link>
+                  <DropdownMenuItem onClick={() => handleNavClick('credit-cards')}>
+                    Credit cards
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link to="/loans">Home loans</Link>
+                  <DropdownMenuItem onClick={() => handleNavClick('loans')}>
+                    Home loans
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link to="/loans">Auto</Link>
+                  <DropdownMenuItem onClick={() => handleNavClick('loans')}>
+                    Auto
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link to="/investments">Investing by J.P. Morgan</Link>
+                  <DropdownMenuItem onClick={() => handleNavClick('investments')}>
+                    Investing by J.P. Morgan
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link to="/open-account">Education & goals</Link>
@@ -309,6 +276,57 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Details Section - Shows when navigation item is clicked */}
+      {activeSection && (
+        <section ref={detailsRef} className="py-16 bg-background">
+          <div className="container mx-auto px-4">
+            {activeSection === 'checking' && <CheckingDetails />}
+            {activeSection === 'savings' && <SavingsDetails />}
+            {activeSection === 'credit-cards' && <CreditCardsDetails />}
+            {activeSection === 'loans' && <LoansDetails />}
+            {activeSection === 'investments' && <InvestmentsDetails />}
+            {activeSection === 'cds' && (
+              <div className="space-y-8">
+                <div className="text-center">
+                  <h2 className="text-3xl font-bold mb-4">Certificates of Deposit (CDs)</h2>
+                  <p className="text-muted-foreground max-w-2xl mx-auto">
+                    Lock in competitive rates with our flexible CD options
+                  </p>
+                </div>
+                <Card className="p-6">
+                  <h3 className="text-xl font-bold mb-4">CD Overview</h3>
+                  <p className="text-muted-foreground mb-4">
+                    Our CDs offer guaranteed returns with terms ranging from 3 months to 5 years. Choose the term that fits your financial goals.
+                  </p>
+                  <Button asChild>
+                    <Link to="/cds">View Full CD Details →</Link>
+                  </Button>
+                </Card>
+              </div>
+            )}
+            {activeSection === 'money-market' && (
+              <div className="space-y-8">
+                <div className="text-center">
+                  <h2 className="text-3xl font-bold mb-4">Money Market Account</h2>
+                  <p className="text-muted-foreground max-w-2xl mx-auto">
+                    Earn competitive rates while maintaining easy access to your funds
+                  </p>
+                </div>
+                <Card className="p-6">
+                  <h3 className="text-xl font-bold mb-4">Money Market Overview</h3>
+                  <p className="text-muted-foreground mb-4">
+                    Combine the benefits of checking and savings with our Money Market Account. Enjoy higher interest rates and limited check-writing privileges.
+                  </p>
+                  <Button asChild>
+                    <Link to="/money-market">View Full Money Market Details →</Link>
+                  </Button>
+                </Card>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* Services Grid */}
       <section className="py-16 bg-secondary">
