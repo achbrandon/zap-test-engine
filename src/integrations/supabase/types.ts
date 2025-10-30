@@ -125,6 +125,95 @@ export type Database = {
         }
         Relationships: []
       }
+      alerts: {
+        Row: {
+          alert_message: string
+          alert_title: string
+          alert_type: string
+          created_at: string | null
+          id: string
+          is_read: boolean | null
+          user_id: string
+        }
+        Insert: {
+          alert_message: string
+          alert_title: string
+          alert_type: string
+          created_at?: string | null
+          id?: string
+          is_read?: boolean | null
+          user_id: string
+        }
+        Update: {
+          alert_message?: string
+          alert_title?: string
+          alert_type?: string
+          created_at?: string | null
+          id?: string
+          is_read?: boolean | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      bill_payments: {
+        Row: {
+          account_id: string
+          amount: number
+          created_at: string | null
+          id: string
+          is_recurring: boolean | null
+          notes: string | null
+          payee_account: string | null
+          payee_address: string | null
+          payee_name: string
+          payment_date: string
+          recurring_frequency: string | null
+          status: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          account_id: string
+          amount: number
+          created_at?: string | null
+          id?: string
+          is_recurring?: boolean | null
+          notes?: string | null
+          payee_account?: string | null
+          payee_address?: string | null
+          payee_name: string
+          payment_date: string
+          recurring_frequency?: string | null
+          status?: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          account_id?: string
+          amount?: number
+          created_at?: string | null
+          id?: string
+          is_recurring?: boolean | null
+          notes?: string | null
+          payee_account?: string | null
+          payee_address?: string | null
+          payee_name?: string
+          payment_date?: string
+          recurring_frequency?: string | null
+          status?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bill_payments_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       budgets: {
         Row: {
           amount: number
@@ -158,6 +247,86 @@ export type Database = {
         }
         Relationships: []
       }
+      cards: {
+        Row: {
+          account_id: string
+          card_number: string
+          card_status: string
+          card_type: string
+          created_at: string | null
+          cvv: string
+          expiry_date: string
+          id: string
+          is_locked: boolean | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          account_id: string
+          card_number: string
+          card_status?: string
+          card_type: string
+          created_at?: string | null
+          cvv: string
+          expiry_date: string
+          id?: string
+          is_locked?: boolean | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          account_id?: string
+          card_number?: string
+          card_status?: string
+          card_type?: string
+          created_at?: string | null
+          cvv?: string
+          expiry_date?: string
+          id?: string
+          is_locked?: boolean | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cards_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      credit_scores: {
+        Row: {
+          created_at: string | null
+          factors: Json | null
+          id: string
+          provider: string
+          score: number
+          score_date: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          factors?: Json | null
+          id?: string
+          provider?: string
+          score: number
+          score_date?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          factors?: Json | null
+          id?: string
+          provider?: string
+          score?: number
+          score_date?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       crypto_wallets: {
         Row: {
           balance: number | null
@@ -185,6 +354,140 @@ export type Database = {
           user_id?: string
           wallet_address?: string
           wallet_type?: string
+        }
+        Relationships: []
+      }
+      loans: {
+        Row: {
+          created_at: string | null
+          id: string
+          interest_rate: number
+          loan_amount: number
+          loan_status: string
+          loan_type: string
+          maturity_date: string
+          monthly_payment: number
+          next_due_date: string
+          origination_date: string
+          outstanding_balance: number
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          interest_rate: number
+          loan_amount: number
+          loan_status?: string
+          loan_type: string
+          maturity_date: string
+          monthly_payment: number
+          next_due_date: string
+          origination_date: string
+          outstanding_balance: number
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          interest_rate?: number
+          loan_amount?: number
+          loan_status?: string
+          loan_type?: string
+          maturity_date?: string
+          monthly_payment?: number
+          next_due_date?: string
+          origination_date?: string
+          outstanding_balance?: number
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      mobile_deposits: {
+        Row: {
+          account_id: string
+          amount: number
+          check_back_url: string | null
+          check_front_url: string | null
+          check_number: string | null
+          cleared_date: string | null
+          created_at: string | null
+          deposit_date: string | null
+          id: string
+          status: string
+          user_id: string
+        }
+        Insert: {
+          account_id: string
+          amount: number
+          check_back_url?: string | null
+          check_front_url?: string | null
+          check_number?: string | null
+          cleared_date?: string | null
+          created_at?: string | null
+          deposit_date?: string | null
+          id?: string
+          status?: string
+          user_id: string
+        }
+        Update: {
+          account_id?: string
+          amount?: number
+          check_back_url?: string | null
+          check_front_url?: string | null
+          check_number?: string | null
+          cleared_date?: string | null
+          created_at?: string | null
+          deposit_date?: string | null
+          id?: string
+          status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mobile_deposits_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      offers: {
+        Row: {
+          created_at: string | null
+          description: string
+          expiry_date: string | null
+          id: string
+          is_claimed: boolean | null
+          offer_type: string
+          title: string
+          user_id: string
+          value: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description: string
+          expiry_date?: string | null
+          id?: string
+          is_claimed?: boolean | null
+          offer_type: string
+          title: string
+          user_id: string
+          value?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string
+          expiry_date?: string | null
+          id?: string
+          is_claimed?: boolean | null
+          offer_type?: string
+          title?: string
+          user_id?: string
+          value?: string | null
         }
         Relationships: []
       }
@@ -223,6 +526,47 @@ export type Database = {
           updated_at?: string | null
         }
         Relationships: []
+      }
+      statements: {
+        Row: {
+          account_id: string
+          created_at: string | null
+          file_size: number | null
+          id: string
+          statement_date: string
+          statement_period: string
+          statement_url: string | null
+          user_id: string
+        }
+        Insert: {
+          account_id: string
+          created_at?: string | null
+          file_size?: number | null
+          id?: string
+          statement_date: string
+          statement_period: string
+          statement_url?: string | null
+          user_id: string
+        }
+        Update: {
+          account_id?: string
+          created_at?: string | null
+          file_size?: number | null
+          id?: string
+          statement_date?: string
+          statement_period?: string
+          statement_url?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "statements_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       support_messages: {
         Row: {
