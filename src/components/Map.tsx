@@ -5,14 +5,16 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 interface Location {
   id: number;
   name: string;
+  type: "branch" | "atm";
   address: string;
+  city: string;
+  state: string;
   lat: number;
   lng: number;
-  type: string;
 }
 
 interface MapProps {
-  apiKey: string;
+  apiKey?: string;
   locations: Location[];
 }
 
@@ -25,17 +27,25 @@ const Map = ({ apiKey, locations }: MapProps) => {
 
     mapboxgl.accessToken = apiKey;
 
+    // Calculate center of all locations
+    const center = locations.length > 0
+      ? {
+          lng: locations.reduce((sum, loc) => sum + loc.lng, 0) / locations.length,
+          lat: locations.reduce((sum, loc) => sum + loc.lat, 0) / locations.length,
+        }
+      : { lng: -98.5795, lat: 39.8283 }; // Center of US
+
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/streets-v12',
-      center: [-119.4179, 36.7783],
-      zoom: 5.5,
+      center: [center.lng, center.lat],
+      zoom: 3.5,
     });
 
     map.current.addControl(new mapboxgl.NavigationControl(), 'top-right');
 
     locations.forEach((location) => {
-      const markerColor = location.type === "ATM Only" ? "#f59e0b" : "#0ea5e9";
+      const markerColor = location.type === "atm" ? "#10b981" : "#3b82f6";
 
       new mapboxgl.Marker({ color: markerColor })
         .setLngLat([location.lng, location.lat])
@@ -44,8 +54,8 @@ const Map = ({ apiKey, locations }: MapProps) => {
             .setHTML(`
               <div style="padding: 8px;">
                 <h3 style="font-weight: bold; margin-bottom: 4px;">${location.name}</h3>
-                <p style="font-size: 14px; color: #666;">${location.address}</p>
-                <span style="display: inline-block; margin-top: 4px; padding: 2px 8px; background: ${markerColor}20; color: ${markerColor}; border-radius: 4px; font-size: 12px;">${location.type}</span>
+                <p style="font-size: 14px; color: #666;">${location.address}<br/>${location.city}, ${location.state}</p>
+                <span style="display: inline-block; margin-top: 4px; padding: 2px 8px; background: ${markerColor}20; color: ${markerColor}; border-radius: 4px; font-size: 12px;">${location.type === "branch" ? "Branch" : "ATM"}</span>
               </div>
             `)
         )
@@ -57,10 +67,41 @@ const Map = ({ apiKey, locations }: MapProps) => {
     };
   }, [apiKey, locations]);
 
+  // Placeholder map when no API key
+  if (!apiKey) {
+    return (
+      <div className="w-full h-full bg-muted flex items-center justify-center p-8">
+        <div className="text-center space-y-4 max-w-2xl">
+          <div className="text-6xl mb-4">🗺️</div>
+          <div>
+            <p className="text-lg font-semibold mb-2">Interactive Map View</p>
+            <p className="text-sm text-muted-foreground mb-6">
+              Add your Mapbox API key to enable the interactive map
+            </p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-6 text-left">
+            {locations.map((loc) => (
+              <div key={loc.id} className="p-3 bg-background rounded-lg shadow-sm border">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-xl">{loc.type === "branch" ? "🏦" : "🏧"}</span>
+                  <span className="text-xs font-semibold text-primary">
+                    {loc.type === "branch" ? "Branch" : "ATM"}
+                  </span>
+                </div>
+                <div className="text-sm font-semibold">{loc.city}, {loc.state}</div>
+                <div className="text-xs text-muted-foreground truncate">{loc.name}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div
       ref={mapContainer}
-      className="w-full h-full rounded-lg shadow-lg"
+      className="w-full h-full rounded-lg"
       style={{ minHeight: '500px' }}
     />
   );
