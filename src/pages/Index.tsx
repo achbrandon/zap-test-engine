@@ -28,10 +28,12 @@ import { SavingsDetails } from "@/components/banking/SavingsDetails";
 import { CreditCardsDetails } from "@/components/banking/CreditCardsDetails";
 import { LoansDetails } from "@/components/banking/LoansDetails";
 import { InvestmentsDetails } from "@/components/banking/InvestmentsDetails";
+import { AuthDialog } from "@/components/AuthDialog";
 import { useState, useRef } from "react";
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState<string | null>(null);
+  const [authDialogOpen, setAuthDialogOpen] = useState(false);
   const detailsRef = useRef<HTMLDivElement>(null);
 
   const handleNavClick = (section: string) => {
@@ -186,8 +188,8 @@ const Index = () => {
               </NavigationMenu>
             </div>
             <div className="flex items-center gap-4">
-              <Button asChild>
-                <Link to="/auth">Sign In</Link>
+              <Button onClick={() => setAuthDialogOpen(true)}>
+                Sign In
               </Button>
               
               {/* Mobile Menu */}
@@ -543,11 +545,13 @@ const Index = () => {
             <div className="flex gap-6 text-sm text-muted-foreground">
               <Link to="/checking" className="hover:text-foreground">Products</Link>
               <Link to="/locations" className="hover:text-foreground">Locations</Link>
-              <Link to="/auth" className="hover:text-foreground">Sign In</Link>
+              <button onClick={() => setAuthDialogOpen(true)} className="hover:text-foreground">Sign In</button>
             </div>
           </div>
         </div>
       </footer>
+
+      <AuthDialog open={authDialogOpen} onOpenChange={setAuthDialogOpen} />
     </div>
   );
 };
