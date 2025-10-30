@@ -314,23 +314,24 @@ const Index = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <img src={bankingHero} alt="Modern Banking" className="w-full h-full object-cover opacity-20" />
+      <section className="relative py-32 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-hero z-0">
+          <img src={bankingHero} alt="Modern Banking" className="w-full h-full object-cover mix-blend-overlay opacity-30" />
         </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background z-0"></div>
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              Banking Made Simple
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="text-6xl md:text-7xl font-bold mb-6 text-white animate-fade-in-up leading-tight">
+              Banking Made <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-200 to-white">Simple</span>
             </h1>
-            <p className="text-xl text-muted-foreground mb-8">
+            <p className="text-xl md:text-2xl text-white/90 mb-10 animate-fade-in font-light">
               Experience modern banking with competitive rates, powerful tools, and exceptional service
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" onClick={() => setAuthDialogOpen(true)}>
+            <div className="flex flex-col sm:flex-row gap-5 justify-center animate-fade-in-up">
+              <Button size="lg" variant="premium" onClick={() => setAuthDialogOpen(true)} className="text-lg h-16 px-12">
                 Open Account
               </Button>
-              <Button size="lg" variant="outline" asChild>
+              <Button size="lg" variant="outline" asChild className="text-lg h-16 px-12 bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20">
                 <Link to="/checking">Explore Products</Link>
               </Button>
             </div>
@@ -338,50 +339,66 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Promotional Banners - Similar to Chase */}
-      <section className="py-12 bg-secondary/50">
+      {/* Promotional Banners */}
+      <section className="py-20 bg-gradient-to-b from-background via-secondary/20 to-background">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-3 gap-6">
-            <Card className="overflow-hidden hover:shadow-xl transition-all group">
-              <div className="relative h-48">
-                <img src={promoCheckingBonus} alt="$300 Checking Bonus" className="w-full h-full object-cover" />
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4">Featured Offers</h2>
+            <p className="text-muted-foreground text-lg">Exclusive benefits for VaultBank customers</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            <Card className="overflow-hidden hover:shadow-2xl transition-all duration-500 group border-0 bg-gradient-card animate-fade-in">
+              <div className="relative h-56 overflow-hidden">
+                <img src={promoCheckingBonus} alt="$300 Checking Bonus" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div className="absolute top-4 right-4 bg-success text-success-foreground px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                  $300 Bonus
+                </div>
               </div>
-              <div className="p-6">
-                <h3 className="text-lg font-semibold mb-2">New VaultBank checking customers</h3>
-                <p className="text-muted-foreground mb-4 text-sm">
+              <div className="p-8">
+                <h3 className="text-xl font-bold mb-3">New checking customers</h3>
+                <p className="text-muted-foreground mb-6 leading-relaxed">
                   Open a VaultBank Total Checking account with qualifying activities.
                 </p>
-                <Button onClick={() => setAuthDialogOpen(true)} className="w-full">
+                <Button onClick={() => setAuthDialogOpen(true)} className="w-full h-12" variant="premium">
                   Open an account
                 </Button>
               </div>
             </Card>
 
-            <Card className="overflow-hidden hover:shadow-xl transition-all group">
-              <div className="relative h-48">
-                <img src={promoCreditCard} alt="Credit Card Rewards" className="w-full h-full object-cover" />
+            <Card className="overflow-hidden hover:shadow-2xl transition-all duration-500 group border-0 bg-gradient-card animate-fade-in">
+              <div className="relative h-56 overflow-hidden">
+                <img src={promoCreditCard} alt="Credit Card Rewards" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div className="absolute top-4 right-4 bg-primary text-primary-foreground px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                  $200 Bonus
+                </div>
               </div>
-              <div className="p-6">
-                <h3 className="text-lg font-semibold mb-2">Earn a $200 bonus</h3>
-                <p className="text-muted-foreground mb-4 text-sm">
-                  Plus, earn unlimited 1.5% cash back on all purchases — all with no annual fee.
+              <div className="p-8">
+                <h3 className="text-xl font-bold mb-3">Earn rewards</h3>
+                <p className="text-muted-foreground mb-6 leading-relaxed">
+                  Plus, earn unlimited 1.5% cash back on all purchases — no annual fee.
                 </p>
-                <Button asChild className="w-full">
+                <Button asChild className="w-full h-12">
                   <Link to="/credit-cards">Learn more</Link>
                 </Button>
               </div>
             </Card>
 
-            <Card className="overflow-hidden hover:shadow-xl transition-all group">
-              <div className="relative h-48">
-                <img src={promoAdvisor} alt="Financial Advisor" className="w-full h-full object-cover" />
+            <Card className="overflow-hidden hover:shadow-2xl transition-all duration-500 group border-0 bg-gradient-card animate-fade-in">
+              <div className="relative h-56 overflow-hidden">
+                <img src={promoAdvisor} alt="Financial Advisor" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div className="absolute top-4 right-4 bg-accent text-accent-foreground px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                  Expert Help
+                </div>
               </div>
-              <div className="p-6">
-                <h3 className="text-lg font-semibold mb-2">Partner with a VaultBank Advisor</h3>
-                <p className="text-muted-foreground mb-4 text-sm">
+              <div className="p-8">
+                <h3 className="text-xl font-bold mb-3">Partner with an Advisor</h3>
+                <p className="text-muted-foreground mb-6 leading-relaxed">
                   Get dedicated help reaching your individual investment goals.
                 </p>
-                <Button asChild className="w-full">
+                <Button asChild className="w-full h-12">
                   <Link to="/investments">Continue</Link>
                 </Button>
               </div>
